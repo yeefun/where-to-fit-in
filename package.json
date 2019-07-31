@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve --open",
+    "build": "vue-cli-service build --modern",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -20,6 +20,9 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
+    "pug": "^2.0.4",
+    "pug-html-loader": "^1.1.5",
+    "pug-plain-loader": "^1.0.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   }
