@@ -25,7 +25,7 @@ export default {
   name: 'HomeCover',
   data () {
     return {
-      // (1921 / 1388).toFixed(2)
+      // (1921 / 1388).toFixed(2) = 1.38
       clickablePersonsAspectRatio: 1.38,
       ww: document.documentElement.clientWidth,
       wh: document.documentElement.clientHeight
@@ -52,7 +52,7 @@ export default {
     showReportCover (evt) {
       const num = evt.currentTarget.dataset.person
       const report = document.getElementById(`report${num}`)
-      report.style.transform = 'translateY(0px)'
+      report.style.transform = 'translateY(0vh)'
     }
   }
 }
@@ -60,8 +60,10 @@ export default {
 
 <style lang="scss">
 .home-cover {
-  position: relative;
+  // position: relative;
+  position: absolute;
   overflow: hidden;
+  width: 100%;
   height: 100vh;
   &__mrt {
     height: 100%;

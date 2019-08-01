@@ -1,23 +1,35 @@
 <template lang="pug">
   section
-    .report-cover.full-page.full-img#report1
-    .report-cover.full-page.full-img#report2
-    .report-cover.full-page.full-img#report3
-    .report-cover.full-page.full-img#report4
-    .report-cover.full-page.full-img#report5
+    //- .report-cover.full-page#report1
+    //- .report-cover.full-page.full-img#report2
+    article.report#report3
+      .full-page.full-img#report-cover3
+      ReportText(reportNum="3")
+    //- .report-cover.full-page.full-img#report4
+    //- .report-cover.full-page.full-img#report5
 </template>
 
 <script>
+import ReportText from './ReportText'
+
 export default {
-  name: 'ReportCover'
+  name: 'BaseReport',
+  components: {
+    ReportText
+  }
 }
 </script>
 
 <style lang="scss">
-.report-cover {
+// .report-cover {
+//   transform: translateY(-100vh);
+//   z-index: 19;
+// }
+.report {
+  position: relative;
   transform: translateY(-100vh);
   z-index: 19;
-  transition: transform 0.8s;
+  height: 100vh;
 }
 #report1 {
   background-image: url(../assets/img/cover/lap/report1_bottom.png), url(../assets/img/cover/lap/report1_top.jpg);
@@ -29,7 +41,7 @@ export default {
 #report2 {
   background-image: url(../assets/img/cover/lap/report2.jpg);
 }
-#report3 {
+#report-cover3 {
   background-image: url(../assets/img/cover/lap/report3.jpg);
 }
 #report4 {

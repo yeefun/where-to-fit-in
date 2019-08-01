@@ -1,22 +1,18 @@
 <template lang="pug">
   #app
-    HomeCover/
-    ReportCover/
-    //- <img alt="Vue logo" src="./assets/logo.png">
-    //- <HelloWorld msg="Welcome to Your Vue.js App"/>
+    HomeCover
+    BaseReport
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import HomeCover from './components/HomeCover.vue'
-import ReportCover from './components/ReportCover.vue'
+import BaseReport from './components/BaseReport.vue'
 
 export default {
   name: 'app',
   components: {
     HomeCover,
-    ReportCover
-    // HelloWorld
+    BaseReport
   }
 }
 </script>
@@ -25,6 +21,10 @@ export default {
 html {
   font-size: 10px;
 }
+// body {
+//   font-family: "Noto Sans TC", sans-serif;
+//   // font-family: "PT Serif", "Noto Serif CJK TC", serif;
+// }
 .full-img {
   background-position: top center;
   background-size: cover;
@@ -33,19 +33,19 @@ html {
 .full-page {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
   left: 0;
 }
 .fade-in {
   opacity: 1;
 }
-// #app {
-//   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-//   margin-top: 60px;
-// }
+button {
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  // font-family: "Noto Sans TC", sans-serif;
+  // font-family: "PT Serif", "Noto Serif CJK TC", serif;
+  user-select: none;
+}
 </style>
