@@ -2,17 +2,20 @@
   #app
     HomeCover
     BaseReport
+    TheRelated(v-if="$root.isReportContent" v-for="component in $root.TheRelatedComponentNum")
 </template>
 
 <script>
 import HomeCover from './components/HomeCover.vue'
 import BaseReport from './components/BaseReport.vue'
+import TheRelated from './components/TheRelated.vue'
 
 export default {
   name: 'app',
   components: {
     HomeCover,
-    BaseReport
+    BaseReport,
+    TheRelated
   }
 }
 </script>
@@ -25,20 +28,17 @@ html {
 //   font-family: "Noto Sans TC", sans-serif;
 //   // font-family: "PT Serif", "Noto Serif CJK TC", serif;
 // }
+.full-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
 .full-img {
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
-}
-.full-page {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  left: 0;
-}
-.fade-in {
-  opacity: 1;
 }
 button {
   border: 0;
@@ -48,4 +48,7 @@ button {
   // font-family: "PT Serif", "Noto Serif CJK TC", serif;
   user-select: none;
 }
+// .fade-in {
+//   opacity: 1 !important;
+// }
 </style>

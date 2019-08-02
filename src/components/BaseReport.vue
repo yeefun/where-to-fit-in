@@ -1,5 +1,5 @@
 <template lang="pug">
-  section
+  section#reports
     //- .report-cover.full-page#report1
     //- .report-cover.full-page.full-img#report2
     article.report#report3
@@ -25,9 +25,14 @@ export default {
 //   transform: translateY(-100vh);
 //   z-index: 19;
 // }
+#reports {
+  position: absolute;
+  width: 100%;
+}
 .report {
   position: relative;
   transform: translateY(-100vh);
+  // opacity: 0;
   z-index: 19;
   height: 100vh;
 }
