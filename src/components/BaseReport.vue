@@ -1,58 +1,112 @@
 <template lang="pug">
-  section#reports
-    //- .report-cover.full-page#report1
-    //- .report-cover.full-page.full-img#report2
-    article.report#report3
-      .full-page.full-img#report-cover3
-      ReportText(reportNum="3")
-    //- .report-cover.full-page.full-img#report4
-    //- .report-cover.full-page.full-img#report5
+  section.reports
+    article.report(v-for="(report, idx) in reports" :key="report.key" :id="report.key")
+      .full-page.report__cover(:class="idx > 0 ? 'full-img': ''" :id="`${report.key}__cover`")
+      h1 {{report.title}}
+      .report__preface
+        .report__preface--cover
+          div(v-html="report.prefaceCover")
+          button(type="button") {{report.btnText}}
+        .report__preface--related
+          p {{report.prefaceRelated}}
+      ReportContent
+    //- article.report
+      .full-page.full-img#report3__cover
+      h1 不想瘦？胖子：想被當成普通人看待
+      .report__preface
+        .report__preface--cover
+          p 許多胖子從小就胖，長大過程中常遭家人和同儕的指指點點。但胖子最大的期望不是瘦下來，而是得到與普通人同等的對待。
+          p 90 公斤的舞蹈老師黃冠潔在高中時愛上跳舞，是熱舞社裡最胖的女生，當她鼓起自信站上舞台時，卻有人說：「妳這麼胖，怎麼還敢跳舞？」
+          button(type="button") 黃冠潔如何蛻變？
+        .report__preface--related
+          p 許多胖子從小就胖，要怎麼教育胖孩子？該如何蛻變成長？
+      ReportContent
 </template>
 
 <script>
-import ReportText from './ReportText'
+import ReportContent from './ReportContent'
 
 export default {
   name: 'BaseReport',
   components: {
-    ReportText
+    ReportContent
+  },
+  data () {
+    return {
+      reports: [
+        {
+          key: 'report1',
+          title: '為什麼我們懼／拒胖？',
+          prefaceCover: '<p>我們正處在一個懼怕肥胖、拒絕變胖的時代。因為深怕與不健康、難看、懶惰等肥胖污名連結，人們多少對身材和體重感到焦慮。</p><p>事實上，1940 年代以前的臺灣社會認為，「胖」象徵一個人身強體壯、能力好⋯⋯臺灣人身材審美觀的轉變經歷了什麼？</p>',
+          prefaceRelated: '處在一個懼怕肥胖、拒絕變胖的時代，是誰定義胖就不好？',
+          btnText: '為什麼怕胖？'
+        },
+        {
+          key: 'report2',
+          title: '「胖不健康」是提醒，還是詛咒？',
+          prefaceCover: '<p>「胖不健康」是發自內心的關心，或是用自己的健康標準來期待胖子？不健康的身體樣貌很多種，肥胖卻最容易遭到嚴厲批評，甚至人身攻擊。</p><p>「我替自己推拿，推到肚子時一邊推、一邊哭，一邊跟它說『對不起』，我還是瘦不下來。」140 公斤的張凱鈞多次節食，卻從未減重成功⋯⋯</p>',
+          prefaceRelated: '不健康的身體樣貌有很多種，「肥胖」就真的是「病態」？',
+          btnText: '張凱鈞健康嗎？'
+        },
+        {
+          key: 'report3',
+          title: '不想瘦？胖子：想被當成普通人看待',
+          prefaceCover: '<p>「許多胖子從小就胖，長大過程中常遭家人和同儕的指指點點。但胖子最大的期望不是瘦下來，而是得到與普通人同等的對待。</p><p>90 公斤的舞蹈老師黃冠潔在高中時愛上跳舞，是熱舞社裡最胖的女生，當她鼓起自信站上舞台時，卻有人說：「妳這麼胖，怎麼還敢跳舞？」</p>',
+          prefaceRelated: '許多胖子從小就胖，要怎麼教育胖孩子？該如何蛻變成長？',
+          btnText: '黃冠潔如何蛻變？'
+        },
+        {
+          key: 'report4',
+          title: '縮小人生：胖子之大，何處可容身？',
+          prefaceCover: '<p>「坐在捷運的座位上時，我的身體會超出一格。」145 公斤的簡秀娟在人滿為患的車廂裡總是坐立難安。在臺灣人的日常生活中，充斥著沈默的社會規範與空間規則，無意冒犯常規的胖子顯得格格不入，過著被標準排擠的縮小人生。</p>',
+          prefaceRelated: '討厭被胖子擠壓？空間需求和身障相同，卻得不到同理。',
+          btnText: '尋找胖子的容身處'
+        },
+        {
+          key: 'report5',
+          title: '胖網紅現身：渡邊直美改變了什麼？',
+          prefaceCover: '<p>身形肥胖的搞笑女星、IG 女神渡邊直美，是時下許多胖男胖女心中的偶像，她啟發粉絲對身材有自信、擁抱美麗。大大小小的胖網紅如雨後春筍般出現，在臺灣也不例外，他們呼籲大眾無論高矮胖瘦，尊重多元身體的存在。</p>',
+          prefaceRelated: '胖直美啟發粉絲擁抱身材，想問她如何成為有自信的胖子！',
+          btnText: '如何成為有自信的胖子？'
+        }
+      ]
+    }
   }
 }
 </script>
 
 <style lang="scss">
-// .report-cover {
-//   transform: translateY(-100vh);
-//   z-index: 19;
-// }
-#reports {
-  position: absolute;
-  width: 100%;
+.reports {
+  text-align: center;
 }
 .report {
   position: relative;
-  transform: translateY(-100vh);
-  // opacity: 0;
+  width: 100%;
+  height: 0;
+  top: 0;
+  transform: translateY(100vh);
   z-index: 19;
-  height: 100vh;
+  &__cover {
+    z-index: -9;
+  }
 }
-#report1 {
+#report1__cover {
   background-image: url(../assets/img/cover/lap/report1_bottom.png), url(../assets/img/cover/lap/report1_top.jpg);
   background-position: center bottom, center top;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed, scroll;
 }
-#report2 {
+#report2__cover {
   background-image: url(../assets/img/cover/lap/report2.jpg);
 }
-#report-cover3 {
+#report3__cover {
   background-image: url(../assets/img/cover/lap/report3.jpg);
 }
-#report4 {
+#report4__cover {
   background-image: url(../assets/img/cover/lap/report4.jpg);
 }
-#report5 {
+#report5__cover {
   background-image: url(../assets/img/cover/lap/report5.jpg);
 }
 </style>

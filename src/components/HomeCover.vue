@@ -28,7 +28,8 @@ export default {
       // (1921 / 1388).toFixed(2) = 1.38
       clickablePersonsAspectRatio: 1.38,
       ww: document.documentElement.clientWidth,
-      wh: document.documentElement.clientHeight
+      wh: document.documentElement.clientHeight,
+      isEnteringReportCover: false
     }
   },
   created () {
@@ -46,26 +47,42 @@ export default {
       this.wh = document.documentElement.clientHeight
     },
     showPerson (evt) {
-      const num = evt.currentTarget.dataset.person
-      TweenLite.to(`#person${num}`, 0.2, {
-        opacity: 1
+      const self = evt.currentTarget
+      const num = self.dataset.person
+      const person = `#person${num}`
+      TweenLite.to(person, 0.4, {
+        opacity: 1,
+        ease: Power3.easeOut
       })
     },
     hidePerson (evt) {
-      const num = evt.currentTarget.dataset.person
-      TweenLite.to(`#person${num}`, 0.2, {
-        opacity: 0
+      if (this.isEnterReportCover) return
+      const self = evt.currentTarget
+      const num = self.dataset.person
+      const person = `#person${num}`
+      TweenLite.to(person, 0.4, {
+        opacity: 0,
+        ease: Power3.easeOut
       })
     },
     showReportCover (evt) {
-      const num = evt.currentTarget.dataset.person
-      TweenLite.to('#home-cover', 0.2, {
-        // width: 0,
-        opacity: 0
-      })
-      TweenLite.to(`#report${num}`, 0.2, {
+      const self = evt.currentTarget
+      const num = self.dataset.person
+      const report = `#report${num}`
+      this.isEnterReportCover = true
+      TweenLite.set(report, {
+        position: 'absolute',
+        height: '100vh',
         y: 0
-        // delay: 0.2
+      })
+      TweenLite.to('#home-cover', 0.8, {
+        opacity: 0,
+        ease: Power3.easeIn
+      })
+      TweenLite.from(report, 0.8, {
+        opacity: 0,
+        ease: Power3.easeIn,
+        delay: 0.8
       })
     }
   }
@@ -74,14 +91,11 @@ export default {
 
 <style lang="scss">
 #home-cover {
-  // position: relative;
   position: absolute;
-  overflow: hidden;
+  top: 0;
   width: 100%;
   height: 100vh;
-  top: 0;
-  // left: 50%;
-  // transform: translateX(-50%);
+  overflow: hidden;
 }
 .home-cover {
   &__mrt {
