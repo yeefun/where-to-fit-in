@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
     HomeCover
-    BaseReport
+    BaseReport(v-for="(report, idx) in $root.baseReports" :key="idx")
 </template>
 
 <script>
@@ -10,6 +10,19 @@ import BaseReport from './components/BaseReport.vue'
 
 export default {
   name: 'app',
+  beforeCreate () {
+    TweenLite.selector = function (val) {
+      return document.querySelectorAll(val)
+    }
+  },
+  mounted () {
+    TweenLite.set('.report', {
+      css: {
+        height: 0,
+        y: '100vh'
+      }
+    })
+  },
   components: {
     HomeCover,
     BaseReport

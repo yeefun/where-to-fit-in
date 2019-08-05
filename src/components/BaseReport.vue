@@ -1,15 +1,15 @@
 <template lang="pug">
   section.reports
-    article.report(v-for="(report, idx) in reports" :key="report.key" :id="report.key")
+    article.report(v-for="(report, idx) in reports" :key="report.key" :id="report.key" v-if="!displayedReportIdx || idx === displayedReportIdx")
       .full-page.report__cover(:class="idx > 0 ? 'full-img': ''" :id="`${report.key}__cover`")
       h1 {{report.title}}
       .report__preface
-        .report__preface--cover
+        .report__preface--cover(v-if="showReportCover")
           div(v-html="report.prefaceCover")
-          button(type="button") {{report.btnText}}
-        .report__preface--related
+          button(type="button" @click="showReportContent(idx)") {{report.btnText}}
+        .report__preface--related(v-if="isDisplayRelated")
           p {{report.prefaceRelated}}
-      ReportContent
+      ReportContent(v-if="isShowReportContent")
     //- article.report
       .full-page.full-img#report3__cover
       h1 不想瘦？胖子：想被當成普通人看待
@@ -24,15 +24,18 @@
 </template>
 
 <script>
-import ReportContent from './ReportContent'
+// import ReportContent from './ReportContent'
 
 export default {
   name: 'BaseReport',
   components: {
-    ReportContent
+    ReportContent: () => import('./ReportContent')
   },
   data () {
     return {
+      isDisplayRelated: false,
+      isShowReportContent: false,
+      displayedReportIdx: NaN,
       reports: [
         {
           key: 'report1',
@@ -71,6 +74,24 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    showReportCover () {
+      return !this.isDisplayRelated && !this.isShowReportContent
+    }
+  },
+  methods: {
+    showReportContent (idx) {
+      this.isShowReportContent = true
+      this.displayedReportIdx = idx
+      this.$root.baseReports += 1
+      TweenLite.set(this.$root.displayedReport, {
+        css: {
+          position: 'relative',
+          height: 'auto'
+        }
+      })
+    }
   }
 }
 </script>
@@ -82,9 +103,9 @@ export default {
 .report {
   position: relative;
   width: 100%;
-  height: 0;
+  // height: 0;
   top: 0;
-  transform: translateY(100vh);
+  // transform: translateY(100vh);
   z-index: 19;
   &__cover {
     z-index: -9;
