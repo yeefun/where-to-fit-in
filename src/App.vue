@@ -20,6 +20,7 @@ export default {
       css: {
         height: 0,
         y: '100vh'
+        // className: '+=in-home-cover'
       }
     })
   },
@@ -53,6 +54,10 @@ html {
   background-size: cover;
   background-repeat: no-repeat;
 }
+// .in-home-cover {
+//   height: 0;
+//   transform: translateY(100vh);
+// }
 button {
   border: 0;
   outline: 0;

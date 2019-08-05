@@ -72,22 +72,25 @@ export default {
     showReportCover (evt) {
       const self = evt.currentTarget
       const idx = self.dataset.person
-      this.$root.displayedReport = `#report${idx}`
+      this.$root.currentReport = document.getElementById(`report${idx}`)
       this.isEnteringReportCover = true
-      TweenLite.set(this.$root.displayedReport, {
+      TweenLite.set(this.$root.currentReport, {
         css: {
           position: 'absolute',
           height: '100vh',
-          y: 0
+          y: 0,
+          className: '+=report--current'
+          // className: '-=in-home-cover'
         }
       })
+      // this.$root.currentReport.classList.add('report--current')
       TweenLite.to('#home-cover', 0.8, {
         css: {
           opacity: 0
         },
         ease: Power3.easeIn
       })
-      TweenLite.from(this.$root.displayedReport, 0.8, {
+      TweenLite.from(this.$root.currentReport, 0.8, {
         css: {
           opacity: 0
         },

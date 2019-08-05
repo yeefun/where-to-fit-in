@@ -6,9 +6,13 @@ Vue.config.productionTip = false
 new Vue({
   render: h => h(App),
   data: {
+    inReportCover: true,
     baseReports: 1,
-    displayedReport: ''
-  //   TheRelatedComponentNum: 1,
-  //   isReportContent: false
+    currentReport: '',
+    removedReportIdx: NaN
   }
+  // computed: {
+  //   currentReport () {
+  //   }
+  // },
 }).$mount('#app')
