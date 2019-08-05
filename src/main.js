@@ -9,7 +9,7 @@ new Vue({
     inReportCover: true,
     baseReports: 1,
     currentReport: '',
-    removedReportIdx: NaN
+    removedReportIdx: -1
   }
   // computed: {
   //   currentReport () {

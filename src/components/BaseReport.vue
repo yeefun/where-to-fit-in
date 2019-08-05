@@ -30,25 +30,13 @@ export default {
     ReportContent: () => import('./ReportContent')
   },
   created () {
-    switch (this.$root.removedReportIdx) {
-      case 0:
-        this.reports.push(this.report2, this.report3, this.report4, this.report5)
-        break
-      case 1:
-        this.reports.push(this.report3, this.report4, this.report5, this.report1)
-        break
-      case 2:
-        this.reports.push(this.report4, this.report5, this.report1, this.report2)
-        break
-      case 3:
-        this.reports.push(this.report5, this.report1, this.report2, this.report3)
-        break
-      case 4:
-        this.reports.push(this.report1, this.report2, this.report3, this.report4)
-        break
-      default:
-        this.reports.push(this.report1, this.report2, this.report3, this.report4, this.report5)
-        break
+    const idx = this.$root.removedReportIdx
+    if (idx !== -1) {
+      for (let i = 2; i <= 5; i++) {
+        this.reports.push(this[`report${(idx + i) > 5 ? (idx + i - 5) : (idx + i)}`])
+      }
+    } else {
+      this.reports.push(this.report1, this.report2, this.report3, this.report4, this.report5)
     }
   },
   data () {
