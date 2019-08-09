@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
     HomeCover
-    BaseReport(v-for="(report, idx) in $root.baseReports" :key="idx")
+    BaseReport(v-for="report in $root.baseReports" :key="report.id")
 </template>
 
 <script>

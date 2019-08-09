@@ -7,12 +7,11 @@ new Vue({
   render: h => h(App),
   data: {
     inReportCover: true,
-    baseReports: 1,
-    currentReport: '',
+    totalClickedReports: 0,
+    baseReports: [
+      { id: 0 }
+    ],
+    currentReport: null,
     removedReportIdx: -1
   }
-  // computed: {
-  //   currentReport () {
-  //   }
-  // },
 }).$mount('#app')
