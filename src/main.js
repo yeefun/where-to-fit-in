@@ -10,6 +10,6 @@ new Vue({
     totalClickedReports: 0,
     baseReports: [0],
     currentReport: null,
-    removedReportIdx: -1
+    removedReportId: 0
   }
 }).$mount('#app')
