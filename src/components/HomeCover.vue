@@ -49,8 +49,9 @@ export default {
     showPerson (evt) {
       const self = evt.currentTarget
       const idx = self.dataset.person
-      const person = `#person${idx}`
-      TweenLite.to(person, 0.4, {
+      // const person = `#person${idx}`
+      this.$root.currentPerson = document.getElementById(`person${idx}`)
+      TweenLite.to(this.$root.currentPerson, 0.4, {
         css: {
           opacity: 1
         },
@@ -59,10 +60,7 @@ export default {
     },
     hidePerson (evt) {
       if (this.isEnteringReportCover) return
-      const self = evt.currentTarget
-      const idx = self.dataset.person
-      const person = `#person${idx}`
-      TweenLite.to(person, 0.4, {
+      TweenLite.to(this.$root.currentPerson, 0.4, {
         css: {
           opacity: 0
         },
@@ -74,28 +72,31 @@ export default {
       const idx = self.dataset.person
       this.$root.currentReport = document.getElementById(`report${idx}`)
       this.isEnteringReportCover = true
+      this.$root.inHome = false
       TweenLite.set(this.$root.currentReport, {
         css: {
           position: 'absolute',
           height: '100vh',
+          opacity: 0,
           y: 0,
           className: '+=report--current'
-          // className: '-=in-home-cover'
         }
       })
-      // this.$root.currentReport.classList.add('report--current')
       TweenLite.to('#home-cover', 0.8, {
         css: {
           opacity: 0
         },
-        ease: Power3.easeIn
-      })
-      TweenLite.from(this.$root.currentReport, 0.8, {
-        css: {
-          opacity: 0
-        },
         ease: Power3.easeIn,
-        delay: 0.8
+        onComplete: () => {
+          TweenLite.to(this.$root.currentReport, 0.8, {
+            css: {
+              opacity: 1
+            },
+            ease: Power3.easeIn
+          })
+          this.$root.currentPerson.style.opacity = 0
+          this.isEnteringReportCover = false
+        }
       })
     }
   }

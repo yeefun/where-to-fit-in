@@ -1,5 +1,6 @@
 <template lang="pug">
   #app
+    img#logo(src="./assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     HomeCover
     BaseReport(v-for="report in $root.baseReports" :key="report")
 </template>
@@ -15,18 +16,35 @@ export default {
       return document.querySelectorAll(val)
     }
   },
-  mounted () {
-    TweenLite.set('.report', {
-      css: {
-        height: 0,
-        y: '100vh'
-        // className: '+=in-home-cover'
-      }
-    })
-  },
   components: {
     HomeCover,
     BaseReport
+  },
+  methods: {
+    backToHome () {
+      if (this.$root.inHome) return
+      this.$root.inHome = true
+      this.$root.removedReportId = 0
+      TweenLite.to('.reports', 0.8, {
+        css: {
+          opacity: 0
+        },
+        ease: Power3.easeIn,
+        onComplete: () => {
+          this.$root.inReportCover = true
+          this.$root.baseReports.splice(0)
+          TweenLite.to('#home-cover', 0.8, {
+            css: {
+              opacity: 1
+            },
+            ease: Power3.easeIn,
+            onComplete: () => {
+              this.$root.baseReports.push(this.$root.totalClickedReports)
+            }
+          })
+        }
+      })
+    }
   }
 }
 </script>
@@ -41,6 +59,14 @@ html {
 // }
 #app {
   overflow: hidden;
+}
+#logo {
+  position: absolute;
+  z-index: 99;
+  width: 176px;
+  margin-top: 24px;
+  margin-left: 32px;
+  cursor: pointer;
 }
 .full-page {
   position: absolute;
@@ -65,5 +91,8 @@ button {
   // font-family: "Noto Sans TC", sans-serif;
   // font-family: "PT Serif", "Noto Serif CJK TC", serif;
   user-select: none;
+}
+img {
+  height: auto;
 }
 </style>

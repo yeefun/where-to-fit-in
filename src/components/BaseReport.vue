@@ -1,23 +1,27 @@
 <template lang="pug">
   section.reports
     transition-group(tag="div" @leave="hideRelatedReport" :css="false")
-      article.report(v-for="report in reports" :key="report.id" :id="`report${report.id}`" v-if="!currentReportId || currentReportId === report.id" @click="showReport($event, report.id)")
+      article.report(v-for="report in reports" :key="report.id" :id="`report${report.id}`" v-if="isShowReport(report.id)" @click="showReportFromRelated($event, report.id)" :style="reportStyle")
         .full-page.full-img.report__cover(:id="`report${report.id}__cover`")
         h1 {{report.title}}
         .report__preface
-          .report__preface--cover(v-if="showReportPrefaceCover")
+          .report__preface--cover(v-if="isShowReportPrefaceCover")
             div(v-html="report.prefaceCover")
             button(type="button" @click="showReportContent(report.id)") {{report.btnText}}
-          .report__preface--related(v-if="showReportPrefaceRelated")
+          .report__preface--related(v-if="isShowReportPrefaceRelated")
             p {{report.prefaceRelated}}
-        ReportContent(v-if="isShowReportContent")
+        component(:is="`ReportContent${report.id}`" v-if="isShowReportContent")
 </template>
 
 <script>
 export default {
   name: 'BaseReport',
   components: {
-    ReportContent: () => import('./ReportContent')
+    ReportContent1: () => import('./ReportContent1'),
+    ReportContent2: () => import('./ReportContent2'),
+    ReportContent3: () => import('./ReportContent3'),
+    ReportContent4: () => import('./ReportContent4'),
+    ReportContent5: () => import('./ReportContent5')
   },
   created () {
     const id = this.$root.removedReportId
@@ -60,7 +64,8 @@ export default {
     }
     if (id) {
       for (let i = 1; i <= 4; i++) {
-        this.reports.push(allReports[`report${(id + i) > 5 ? (id + i - 5) : (id + i)}`])
+        const idx = id + i
+        this.reports.push(allReports[`report${idx > 5 ? (idx - 5) : idx}`])
       }
     } else {
       this.reports.push(allReports.report1, allReports.report2, allReports.report3, allReports.report4, allReports.report5)
@@ -68,48 +73,66 @@ export default {
   },
   data () {
     return {
-      // isDisplayRelated: false,
       isShowReportContent: false,
       currentReportId: 0,
-      reports: []
+      reports: [],
+      isShowingReport: false
     }
   },
   computed: {
-    showReportPrefaceCover () {
+    isShowReportPrefaceCover () {
       return this.$root.inReportCover && !this.isShowReportContent
     },
-    showReportPrefaceRelated () {
+    isShowReportPrefaceRelated () {
       return !this.$root.inReportCover && !this.isShowReportContent
+    },
+    reportStyle () {
+      if (this.$root.inReportCover) {
+        return {
+          height: 0,
+          transform: 'translateY(100vh)'
+        }
+      }
+      return {}
     }
   },
   methods: {
+    isShowReport (id) {
+      return !this.currentReportId || this.currentReportId === id
+    },
     showReportContent (id) {
       this.isShowReportContent = true
       this.currentReportId = id
       this.$root.removedReportId = id
       TweenLite.set(this.$root.currentReport, {
         css: {
-          position: 'relative',
-          height: 'auto'
+          position: '',
+          height: ''
         }
       })
-      this.$root.inReportCover = false
       this.$root.totalClickedReports += 1
       this.$root.baseReports.push(this.$root.totalClickedReports)
     },
     hideRelatedReport (el, done) {
-      // TODO: 當 home -> report，要消失的 report 不用 transition
-      TweenLite.to(el, 0.8, {
-        css: {
-          opacity: 0
-        },
-        ease: Power3.easeIn,
-        onComplete: done
-      })
+      if (this.$root.inReportCover) {
+        setTimeout(() => {
+          this.$root.inReportCover = false
+        }, 0)
+        done()
+      } else {
+        TweenLite.to(el, 0.8, {
+          css: {
+            opacity: 0
+          },
+          ease: Power3.easeIn,
+          onComplete: done
+        })
+      }
     },
-    showReport (evt, id) {
+    showReportFromRelated (evt, id) {
       const self = evt.currentTarget
-      if (this.$root.currentReport === self) return
+      if (this.$root.currentReport === self || this.isShowingReport) return
+      this.isShowingReport = true
       this.currentReportId = id
       this.$root.removedReportId = id
       TweenLite.to(this.$root.currentReport, 0.8, {
@@ -124,6 +147,8 @@ export default {
           })
           this.$root.totalClickedReports += 1
           this.$root.baseReports.push(this.$root.totalClickedReports)
+          this.isShowReportContent = true
+          this.isShowingReport = false
         }
       })
       this.$root.currentReport = self
@@ -139,8 +164,8 @@ export default {
 .report {
   position: relative;
   width: 100%;
-  // height: 0;
   top: 0;
+  // height: 0;
   // transform: translateY(100vh);
   z-index: 19;
   cursor: pointer;
