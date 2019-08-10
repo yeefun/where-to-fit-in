@@ -8,9 +8,7 @@ new Vue({
   data: {
     inReportCover: true,
     totalClickedReports: 0,
-    baseReports: [
-      { id: 0 }
-    ],
+    baseReports: [0],
     currentReport: null,
     removedReportIdx: -1
   }

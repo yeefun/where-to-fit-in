@@ -1,15 +1,16 @@
 <template lang="pug">
   section.reports
-    article.report(v-for="(report, idx) in reports" :key="report.id" :id="report.id" v-if="currentReportIdx === -1 || currentReportIdx === idx" @click="showReport($event, idx)")
-      .full-page.full-img.report__cover(:id="`${report.id}__cover`")
-      h1 {{report.title}}
-      .report__preface
-        .report__preface--cover(v-if="showReportPrefaceCover")
-          div(v-html="report.prefaceCover")
-          button(type="button" @click="showReportContent(idx)") {{report.btnText}}
-        .report__preface--related(v-if="showReportPrefaceRelated")
-          p {{report.prefaceRelated}}
-      ReportContent(v-if="isShowReportContent")
+    transition-group(tag="div" @leave="hideReport" :css="false")
+      article.report(v-for="(report, idx) in reports" :key="report.id" :id="report.id" v-if="currentReportIdx === -1 || currentReportIdx === idx" @click="showReport($event, idx)")
+        .full-page.full-img.report__cover(:id="`${report.id}__cover`")
+        h1 {{report.title}}
+        .report__preface
+          .report__preface--cover(v-if="showReportPrefaceCover")
+            div(v-html="report.prefaceCover")
+            button(type="button" @click="showReportContent(idx)") {{report.btnText}}
+          .report__preface--related(v-if="showReportPrefaceRelated")
+            p {{report.prefaceRelated}}
+        ReportContent(v-if="isShowReportContent")
     //- article.report
       .full-page.full-img#report3__cover
       h1 不想瘦？胖子：想被當成普通人看待
@@ -105,13 +106,23 @@ export default {
       })
       this.$root.inReportCover = false
       this.$root.totalClickedReports += 1
-      this.$root.baseReports.push(
-        { id: this.$root.totalClickedReports }
-      )
+      this.$root.baseReports.push(this.$root.totalClickedReports)
+    },
+    hideReport (el, done) {
+      // if (this.$root.inReportCover) return
+      TweenLite.to(el, 0.8, {
+        css: {
+          opacity: 0
+        },
+        ease: Power3.easeIn,
+        onComplete: done
+      })
     },
     showReport (evt, idx) {
       const self = evt.currentTarget
       if (this.$root.currentReport === self) return
+      this.currentReportIdx = idx
+      this.$root.removedReportIdx = idx
       TweenLite.to(this.$root.currentReport, 0.8, {
         css: {
           opacity: 0
@@ -121,7 +132,7 @@ export default {
           this.$root.baseReports.shift()
         }
       })
-      // this.currentReportIdx = idx
+      this.$root.currentReport = self
     }
   }
 }
