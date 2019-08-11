@@ -78,7 +78,7 @@ export default {
           position: 'absolute',
           height: '100vh',
           opacity: 0,
-          y: 0,
+          y: '',
           className: '+=report--current'
         }
       })
@@ -95,6 +95,7 @@ export default {
             ease: Power3.easeIn
           })
           this.$root.currentPerson.style.opacity = 0
+          this.$root.currentPerson = null
           this.isEnteringReportCover = false
         }
       })

@@ -1,19 +1,32 @@
 <template lang="pug">
   section.reports
     transition-group(tag="div" @leave="hideRelatedReport" :css="false")
-      article.report(v-for="report in reports" :key="report.id" :id="`report${report.id}`" v-if="isShowReport(report.id)" @click="showReportFromRelated($event, report.id)" :style="reportStyle")
+      article.report(
+        v-for="report in reports"
+        :key="report.id"
+        :id="`report${report.id}`"
+        :style="reportStyle"
+        v-if="isShowReport(report.id)"
+        @click="showReportFromRelated($event, report.id)"
+      )
         .full-page.full-img.report__cover(:id="`report${report.id}__cover`")
         h1 {{report.title}}
         .report__preface
           .report__preface--cover(v-if="isShowReportPrefaceCover")
             div(v-html="report.prefaceCover")
-            button(type="button" @click="showReportContent(report.id)") {{report.btnText}}
+            button(type="button" @click.stop="showReportContent(report.id)") {{report.btnText}}
           .report__preface--related(v-if="isShowReportPrefaceRelated")
             p {{report.prefaceRelated}}
         component(:is="`ReportContent${report.id}`" v-if="isShowReportContent")
 </template>
 
 <script>
+// import ReportContent1 from './ReportContent1.vue'
+// import ReportContent2 from './ReportContent2.vue'
+// import ReportContent3 from './ReportContent3.vue'
+// import ReportContent4 from './ReportContent4.vue'
+// import ReportContent5 from './ReportContent5.vue'
+
 export default {
   name: 'BaseReport',
   components: {
@@ -100,18 +113,36 @@ export default {
     isShowReport (id) {
       return !this.currentReportId || this.currentReportId === id
     },
+    showReportFromHome (id) {
+      this.$root.currentReport = document.getElementById(`report${id}`)
+      this.isShowReportContent = true
+      this.currentReportId = id
+      this.$root.removedReportId = id
+      this.$root.currentReport.style.cssText = ''
+      this.$root.totalSeenReports += 1
+      this.$root.baseReports.push(this.$root.totalSeenReports)
+    },
     showReportContent (id) {
       this.isShowReportContent = true
       this.currentReportId = id
       this.$root.removedReportId = id
-      TweenLite.set(this.$root.currentReport, {
-        css: {
-          position: '',
-          height: ''
-        }
-      })
-      this.$root.totalClickedReports += 1
-      this.$root.baseReports.push(this.$root.totalClickedReports)
+      // TweenLite.set(this.$root.currentReport, {
+      //   css: {
+      //     position: '',
+      //     height: ''
+      //   }
+      // })
+      this.$root.currentReport.style.cssText = ''
+      this.$root.totalSeenReports += 1
+      this.$root.baseReports.push(this.$root.totalSeenReports)
+      history.pushState(
+        {
+          place: 'report',
+          id
+        },
+        '',
+        `/report${id}`
+      )
     },
     hideRelatedReport (el, done) {
       if (this.$root.inReportCover) {
@@ -130,6 +161,7 @@ export default {
       }
     },
     showReportFromRelated (evt, id) {
+      // debugger
       const self = evt.currentTarget
       if (this.$root.currentReport === self || this.isShowingReport) return
       this.isShowingReport = true
@@ -142,16 +174,24 @@ export default {
         ease: Power3.easeIn,
         onComplete: () => {
           this.$root.baseReports.shift()
-          TweenLite.set(self, {
-            className: '+=report--current'
-          })
-          this.$root.totalClickedReports += 1
-          this.$root.baseReports.push(this.$root.totalClickedReports)
+          self.classList.add('report--current')
+          this.$root.totalSeenReports += 1
+          this.$root.baseReports.push(this.$root.totalSeenReports)
           this.isShowReportContent = true
           this.isShowingReport = false
         }
       })
       this.$root.currentReport = self
+      if (!this.$root.isPopState) {
+        history.pushState(
+          {
+            place: 'report',
+            id
+          },
+          '',
+          `/report${id}`
+        )
+      }
     }
   }
 }

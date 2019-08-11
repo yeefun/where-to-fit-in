@@ -8,10 +8,11 @@ new Vue({
   data: {
     inHome: true,
     inReportCover: true,
-    totalClickedReports: 0,
+    totalSeenReports: 0,
     baseReports: [0],
     currentPerson: null,
     currentReport: null,
-    removedReportId: 0
+    removedReportId: 0,
+    isPopState: false
   }
 }).$mount('#app')

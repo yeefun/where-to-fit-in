@@ -2,7 +2,7 @@
   #app
     img#logo(src="./assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     HomeCover
-    BaseReport(v-for="report in $root.baseReports" :key="report")
+    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
 </template>
 
 <script>
@@ -15,6 +15,30 @@ export default {
     TweenLite.selector = function (val) {
       return document.querySelectorAll(val)
     }
+    window.addEventListener('popstate', (evt) => {
+      const state = evt.state
+      if (!state || state.place === 'home') {
+        this.backToHome()
+      } else {
+        const id = state.id
+        if (this.$root.inHome) {
+          TweenLite.to('#home-cover', 0.8, {
+            css: {
+              opacity: 0
+            },
+            ease: Power3.easeIn,
+            onComplete: () => {
+              this.$refs.baseReports[0].showReportFromHome(id)
+              this.$root.inHome = false
+            }
+          })
+        } else {
+          this.$root.isPopState = true
+          document.getElementById(`report${id}`).click()
+          this.$root.isPopState = false
+        }
+      }
+    })
   },
   components: {
     HomeCover,
@@ -24,6 +48,7 @@ export default {
     backToHome () {
       if (this.$root.inHome) return
       this.$root.inHome = true
+      this.$root.currentReport = null
       this.$root.removedReportId = 0
       TweenLite.to('.reports', 0.8, {
         css: {
@@ -39,11 +64,12 @@ export default {
             },
             ease: Power3.easeIn,
             onComplete: () => {
-              this.$root.baseReports.push(this.$root.totalClickedReports)
+              this.$root.baseReports.push(this.$root.totalSeenReports)
             }
           })
         }
       })
+      history.pushState({ place: 'home' }, '', '/')
     }
   }
 }
