@@ -1,13 +1,13 @@
 <template lang="pug">
   #app
-    img#logo(src="./assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
+    img#logo(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     HomeCover
     BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
 </template>
 
 <script>
-import HomeCover from './components/HomeCover.vue'
-import BaseReport from './components/BaseReport.vue'
+import HomeCover from '../components/HomeCover.vue'
+import BaseReport from '../components/BaseReport.vue'
 
 export default {
   name: 'app',
