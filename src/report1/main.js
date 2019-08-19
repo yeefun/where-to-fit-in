@@ -7,12 +7,12 @@ new Vue({
   render: h => h(App),
   data: {
     inHome: true,
-    inReportCover: true,
-    totalSeenReports: 0,
-    baseReports: [0],
-    currentPerson: null,
-    currentReport: null,
-    removedReportId: 0,
+    inRptCover: true,
+    seenRpts: 0,
+    baseRpts: [0],
+    curtPerson: null,
+    curtRpt: null,
+    removedRelatedRptId: 0,
     isPopState: false
   }
 }).$mount('#app')

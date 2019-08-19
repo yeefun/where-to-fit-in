@@ -2,7 +2,7 @@
   #app
     img#logo(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     HomeCover
-    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
+    BaseReport(v-for="rpt in $root.baseRpts" :key="rpt" ref="baseRpts")
 </template>
 
 <script>
@@ -28,13 +28,13 @@ export default {
             },
             ease: Power3.easeIn,
             onComplete: () => {
-              this.$refs.baseReports[0].showReportFromHome(id)
+              this.$refs.baseRpts[0].showRptFromHome(id)
               this.$root.inHome = false
             }
           })
         } else {
           this.$root.isPopState = true
-          document.getElementById(`report${id}`).click()
+          document.getElementById(`rpt${id}`).click()
           this.$root.isPopState = false
         }
       }
@@ -48,23 +48,23 @@ export default {
     backToHome () {
       if (this.$root.inHome) return
       this.$root.inHome = true
-      this.$root.currentReport = null
-      this.$root.removedReportId = 0
-      TweenLite.to('.reports', 0.8, {
+      this.$root.curtRpt = null
+      this.$root.removedRelatedRptId = 0
+      TweenLite.to('#rpts', 0.8, {
         css: {
           opacity: 0
         },
         ease: Power3.easeIn,
         onComplete: () => {
-          this.$root.inReportCover = true
-          this.$root.baseReports.splice(0)
+          this.$root.inRptCover = true
+          this.$root.baseRpts.splice(0)
           TweenLite.to('#home-cover', 0.8, {
             css: {
               opacity: 1
             },
             ease: Power3.easeIn,
             onComplete: () => {
-              this.$root.baseReports.push(this.$root.totalSeenReports)
+              this.$root.baseRpts.push(this.$root.seenRpts)
             }
           })
         }
@@ -79,10 +79,9 @@ export default {
 html {
   font-size: 10px;
 }
-// body {
-//   font-family: "Noto Sans TC", sans-serif;
-//   // font-family: "PT Serif", "Noto Serif CJK TC", serif;
-// }
+body {
+  font-family: "Noto Sans TC", sans-serif;
+}
 #app {
   overflow: hidden;
 }

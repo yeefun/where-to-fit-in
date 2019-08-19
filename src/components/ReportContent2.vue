@@ -1,5 +1,5 @@
 <template lang="pug">
-  .report__content
+  .rpt__content
     h2 胖子與健康的拉鋸戰
 </template>
 

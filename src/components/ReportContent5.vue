@@ -1,5 +1,5 @@
 <template lang="pug">
-  .report__content
+  .rpt__content
     h2 解放胖子的網路逆襲
 </template>
 

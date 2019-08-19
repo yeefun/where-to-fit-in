@@ -1,5 +1,5 @@
 <template lang="pug">
-  .report__content
+  .rpt__content
     h2 臺灣身材審美轉變
 </template>
 
