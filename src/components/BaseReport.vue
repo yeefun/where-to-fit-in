@@ -1,24 +1,24 @@
 <template lang="pug">
-  // TODO: 無法全部動畫結束後才觸發 after-leave
-  transition-group#rpts(
-    tag="section"
-    @leave="hideRelatedRpt"
-    @after-leave="$root.inRptCover = false"
-    :css="false"
-  )
-    // TODO: :class="$root.inRptCover ? 'rpt--home' : ''" 會把 rpt--curt 消掉
+  //- TODO: 無法全部動畫結束後才觸發 after-leave
+  //- transition-group#rpts(
+  //-   tag="section"
+  //-   @leave="hideRelatedRpt"
+  //-   @after-leave="$root.inRptCover = false"
+  //-   :css="false"
+  //- )
+  section#rpts
     article.rpt(
       v-for="rpt in relatedRpts"
       :key="rpt.id"
       :id="`rpt${rpt.id}`"
-      :class="$root.inRptCover ? 'rpt--home' : ''"
+      :class="{ 'rpt--home': $root.inRptCover }"
       v-if="isRpt(rpt.id)"
       @click="showRptFromRelated($event, rpt.id)"
     )
       .full-page.full-img.rpt__cover-img(:id="`rpt${rpt.id}__cover`")
-      .rpt__cover-txt
+      .rpt__cover-txt(:style="{ color: (rpt.id === 5 || rpt.id === 2) ? '#f7f7f7' : '#1b2733'}")
         h1 {{rpt.title}}
-        .rpt__intro(v-if="!isRptContent")
+        .rpt__intro(v-if="!isRptContent" :style="{ marginTop: $root.inRptCover ? '32px' : '24px'}")
           .rpt__intro--cover(v-if="$root.inRptCover && !isRptContent")
             div(v-html="rpt.introCover")
             button(type="button" @click.stop="showRptContent(rpt.id)") {{rpt.btnTxt}}
@@ -31,11 +31,11 @@
 export default {
   name: 'BaseReport',
   components: {
-    // ReportContent1: () => import('./ReportContent1'),
-    // ReportContent2: () => import('./ReportContent2'),
-    ReportContent3: () => import('./ReportContent3')
-    // ReportContent4: () => import('./ReportContent4'),
-    // ReportContent5: () => import('./ReportContent5')
+    ReportContent1: () => import('./ReportContent1'),
+    ReportContent2: () => import('./ReportContent2'),
+    ReportContent3: () => import('./ReportContent3'),
+    ReportContent4: () => import('./ReportContent4'),
+    ReportContent5: () => import('./ReportContent5')
   },
   created () {
     const id = this.$root.removedRelatedRptId
@@ -102,7 +102,11 @@ export default {
       this.isRptContent = true
       this.curtRptId = id
       this.$root.removedRelatedRptId = id
-      this.$root.curtRpt.style.cssText = ''
+      TweenLite.set(this.$root.curtRpt, {
+        position: '',
+        height: ''
+      })
+      // this.$root.curtRpt.style.cssText = ''
       this.$root.seenRpts += 1
       this.$root.baseRpts.push(this.$root.seenRpts)
     },
@@ -110,9 +114,16 @@ export default {
       this.isRptContent = true
       this.curtRptId = id
       this.$root.removedRelatedRptId = id
-      this.$root.curtRpt.style.cssText = ''
+      // this.$root.curtRpt.style.cssText = ''
+      TweenLite.set(this.$root.curtRpt, {
+        position: '',
+        height: ''
+      })
       this.$root.seenRpts += 1
       this.$root.baseRpts.push(this.$root.seenRpts)
+      // MODIFY
+      this.$root.inRptCover = false
+      // MODIFY
       history.pushState(
         {
           place: 'rpt',
@@ -122,39 +133,43 @@ export default {
         `/report${id}`
       )
     },
-    hideRelatedRpt (el, done) {
-      if (this.$root.inRptCover) {
-        done()
-      } else {
-        TweenLite.to(el, 0.8, {
-          css: {
-            opacity: 0
-          },
-          ease: Power3.easeIn,
-          onComplete: done
-        })
-      }
-    },
+    // hideRelatedRpt (el, done) {
+    //   if (this.$root.inRptCover) {
+    //     done()
+    //   } else {
+    //     TweenLite.to(el, 0.8, {
+    //       css: {
+    //         opacity: 0
+    //       },
+    //       ease: Power3.easeIn,
+    //       onComplete: done
+    //     })
+    //   }
+    // },
     showRptFromRelated (evt, id) {
-      const self = evt.curtTarget
+      const self = evt.currentTarget
       if ((this.$root.curtRpt === self) || this.isShowingRpt) return
       this.isShowingRpt = true
       this.curtRptId = id
       this.$root.removedRelatedRptId = id
-      TweenLite.to(this.$root.curtRpt, 0.8, {
-        css: {
-          opacity: 0
-        },
-        ease: Power3.easeIn,
-        onComplete: () => {
-          this.$root.baseRpts.shift()
-          self.classList.add('rpt--curt')
-          this.$root.seenRpts += 1
-          this.$root.baseRpts.push(this.$root.seenRpts)
-          this.isRptContent = true
-          this.isShowingRpt = false
-        }
-      })
+      // MODIFY
+      this.$root.curtRpt.style.opacity = 0
+      // MODIFY
+      // TweenLite.to(this.$root.curtRpt, 0.8, {
+      //   css: {
+      //     opacity: 0
+      //   },
+      //   ease: Power3.easeIn,
+      //   onComplete: () => {
+      this.$root.baseRpts.shift()
+      // self.classList.add('rpt--curt')
+      self.style.cursor = 'auto'
+      this.$root.seenRpts += 1
+      this.$root.baseRpts.push(this.$root.seenRpts)
+      this.isRptContent = true
+      this.isShowingRpt = false
+      //   }
+      // })
       this.$root.curtRpt = self
       if (!this.$root.isPopState) {
         history.pushState(
@@ -171,78 +186,71 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.rpt {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  top: 0;
-  z-index: 19;
-  cursor: pointer;
-  & h1 {
-    font-size: 4.8rem;
-    font-weight: 700;
-    line-height: 1.5;
-  }
-  &__cover {
-    &-img {
-      z-index: -9;
-    }
-    &-txt {
-      max-width: 768px;
-      text-align: center;
-      width: 60%;
-    }
-  }
-  &__intro {
-    margin-top: 32px;
-    // color: #003152;
-    &--cover {
-      & p {
-        font-size: 2.4rem;
-        line-height: 1.8;
-        & + p {
-          margin-top: 16px;
-        }
-      }
-      & button {
-        color: #f7f7f7;
-        font-size: 2.0rem;
-        margin-top: 40px;
-        border-radius: 3px;
-        // background-color: rgba(#154d70, 0.8);
-        background-color: #154d70;
-        padding: 16px 32px;
-      }
-    }
-  }
-}
-.rpt--curt {
-  cursor: auto;
-}
-.rpt--home {
-  height: 0;
-  transform: translateY(100vh);
-}
-#rpt1__cover {
-  background-image: url(../assets/img/cover/lap/report1_bottom.png), url(../assets/img/cover/lap/report1_top.jpg);
-  background-position: center bottom, center top;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed, scroll;
-}
-#rpt2__cover {
-  background-image: url(../assets/img/cover/lap/report2.jpg);
-}
-#rpt3__cover {
-  background-image: url(../assets/img/cover/lap/report3.jpg);
-}
-#rpt4__cover {
-  background-image: url(../assets/img/cover/lap/report4.jpg);
-}
-#rpt5__cover {
-  background-image: url(../assets/img/cover/lap/report5.jpg);
-}
+<style lang="stylus">
+.rpt
+  display flex
+  justify-content center
+  align-items center
+  position relative
+  width 100%
+  top 0
+  z-index 19
+  flex-direction column
+  // TODO 封面底下會爆開
+  padding-top 64px
+  padding-bottom 64px
+  box-sizing border-box
+  overflow hidden
+  cursor pointer
+  & h1
+    font-size 4.8rem
+    font-weight 700
+    line-height 1.45
+  &__cover
+    &-img
+      z-index -9
+    &-txt
+      max-width 768px
+      text-align center
+      // width 60%
+  &__intro
+    // margin-top 32px
+    font-size 2.4rem
+    &--cover
+      & p
+        font-size 2.4rem
+        line-height 1.8
+        & + p
+          margin-top 16px
+      & button
+        color #f7f7f7
+        // color #fff
+        font-size 2.0rem
+        margin-top 48px
+        border-radius 4px
+        // background-color rgba(#154d70, 0.8)
+        background-color #154d70
+        padding 16px 28px
+    &--related
+      line-height 1.6
+// .rpt--curt
+//   cursor auto
+//
+.rpt--home
+  height 0
+  transform translateY(100vh)
+#rpt1__cover
+  background-image url(../assets/img/cover/lap/report1_bottom.png), url(../assets/img/cover/lap/report1_top.jpg)
+  background-position center bottom, center top
+  background-size cover
+  background-repeat no-repeat
+  background-attachment fixed, scroll
+#rpt2__cover
+  background-image url(../assets/img/cover/lap/report2.jpg)
+#rpt3__cover
+  background-image url(../assets/img/cover/lap/report3.jpg)
+#rpt4__cover
+  background-image url(../assets/img/cover/lap/report4.jpg)
+#rpt5__cover
+  background-image url(../assets/img/cover/lap/report5.jpg)
 </style>

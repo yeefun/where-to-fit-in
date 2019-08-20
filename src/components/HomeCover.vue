@@ -1,7 +1,7 @@
 <template lang="pug">
   section#home-cover
     .home-cover__mrt.full-img
-    svg.home-cover__clickable-persons(viewBox="0 0 1921 1388" :style="clickablePersonsSize")
+    svg.home-cover__clicked-persons(viewBox="0 0 1921 1388" :style="clickedPersonsSize")
       g(data-person="1" @mouseover="showPerson" @mouseout="hidePerson" @click="showRptCover")
         path(d='M1185.53,467.22c-4.24-15.54-4.46-20.31-27.75-32.76-17-9.11-63.52-15.5-87.23-18.27l-1.72-.2-1.61-.18a66.38,66.38,0,0,0,.59-8.2c.19-3.77-2-9.63-10.63-10.76a7.94,7.94,0,0,0-6.75,2.48c.17-1.21.31-2.57.39-4.05.7-13.82-4.41-38.68-45.26-53.87-28.88-10.74-44.8-.55-53.54,12.62-8.88,1.93-32.47,10.1-28.2,42.06a10.19,10.19,0,0,0-9.72-.37,13.88,13.88,0,0,0-4.75,3.88,17.91,17.91,0,0,0-3,16.64c1.34,4.17,4.35,8.38,9.69,12.06a15.53,15.53,0,0,0,2.31,1.52c-.71,2-1.53,4.15-2.42,6.37-1.53,3.8-3.26,7.8-5,11.65-2.16,4.79-4.32,9.35-6.08,13a10.08,10.08,0,0,0-7.9,5C893,472.1,827.3,538.5,818,581.91s-12.93,55.3-11.55,59.95c.16.54.87,1.08,2,1.58a1,1,0,0,0-.15.14c-.51.76-.24,1.89-.14,2.72a46.72,46.72,0,0,1,.23,5.13q0,2.26.11,4.53c0,1.3.09,2.6.16,3.9a136.71,136.71,0,0,0,3,23.62,79.58,79.58,0,0,0,9.15,23.35,57.65,57.65,0,0,0,9.63,12.11c.35.34.73.65,1.09,1-.05.78-.09,1.55-.13,2.32-.76,12.47-1.18,24.84-1.19,37a4,4,0,0,0,.21,1.07l-.74.05s-.84,22.79-.72,46c.1,20.05.92,40.46,3.6,46.93,5.8,14,10.43,16.78,9.85,27.27,0,0-4.78,9.09-4.41,18.18.32,7.94,5.21,18,10.68,23.69a22,22,0,0,0,2.41,2.18A76.18,76.18,0,0,0,854,947.75c3.47,11.19,1.74,18.18,0,23.07s3.47,15.38,10.41,16.78c.45.09,1.37.21,2.7.35a19,19,0,0,0-2.13,4.59c0,.12-.09.23-.13.36q-.16.55-.28,1.13c-1,4.68-.07,10.34,2.83,12.86,1.81,1.57,4,1.71,6.14,1.82l2.4.12,10.63.52,10.64.52,10.64.52,10.64.52,10.64.52h.19q5.22.26,10.45.49t10.62.38q5.39.14,10.78.13c3.47,0,6.95-.08,10.42-.22,1.43-.06,2.87-.12,4.3-.21a34.44,34.44,0,0,0,6.34-.86,14.21,14.21,0,0,0,7.75-4.7c.31-.38.6-.75.87-1.13a13.51,13.51,0,0,0,2.59-10.93q1.17-.05,2.08-.13a12.53,12.53,0,0,0,2.42-.37c8.74-2.8,11.63-14,11.63-14s4,13.8,11,14.59l.6,0c.5,0,1.18.07,2,.09a13.46,13.46,0,0,0,2.39,11.81c.27.38.56.75.87,1.13a14.21,14.21,0,0,0,7.75,4.7,34.43,34.43,0,0,0,6.34.86c1.43.09,2.87.15,4.3.21,3.47.15,6.95.21,10.42.22s7.19,0,10.78-.13,7.08-.22,10.62-.38,7-.32,10.45-.49h.19l10.64-.52,10.64-.52,10.64-.52,10.64-.52,10.63-.52,2.4-.12c2.11-.1,4.33-.25,6.14-1.82,2.9-2.52,3.81-8.18,2.83-12.86q-.12-.57-.28-1.13c0-.12-.09-.23-.13-.36a19.51,19.51,0,0,0-3.57-6.6,12.72,12.72,0,0,0,1-1.89,88.31,88.31,0,0,1-9.5-16.08,111,111,0,0,1-9.05-33.42,137.73,137.73,0,0,1,3.11-48.21c2.11-8.57,6-17.35,9.7-26.26,7.56-18.11,14.52-36.72,4.89-55.07a75,75,0,0,1-5.21-14.85c-.37-1.42-.73-2.9-1.07-4.43-.31-1.39-.61-2.81-.9-4.28-.42-2.15-.81-4.39-1.16-6.69a143.67,143.67,0,0,1-1-37.24c.12-1.06.25-2.11.4-3.16a75.84,75.84,0,0,1,6.65-22.47c.35-.71.73-1.4,1.11-2.09q.88-1.62,1.87-3.16a45.91,45.91,0,0,1,7.74-9.23l.14-.13c.25-.22.47-.46.72-.67l.18-.17-.2-.17c-.46-.37-.91-.76-1.37-1.16l-.48-.41c-.67-.6-1.33-1.25-2-1.92a43.89,43.89,0,0,1-4.8-5.93,49.1,49.1,0,0,1-3.86-6.89,54.93,54.93,0,0,1-2.37-5.95,63.68,63.68,0,0,1-3.12-27.06,61.52,61.52,0,0,1,3.69-15.05c1.86-5.2,1.7-8-2.64-24.28l-.32-1.19a28.31,28.31,0,0,1-.93-6.83c0-.18,0-.36,0-.54a35.08,35.08,0,0,1,.22-3.91q.08-.7.18-1.4c1.17-7.91,4.78-16.06,9.39-23.42l.56-.88c1.54-2.39,3.17-4.7,4.85-6.88l.19-.25q.62-.8,1.25-1.58c1-1.25,2-2.46,3.07-3.61q1.19-1.34,2.38-2.57c.34-.35.7-.68,1-1q.89-.87,1.81-1.69a52.78,52.78,0,0,1,10.52-7.23l.65-.34a77.46,77.46,0,0,1,20.25-6.73C1193,516.82,1188.52,478.17,1185.53,467.22Z')
       g(data-person="2" @mouseover="showPerson" @mouseout="hidePerson" @click="showRptCover")
@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       // (1921 / 1388).toFixed(2) = 1.38
-      clickablePersonsAspectRatio: 1.38,
+      clickedPersonsAspectRatio: 1.38,
       ww: document.documentElement.clientWidth,
       wh: document.documentElement.clientHeight,
       isEnteringRptCover: false
@@ -36,9 +36,9 @@ export default {
     window.addEventListener('resize', this.alterWindowSize)
   },
   computed: {
-    clickablePersonsSize () {
+    clickedPersonsSize () {
       const windowAspectRatio = this.ww / this.wh
-      return this.clickablePersonsAspectRatio > windowAspectRatio ? { width: `${1921 * (this.wh / 1388)}px` } : { height: `${1388 * (this.ww / 1921)}px` }
+      return this.clickedPersonsAspectRatio > windowAspectRatio ? { width: `${1921 * (this.wh / 1388)}px` } : { height: `${1388 * (this.ww / 1921)}px` }
     }
   },
   methods: {
@@ -47,7 +47,7 @@ export default {
       this.wh = document.documentElement.clientHeight
     },
     showPerson (evt) {
-      const self = evt.curtTarget
+      const self = evt.currentTarget
       const idx = self.dataset.person
       this.$root.curtPerson = document.getElementById(`person${idx}`)
       TweenLite.to(this.$root.curtPerson, 0.4, {
@@ -67,7 +67,7 @@ export default {
       })
     },
     showRptCover (evt) {
-      const self = evt.curtTarget
+      const self = evt.currentTarget
       const idx = self.dataset.person
       this.$root.curtRpt = document.getElementById(`rpt${idx}`)
       this.isEnteringRptCover = true
@@ -78,7 +78,7 @@ export default {
           height: '100vh',
           opacity: 0,
           y: '',
-          className: '+=rpt--curt'
+          cursor: 'auto'
         }
       })
       TweenLite.to('#home-cover', 0.8, {
@@ -103,47 +103,36 @@ export default {
 }
 </script>
 
-<style lang="scss">
-#home-cover {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-.home-cover {
-  &__mrt {
-    height: 100%;
-    background-image: url(../assets/img/cover/lap/home_mrt.jpg);
-  }
-  &__clickable-persons {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9;
-    opacity: 0;
-    & g {
-      cursor: pointer;
-    }
-  }
-  &__person {
-    opacity: 0;
-  }
-}
-#person1 {
-  background-image: url(../assets/img/cover/lap/home_person1.png);
-}
-#person2 {
-  background-image: url(../assets/img/cover/lap/home_person2.png);
-}
-#person3 {
-  background-image: url(../assets/img/cover/lap/home_person3.png);
-}
-#person4 {
-  background-image: url(../assets/img/cover/lap/home_person4.png);
-}
-#person5 {
-  background-image: url(../assets/img/cover/lap/home_person5.png);
-}
+<style lang="stylus">
+#home-cover
+  position absolute
+  top 0
+  width 100%
+  height 100vh
+  overflow hidden
+.home-cover
+  &__mrt
+    height 100%
+    background-image url(../assets/img/cover/lap/home_mrt.jpg)
+  &__clicked-persons
+    position absolute
+    top 0
+    left 50%
+    transform translateX(-50%)
+    z-index 9
+    opacity 0
+    & g
+      cursor pointer
+  &__person
+    opacity 0
+#person1
+  background-image url(../assets/img/cover/lap/home_person1.png)
+#person2
+  background-image url(../assets/img/cover/lap/home_person2.png)
+#person3
+  background-image url(../assets/img/cover/lap/home_person3.png)
+#person4
+  background-image url(../assets/img/cover/lap/home_person4.png)
+#person5
+  background-image url(../assets/img/cover/lap/home_person5.png)
 </style>
