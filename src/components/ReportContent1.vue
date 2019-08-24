@@ -1,5 +1,5 @@
 <template lang="pug">
-  .rpt__content
+  .report-content
     h2 臺灣身材審美轉變
 </template>
 
@@ -8,3 +8,7 @@ export default {
   name: 'ReportContent1'
 }
 </script>
+
+<style lang="stylus">
+
+</style>

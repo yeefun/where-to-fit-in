@@ -1,5 +1,5 @@
 <template lang="pug">
-  .rpt__content
+  .report-content
     h2 被標準化社會排擠的胖身體
 </template>
 

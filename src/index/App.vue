@@ -2,7 +2,7 @@
   #app
     img#logo(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     HomeCover
-    BaseReport(v-for="rpt in $root.baseRpts" :key="rpt" ref="baseRpts")
+    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
 </template>
 
 <script>
@@ -28,13 +28,13 @@ export default {
             },
             ease: Power3.easeIn,
             onComplete: () => {
-              this.$refs.baseRpts[0].showRptFromHome(id)
+              this.$refs.baseReports[0].showReportFromHome(id)
               this.$root.inHome = false
             }
           })
         } else {
           this.$root.isPopState = true
-          document.getElementById(`rpt${id}`).click()
+          document.getElementById(`report${id}`).click()
           this.$root.isPopState = false
         }
       }
@@ -48,23 +48,23 @@ export default {
     backToHome () {
       if (this.$root.inHome) return
       this.$root.inHome = true
-      this.$root.curtRpt = null
-      this.$root.removedRelatedRptId = 0
-      TweenLite.to('#rpts', 0.8, {
+      this.$root.curtReport = null
+      this.$root.removedRelatedReportId = 0
+      TweenLite.to('#reports', 0.8, {
         css: {
           opacity: 0
         },
         ease: Power3.easeIn,
         onComplete: () => {
-          this.$root.inRptCover = true
-          this.$root.baseRpts.splice(0)
+          this.$root.inReportCover = true
+          this.$root.baseReports.splice(0)
           TweenLite.to('#home-cover', 0.8, {
             css: {
               opacity: 1
             },
             ease: Power3.easeIn,
             onComplete: () => {
-              this.$root.baseRpts.push(this.$root.seenRpts)
+              this.$root.baseReports.push(this.$root.seenReports)
             }
           })
         }
@@ -80,6 +80,7 @@ html
   font-size 10px
 body
   font-family "Noto Sans TC", sans-serif
+  background-color #f6f6f6
 #app
   overflow hidden
 #logo
@@ -92,7 +93,8 @@ body
 .full-page
   position absolute
   width 100%
-  height 100%
+  // height 100%
+  height 100vh
   top 0
   left 0
 .full-img
