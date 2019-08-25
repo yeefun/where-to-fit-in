@@ -76,6 +76,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import '../util/report.styl'
+
 html
   font-size 10px
 body
@@ -84,7 +86,8 @@ body
 #app
   overflow hidden
 #logo
-  position absolute
+  // position absolute
+  position fixed
   z-index 99
   width 176px
   margin-top 24px

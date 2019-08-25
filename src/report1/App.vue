@@ -85,7 +85,8 @@ html
 #app
   overflow hidden
 #logo
-  position absolute
+  // position absolute
+  position fixed
   z-index 99
   width 176px
   margin-top 24px

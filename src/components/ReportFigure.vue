@@ -20,7 +20,7 @@ export default {
     display block
   & figcaption
     font-size 1.8rem
-    line-height 1.33
+    line-height 1.4
     color #031b37
     padding-left 40px
     padding-right 40px

@@ -202,6 +202,7 @@ export default {
   // todo 封面底下會爆開
   padding-top 64px
   padding-bottom 64px
+  // padding-bottom 80px
   box-sizing border-box
   overflow hidden
   cursor pointer
@@ -253,7 +254,7 @@ export default {
   background-size cover
   // background-size 1280px
   background-repeat no-repeat
-  background-attachment fixed, scroll
+  // background-attachment fixed, scroll
 #report2__cover
   background-image url(../assets/img/cover/lap/report2.jpg)
 #report3__cover
