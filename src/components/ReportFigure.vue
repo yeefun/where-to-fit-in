@@ -1,7 +1,7 @@
 <template lang="pug">
   figure.report-img
     img(:src="figure.src" alt="")
-    figcaption {{ figure.caption }}
+    figcaption(v-if="figure.caption") {{ figure.caption }}
 </template>
 
 <script>
@@ -16,12 +16,13 @@ export default {
   margin 64px -80px
   & img
     width 100%
-    margin-bottom 16px
     display block
   & figcaption
     font-size 1.8rem
     line-height 1.4
-    color #031b37
+    // color #031b37
+    color #08517c
     padding-left 40px
     padding-right 40px
+    margin-top 16px
 </style>

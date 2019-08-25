@@ -133,7 +133,7 @@ export default {
           id
         },
         '',
-        `/report${id}`
+        `./report${id}`
       )
     },
     // hideRelatedReport (el, done) {
@@ -181,7 +181,7 @@ export default {
             id
           },
           '',
-          `/report${id}`
+          `./report${id}`
         )
       }
     }

@@ -1,9 +1,8 @@
 <template lang="pug">
   .report-quote
-    .report-quote__txt
-      p {{ quote.txt }}
-    p.report-quote__name {{ quote.name }}
-  </div>
+    .report-quote__txt(v-html="quote.txt")
+      //- p {{ quote.txt }}
+    p.report-quote__name(v-if="quote.name") {{ quote.name }}
 </template>
 
 <script>
@@ -27,9 +26,11 @@ export default {
     padding-top 8px
     padding-bottom 8px
     padding-left 24px
-    margin-bottom 8px
+    & p + p
+      margin-top 16px
   &__name
     font-size 2.0rem
     line-height 1.2
     text-align right
+    margin-top 8px
 </style>
