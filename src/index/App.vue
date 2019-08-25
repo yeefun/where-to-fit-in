@@ -104,6 +104,8 @@ body
   background-position top center
   background-size cover
   background-repeat no-repeat
+// .white
+//   color #f6f6f6 !important
 // .in-home-cover
 //   height 0
 //   transform translateY(100vh)

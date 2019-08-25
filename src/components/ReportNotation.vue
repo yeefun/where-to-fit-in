@@ -1,6 +1,7 @@
 <template lang="pug">
-  abbr.report-notation
-    span.report-notation__wrapped(@click="toggleNotation" :class="[isNotation ? 'active' : '', isInline ? 'inline' : '' ]")
+  //- todo 去除 p tag
+  abbr.report-notation(:title="notation.txt")
+    span.report-notation__wrapped(@click="toggleNotation" :class="[isNotation ? 'active' : '', isInline ? 'inline' : 'block' ]")
       slot
     template(v-if="isNotation")
       span.report-notation__txt(v-if="isInline") {{ notation.txt }}
@@ -32,6 +33,7 @@ export default {
 <style lang="stylus">
 .report-notation
   color #08517c
+  text-decoration none
   &__wrapped
     position relative
     padding-right 16px
@@ -40,7 +42,6 @@ export default {
     &:after
       content ''
       position absolute
-      top 2px
       right 6px
       width 0
       height 0
@@ -49,13 +50,18 @@ export default {
       border-width 0 4px 6.9px 4px
       border-color transparent transparent #053050 transparent
       transition transform 0.2s
-    &.active:after
-      transform rotate(180deg)
+    &.block
+      &:after
+        top 4px
+        transform rotate(180deg)
+      &.active:after
+        transform rotate(240deg)
     &.inline
       &:after
+        top 2px
         transform rotate(-30deg)
       &.active:after
-        transform rotate(30deg)
+        transform rotate(-90deg)
         // right 2px
   &__txt
     font-size 1.6rem

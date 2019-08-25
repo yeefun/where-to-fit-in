@@ -17,10 +17,10 @@
     )
       .full-page.full-img.report__cover-img(:id="`report${report.id}__cover`")
       .report__cover-txt
-        h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#f7f7f7' : '#090909'}") {{ report.title }}
+        h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#090909'}") {{ report.title }}
         .report__intro(
           v-if="!isReportContent"
-          :style="{ marginTop: $root.inReportCover ? '32px' : '24px', color: (report.id === 5 || report.id === 2) ? '#f7f7f7' : '#1b2733' }"
+          :style="{ marginTop: $root.inReportCover ? '32px' : '24px', color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#1b2733' }"
         )
           .report__intro--cover(v-if="$root.inReportCover && !isReportContent")
             div(v-html="report.introCover")
