@@ -3,11 +3,13 @@
     img#logo(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     HomeCover
     BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
+    TitleAnchor
 </template>
 
 <script>
 import HomeCover from '../components/HomeCover.vue'
 import BaseReport from '../components/BaseReport.vue'
+import TitleAnchor from '../components/TitleAnchor.vue'
 
 export default {
   name: 'app',
@@ -42,7 +44,8 @@ export default {
   },
   components: {
     HomeCover,
-    BaseReport
+    BaseReport,
+    TitleAnchor
   },
   methods: {
     backToHome () {

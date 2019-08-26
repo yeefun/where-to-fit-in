@@ -13,6 +13,7 @@ new Vue({
     curtPerson: null,
     curtReport: null,
     removedRelatedReportId: 0,
-    isPopState: false
+    isPopState: false,
+    wh: document.documentElement.clientHeight
   }
 }).$mount('#app')
