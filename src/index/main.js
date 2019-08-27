@@ -14,6 +14,18 @@ new Vue({
     curtReport: null,
     removedRelatedReportId: 0,
     isPopState: false,
-    wh: document.documentElement.clientHeight
+    ww: window.innerWidth,
+    wh: document.documentElement.clientHeight,
+    isMounted: false
+  },
+  mounted () {
+    this.isMounted = true
+    window.addEventListener('resize', this.alterWindowSize)
+  },
+  methods: {
+    alterWindowSize () {
+      this.ww = window.innerWidth
+      this.wh = document.documentElement.clientHeight
+    }
   }
 }).$mount('#app')

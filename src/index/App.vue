@@ -3,7 +3,7 @@
     img#logo(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     HomeCover
     BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
-    TitleAnchor
+    TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
 
 <script>
@@ -13,6 +13,11 @@ import TitleAnchor from '../components/TitleAnchor.vue'
 
 export default {
   name: 'app',
+  components: {
+    HomeCover,
+    BaseReport,
+    TitleAnchor
+  },
   beforeCreate () {
     TweenLite.selector = function (val) {
       return document.querySelectorAll(val)
@@ -42,10 +47,42 @@ export default {
       }
     })
   },
-  components: {
-    HomeCover,
-    BaseReport,
-    TitleAnchor
+  data () {
+    return {
+      anchors: {
+        report2: [
+          '不健康的身體不只有胖',
+          '健康大旗打翻一船胖子',
+          '胖子減肥不擇手段',
+          '減肥並非以胖為恥'
+        ],
+        report3: [
+          '你這麼胖不行',
+          '胖孩子的教育',
+          '樂觀的隱形斗篷',
+          '不用胖定義胖子'
+        ],
+        report4: [
+          '以肥胖污名規範社會秩序',
+          '穿不下的代價太大',
+          '超出標準的胖子坐立難安',
+          '胖子努力縮小改變人生'
+        ],
+        report5: [
+          '直美熱潮影響有限',
+          '胖子的網路逆襲',
+          '臺灣的解放胖女體行動',
+          '鼓勵胖子現身說法',
+          '自信內在胖也美麗'
+        ]
+      }
+    }
+  },
+  computed: {
+    theAnchors () {
+      const curtReportId = this.$root.removedRelatedReportId
+      return curtReportId > 1 ? this.anchors[`report${curtReportId}`] : []
+    }
   },
   methods: {
     backToHome () {

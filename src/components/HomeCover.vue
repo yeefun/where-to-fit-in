@@ -27,25 +27,16 @@ export default {
     return {
       // (1921 / 1388).toFixed(2) = 1.38
       clickedPersonsAspectRatio: 1.38,
-      ww: document.documentElement.clientWidth,
-      wh: document.documentElement.clientHeight,
       isEnteringReportCover: false
     }
   },
-  created () {
-    window.addEventListener('resize', this.alterWindowSize)
-  },
   computed: {
     clickedPersonsSize () {
-      const windowAspectRatio = this.ww / this.wh
-      return this.clickedPersonsAspectRatio > windowAspectRatio ? { width: `${1921 * (this.wh / 1388)}px` } : { height: `${1388 * (this.ww / 1921)}px` }
+      const windowAspectRatio = this.$root.ww / this.$root.wh
+      return this.clickedPersonsAspectRatio > windowAspectRatio ? { width: `${1921 * (this.$root.wh / 1388)}px` } : { height: `${1388 * (this.$root.ww / 1921)}px` }
     }
   },
   methods: {
-    alterWindowSize () {
-      this.ww = document.documentElement.clientWidth
-      this.wh = document.documentElement.clientHeight
-    },
     showPerson (evt) {
       const self = evt.currentTarget
       const idx = self.dataset.person

@@ -1,17 +1,8 @@
 <template lang="pug">
   ul.title-anchor#title-anchor(:style="{ top: `${top}px` }")
-    li
+    li(v-for="(anchor, idx) in anchors" @click="scrollToTitle(`title${idx + 1}`)" :key="anchor")
       .title-anchor__line
-      .title-anchor__txt 一、你這麼胖不行
-    li
-      .title-anchor__line
-      .title-anchor__txt 二、胖孩子的教育
-    li
-      .title-anchor__line
-      .title-anchor__txt 三、樂觀的隱形斗篷
-    li
-      .title-anchor__line
-      .title-anchor__txt 四、不用胖定義胖子
+      .title-anchor__txt {{ anchor }}
 </template>
 
 <script>
@@ -20,11 +11,17 @@ smoothscroll.polyfill()
 
 export default {
   name: 'TitleAnchor',
+  props: ['anchors'],
   computed: {
     top () {
-      const wh = this.$root.wh
-      const anchorH = this.$el || document.getElementById('title-anchor')
-      return (wh - anchorH) / 2
+      if (!this.$root.isMounted) return this.$root.wh
+      const el = this.$el || document.getElementById('title-anchor')
+      return (this.$root.wh - el.offsetHeight) / 2
+    }
+  },
+  methods: {
+    scrollToTitle (title) {
+      document.getElementById(title).scrollIntoView({ behavior: 'smooth' })
     }
   }
 }
