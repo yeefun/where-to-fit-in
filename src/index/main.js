@@ -8,18 +8,18 @@ new Vue({
   data: {
     inHome: true,
     inReportCover: true,
-    seenReports: 0,
+    switchTimes: 0,
     baseReports: [0],
-    curtPerson: null,
-    curtReport: null,
+    currentPerson: null,
+    currentReport: null,
     removedRelatedReportId: 0,
     isPopState: false,
     ww: window.innerWidth,
-    wh: window.innerHeight,
-    isMounted: false
+    wh: window.innerHeight
+    // isMounted: false
   },
   mounted () {
-    this.isMounted = true
+    // this.isMounted = true
     window.addEventListener('resize', this.alterWindowSize)
   },
   methods: {

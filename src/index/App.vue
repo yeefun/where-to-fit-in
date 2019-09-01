@@ -3,20 +3,20 @@
     img#logo(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     HomeCover
     BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
-    TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
+    //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
 
 <script>
 import HomeCover from '../components/HomeCover.vue'
 import BaseReport from '../components/BaseReport.vue'
-import TitleAnchor from '../components/TitleAnchor.vue'
+// import TitleAnchor from '../components/TitleAnchor.vue'
 
 export default {
   name: 'app',
   components: {
     HomeCover,
-    BaseReport,
-    TitleAnchor
+    BaseReport
+    // TitleAnchor
   },
   beforeCreate () {
     TweenLite.selector = function (val) {
@@ -33,7 +33,7 @@ export default {
             css: {
               opacity: 0
             },
-            ease: Power3.easeIn,
+            // ease: Power3.easeIn,
             onComplete: () => {
               this.$refs.baseReports[0].showReportFromHome(id)
               this.$root.inHome = false
@@ -80,33 +80,32 @@ export default {
   },
   computed: {
     theAnchors () {
-      const curtReportId = this.$root.removedRelatedReportId
-      return curtReportId > 1 ? this.anchors[`report${curtReportId}`] : []
+      const currentReportId = this.$root.removedRelatedReportId
+      return currentReportId > 1 ? this.anchors[`report${currentReportId}`] : []
     }
   },
   methods: {
     backToHome () {
       if (this.$root.inHome) return
       this.$root.inHome = true
-      this.$root.curtReport = null
+      this.$root.currentReport = null
       this.$root.removedRelatedReportId = 0
       TweenLite.to('#reports', 0.8, {
         css: {
           opacity: 0
+        }
+        // ease: Power3.easeIn
+      })
+      TweenLite.to('#home-cover', 0.8, {
+        css: {
+          opacity: 1
         },
-        ease: Power3.easeIn,
+        // ease: Power3.easeIn,
         onComplete: () => {
           this.$root.inReportCover = true
           this.$root.baseReports.splice(0)
-          TweenLite.to('#home-cover', 0.8, {
-            css: {
-              opacity: 1
-            },
-            ease: Power3.easeIn,
-            onComplete: () => {
-              this.$root.baseReports.push(this.$root.seenReports)
-            }
-          })
+          this.$root.switchTimes += 1
+          this.$root.baseReports.push(this.$root.switchTimes)
         }
       })
       history.pushState({ place: 'home' }, '', '/')
@@ -123,10 +122,9 @@ html
 body
   font-family "Noto Sans TC", sans-serif
   background-color #f6f6f6
-#app
-  overflow hidden
+// #app
+//   overflow hidden
 #logo
-  // position absolute
   position fixed
   z-index 99
   width 176px
@@ -144,18 +142,11 @@ body
   background-position top center
   background-size cover
   background-repeat no-repeat
-// .white
-//   color #f6f6f6 !important
-// .in-home-cover
-//   height 0
-//   transform translateY(100vh)
-//
 button
   border 0
   outline 0
   cursor pointer
-  // font-family "Noto Sans TC", sans-serif
-  // font-family "PT Serif", "Noto Serif CJK TC", serif
+  font-family "Noto Sans TC", sans-serif
   user-select none
 img
   height auto

@@ -26,7 +26,7 @@ export default {
             css: {
               opacity: 0
             },
-            ease: Power3.easeIn,
+            // ease: Power3.easeIn,
             onComplete: () => {
               this.$refs.baseReports[0].showReportFromHome(id)
               this.$root.inHome = false
@@ -48,13 +48,13 @@ export default {
     backToHome () {
       if (this.$root.inHome) return
       this.$root.inHome = true
-      this.$root.curtReport = null
+      this.$root.currentReport = null
       this.$root.removedRelatedReportId = 0
       TweenLite.to('#reports', 0.8, {
         css: {
           opacity: 0
         },
-        ease: Power3.easeIn,
+        // ease: Power3.easeIn,
         onComplete: () => {
           this.$root.inReportCover = true
           this.$root.baseReports.splice(0)
@@ -62,9 +62,9 @@ export default {
             css: {
               opacity: 1
             },
-            ease: Power3.easeIn,
+            // ease: Power3.easeIn,
             onComplete: () => {
-              this.$root.baseReports.push(this.$root.seenReports)
+              this.$root.baseReports.push(this.$root.switchTimes)
             }
           })
         }

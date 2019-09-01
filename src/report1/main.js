@@ -8,10 +8,10 @@ new Vue({
   data: {
     inHome: true,
     inReportCover: true,
-    seenReports: 0,
+    switchTimes: 0,
     baseReports: [0],
-    curtPerson: null,
-    curtReport: null,
+    currentPerson: null,
+    currentReport: null,
     removedRelatedReportId: 0,
     isPopState: false
   }

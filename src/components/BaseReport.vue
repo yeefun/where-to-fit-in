@@ -6,7 +6,7 @@
   //-   @after-leave="$root.inReportCover = false"
   //-   :css="false"
   //- )
-  section#reports
+  section#reports(:style="{ height: $root.inReportCover ? 0 : '' }")
     article.report(
       v-for="report in relatedReports"
       :key="report.id"
@@ -15,17 +15,17 @@
       v-if="isReport(report.id)"
       @click="showReportFromRelated($event, report.id)"
     )
-      .full-page.full-img.report__cover-img(:id="`report${report.id}__cover`")
+      .report__cover-img.full-page.full-img(:id="`report${report.id}__cover`")
       .report__cover-txt
         h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#090909'}") {{ report.title }}
         .report__intro(
           v-if="!isReportContent"
           :style="{ marginTop: $root.inReportCover ? '32px' : '24px', color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#1b2733' }"
         )
-          .report__intro--cover(v-if="$root.inReportCover && !isReportContent")
+          .report__intro--cover(v-if="$root.inReportCover")
             div(v-html="report.introCover")
             button(type="button" @click.stop="showReportContent(report.id)") {{ report.btnTxt }}
-          .report__intro--related(v-if="!$root.inReportCover && !isReportContent")
+          .report__intro--related(v-else)
             p {{report.introRelated}}
       component(:is="`ReportContent${report.id}`" v-if="isReportContent")
 </template>
@@ -54,7 +54,7 @@ export default {
   data () {
     return {
       isReportContent: false,
-      curtReportId: 0,
+      currentReportId: 0,
       allReports: {
         report1: {
           id: 1,
@@ -98,32 +98,30 @@ export default {
   },
   methods: {
     isReport (id) {
-      return !this.curtReportId || (this.curtReportId === id)
+      return !this.currentReportId || (this.currentReportId === id)
     },
     showReportFromHome (id) {
-      this.$root.curtReport = document.getElementById(`report${id}`)
+      this.$root.currentReport = document.getElementById(`report${id}`)
       this.isReportContent = true
-      this.curtReportId = id
+      this.currentReportId = id
       this.$root.removedRelatedReportId = id
-      TweenLite.set(this.$root.curtReport, {
+      TweenLite.set(this.$root.currentReport, {
         position: '',
         height: ''
       })
-      // this.$root.curtReport.style.cssText = ''
-      this.$root.seenReports += 1
-      this.$root.baseReports.push(this.$root.seenReports)
+      this.$root.switchTimes += 1
+      this.$root.baseReports.push(this.$root.switchTimes)
     },
     showReportContent (id) {
       this.isReportContent = true
-      this.curtReportId = id
+      this.currentReportId = id
       this.$root.removedRelatedReportId = id
-      // this.$root.curtReport.style.cssText = ''
-      TweenLite.set(this.$root.curtReport, {
+      TweenLite.set(this.$root.currentReport, {
         position: '',
         height: ''
       })
-      this.$root.seenReports += 1
-      this.$root.baseReports.push(this.$root.seenReports)
+      this.$root.switchTimes += 1
+      this.$root.baseReports.push(this.$root.switchTimes)
       // MODIFY
       this.$root.inReportCover = false
       // MODIFY
@@ -151,29 +149,28 @@ export default {
     // },
     showReportFromRelated (evt, id) {
       const self = evt.currentTarget
-      if ((this.$root.curtReport === self) || this.isShowingReport) return
+      if ((this.$root.currentReport === self) || this.isShowingReport) return
       this.isShowingReport = true
-      this.curtReportId = id
+      this.currentReportId = id
       this.$root.removedRelatedReportId = id
       // MODIFY
-      this.$root.curtReport.style.opacity = 0
+      this.$root.currentReport.style.opacity = 0
       // MODIFY
-      // TweenLite.to(this.$root.curtReport, 0.8, {
+      // TweenLite.to(this.$root.currentReport, 0.8, {
       //   css: {
       //     opacity: 0
       //   },
       //   ease: Power3.easeIn,
       //   onComplete: () => {
       this.$root.baseReports.shift()
-      // self.classList.add('report--curt')
       self.style.cursor = 'auto'
-      this.$root.seenReports += 1
-      this.$root.baseReports.push(this.$root.seenReports)
+      this.$root.switchTimes += 1
+      this.$root.baseReports.push(this.$root.switchTimes)
       this.isReportContent = true
       this.isShowingReport = false
       //   }
       // })
-      this.$root.curtReport = self
+      this.$root.currentReport = self
       if (!this.$root.isPopState) {
         history.pushState(
           {
@@ -190,6 +187,8 @@ export default {
 </script>
 
 <style lang="stylus">
+#reports
+  overflow hidden
 .report
   display flex
   justify-content center
@@ -199,28 +198,22 @@ export default {
   top 0
   z-index 19
   flex-direction column
-  // todo 封面底下會爆開
   padding-top 64px
   padding-bottom 64px
-  // padding-bottom 80px
   box-sizing border-box
   overflow hidden
   cursor pointer
   & h1
     font-size 4.8rem
     font-weight 700
-    // line-height 1.45
     line-height 1.5
   &__cover
     &-img
       z-index -9
-      // background-size 1280px
     &-txt
       max-width 768px
       text-align center
-      // width 60%
   &__intro
-    // margin-top 32px
     font-size 2.4rem
     &--cover
       line-height 1.8
@@ -230,21 +223,14 @@ export default {
           margin-top 16px
       & button
         color #f6f6f6
-        // color #fff
         font-size 2.0rem
-        // margin-top 48px
         margin-top 56px
-        // border-radius 6px
         line-height 1.8
-        // background-color rgba(#154d70, 0.8)
         background-color #154d70
-        // padding 16px 28px
         padding 12px 28px
     &--related
       line-height 1.6
-// .report--curt
-//   cursor auto
-//
+
 .report--home
   height 0
   transform translateY(100vh)
