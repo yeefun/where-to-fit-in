@@ -15,7 +15,7 @@ new Vue({
     removedRelatedReportId: 0,
     isPopState: false,
     ww: window.innerWidth,
-    wh: document.documentElement.clientHeight,
+    wh: window.innerHeight,
     isMounted: false
   },
   mounted () {
@@ -25,7 +25,7 @@ new Vue({
   methods: {
     alterWindowSize () {
       this.ww = window.innerWidth
-      this.wh = document.documentElement.clientHeight
+      this.wh = window.innerHeight
     }
   }
 }).$mount('#app')
