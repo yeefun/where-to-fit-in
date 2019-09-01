@@ -1,17 +1,17 @@
 <template lang="pug">
-  // todo 無法全部動畫結束後才觸發 after-leave
+  //- todo 無法全部動畫結束後才觸發 after-leave
   //- transition-group#reports(
   //-   tag="section"
   //-   @leave="hideRelatedReport"
   //-   @after-leave="$root.inReportCover = false"
   //-   :css="false"
   //- )
+  //- :class="{ 'report--home': $root.inReportCover }"
   section#reports(:style="{ height: $root.inReportCover ? 0 : '' }")
     article.report(
       v-for="report in relatedReports"
       :key="report.id"
       :id="`report${report.id}`"
-      :class="{ 'report--home': $root.inReportCover }"
       v-if="isReport(report.id)"
       @click="showReportFromRelated($event, report.id)"
     )
@@ -231,9 +231,9 @@ export default {
     &--related
       line-height 1.6
 
-.report--home
-  height 0
-  transform translateY(100vh)
+// .report--home
+//   height 0
+//   transform translateY(100vh)
 #report1__cover
   background-image url(../assets/img/cover/lap/report1_bottom.png), url(../assets/img/cover/lap/report1_top.jpg)
   background-position center bottom, center top
