@@ -16,6 +16,8 @@ module.exports = {
   },
   globals: {
     TweenLite: true,
-    Power3: true
+    Power3: true,
+    Power2: true,
+    Expo: true
   }
 }

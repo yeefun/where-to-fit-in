@@ -1,6 +1,7 @@
 <template lang="pug">
   #app
-    img#logo(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
+    img#logo.link-anim(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
+    CustomCursor(ref="customCursor")
     HomeCover
     BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
@@ -9,42 +10,29 @@
 <script>
 import HomeCover from '../components/HomeCover.vue'
 import BaseReport from '../components/BaseReport.vue'
+import CustomCursor from '../components/CustomCursor.vue'
 // import TitleAnchor from '../components/TitleAnchor.vue'
 
 export default {
   name: 'app',
   components: {
     HomeCover,
-    BaseReport
+    BaseReport,
+    CustomCursor
     // TitleAnchor
   },
-  beforeCreate () {
+  created () {
     TweenLite.selector = function (val) {
       return document.querySelectorAll(val)
     }
-    window.addEventListener('popstate', (evt) => {
-      const state = evt.state
-      if (!state || state.place === 'home') {
-        this.backToHome()
-      } else {
-        const id = state.id
-        if (this.$root.inHome) {
-          TweenLite.to('#home-cover', 0.8, {
-            css: {
-              opacity: 0
-            },
-            // ease: Power3.easeIn,
-            onComplete: () => {
-              this.$refs.baseReports[0].showReportFromHome(id)
-              this.$root.inHome = false
-            }
-          })
-        } else {
-          this.$root.isPopState = true
-          document.getElementById(`report${id}`).click()
-          this.$root.isPopState = false
-        }
-      }
+    window.addEventListener('popstate', this.handlePopstate)
+  },
+  mounted () {
+    const linkEls = document.querySelectorAll('.link-anim')
+    linkEls.forEach((el) => {
+      el.addEventListener('mouseenter', this.animateCursorEnter)
+      el.addEventListener('mouseleave', this.animateCursorLeave)
+      // el.addEventListener('click', this.animateCursorClick)
     })
   },
   data () {
@@ -90,17 +78,18 @@ export default {
       this.$root.inHome = true
       this.$root.currentReport = null
       this.$root.removedRelatedReportId = 0
-      TweenLite.to('#reports', 0.8, {
+      TweenLite.to('#reports', 0.6, {
         css: {
-          opacity: 0
-        }
-        // ease: Power3.easeIn
-      })
-      TweenLite.to('#home-cover', 0.8, {
-        css: {
-          opacity: 1
+          autoAlpha: 0
         },
-        // ease: Power3.easeIn,
+        ease: Power2.easeInOut
+      })
+      TweenLite.to('#home-cover', 0.6, {
+        css: {
+          autoAlpha: 1
+        },
+        delay: 0.3,
+        ease: Power3.easeInOut,
         onComplete: () => {
           this.$root.inReportCover = true
           this.$root.baseReports.splice(0)
@@ -108,8 +97,63 @@ export default {
           this.$root.baseReports.push(this.$root.switchTimes)
         }
       })
-      history.pushState({ place: 'home' }, '', '/')
+      history.pushState({ place: 'home' }, '', './')
+    },
+    handlePopstate (evt) {
+      const state = evt.state
+      if (!state || state.place === 'home') {
+        this.backToHome()
+      } else {
+        const id = state.id
+        if (this.$root.inHome) {
+          TweenLite.to('#home-cover', 0.8, {
+            css: {
+              opacity: 0
+            },
+            // ease: Power3.easeIn,
+            onComplete: () => {
+              this.$refs.baseReports[0].showReportFromHome(id)
+              this.$root.inHome = false
+            }
+          })
+        } else {
+          this.$root.isPopState = true
+          document.getElementById(`report${id}`).click()
+          this.$root.isPopState = false
+        }
+      }
+    },
+    animateCursorEnter () {
+      TweenLite.to(this.$refs.customCursor.$el, 0.65, {
+        css: {
+          scale: 1.2
+        },
+        ease: Power3.easeInOut
+      })
+    },
+    animateCursorLeave () {
+      TweenLite.to(this.$refs.customCursor.$el, 0.65, {
+        css: {
+          scale: 1
+        },
+        ease: Power2.easeInOut
+      })
     }
+    // animateCursorClick () {
+    //   TweenLite.to(this.$refs.customCursor.$el, 0.2, {
+    //     css: {
+    //       scale: 2,
+    //       opacity: 0
+    //     }
+    //   })
+    //   TweenLite.to(this.$refs.customCursor.$el, 0.2, {
+    //     css: {
+    //       scale: 1,
+    //       opacity: 1
+    //     },
+    //     delay: 0.8
+    //   })
+    // }
   }
 }
 </script>

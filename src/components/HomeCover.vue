@@ -1,13 +1,15 @@
 <template lang="pug">
   section#home-cover
     .home-cover__mrt.full-img
-    svg.home-cover__clicked-persons(viewBox="0 0 1921 1388" :style="clickedPersonsSize")
-      g(
-        v-for="(path, idx) in paths"
-        :data-person="idx + 1"
-        @mouseover="showPerson" @mouseout="hidePerson" @click="showReportCover"
-      )
-        path(:d="path")
+    .home-cover__mask.full-page(ref="mask")
+    .home-cover__clicked-persons
+      svg(viewBox="0 0 1921 1388" :style="clickedPersonsSize")
+        g(
+          v-for="(path, idx) in paths"
+          :data-person="idx + 1"
+          @mouseenter="showPerson" @mouseleave="hidePerson" @click="showReportCover"
+        )
+          path.link-anim(:d="path")
     .full-page
       .home-cover__person.full-page.full-img(v-for="idx in 5" :id="`person${idx}`")
 </template>
@@ -41,24 +43,36 @@ export default {
       const self = evt.currentTarget
       const idx = self.dataset.person
       this.$root.currentPerson = document.getElementById(`person${idx}`)
-      TweenLite.to(this.$root.currentPerson, 0.4, {
+      TweenLite.to(this.$root.currentPerson, 0.65, {
         css: {
-          opacity: 1
-        }
-        // ease: Power3.easeOut
+          autoAlpha: 1
+        },
+        ease: Power3.easeOut
+      })
+      TweenLite.to(this.$refs.mask, 0.65, {
+        css: {
+          autoAlpha: 0.64
+        },
+        ease: Expo.easeOut
       })
     },
     hidePerson () {
       if (this.isEnteringReportCover) return
-      TweenLite.to(this.$root.currentPerson, 0.4, {
+      TweenLite.to(this.$root.currentPerson, 0.65, {
         css: {
-          opacity: 0
-        }
-        // ease: Power3.easeOut
+          autoAlpha: 0
+        },
+        ease: Power2.easeOut
+      })
+      TweenLite.to(this.$refs.mask, 0.65, {
+        css: {
+          autoAlpha: 0
+        },
+        ease: Expo.easeOut
       })
     },
     showReportCover (evt) {
-      evt.stopImmediatePropagation()
+      // evt.stopImmediatePropagation()
       const self = evt.currentTarget
       const idx = self.dataset.person
       this.$root.currentReport = document.getElementById(`report${idx}`)
@@ -68,33 +82,28 @@ export default {
         css: {
           position: 'absolute',
           height: '100vh',
-          // opacity: 0,
-          // y: '',
           cursor: 'auto'
         }
       })
-      TweenLite.to('#home-cover', 0.4, {
+      TweenLite.to('#home-cover', 0.6, {
         css: {
-          scale: 0
+          autoAlpha: 0
         },
-        // ease: Back.easeIn.config(1),
-        ease: Power3.easeIn
+        ease: Power2.easeInOut
       })
-      TweenLite.from(this.$root.currentReport, 0.4, {
+      TweenLite.from(this.$root.currentReport, 0.6, {
         css: {
-          scale: 0
+          autoAlpha: 0
         },
-        delay: 0.2,
-        // ease: Back.easeOut.config(1),
-        ease: Power3.easeOut,
+        delay: 0.3,
+        ease: Power3.easeInOut,
         onComplete: () => {
-          this.$root.currentPerson.style.opacity = 0
-          this.isEnteringReportCover = false
-          TweenLite.set('#home-cover', {
+          TweenLite.set([this.$root.currentPerson, this.$refs.mask], {
             css: {
-              scale: 1
+              autoAlpha: 0
             }
           })
+          this.isEnteringReportCover = false
         }
       })
     }
@@ -114,6 +123,9 @@ export default {
     height 100%
     background-image url(../assets/img/cover/lap/home_mrt.jpg)
     // background-size cover
+  &__mask
+    background-color #144e79
+    opacity 0
   &__clicked-persons
     position absolute
     top 0

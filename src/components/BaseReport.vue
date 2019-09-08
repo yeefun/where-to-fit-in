@@ -14,19 +14,20 @@
       :id="`report${report.id}`"
       v-if="isReport(report.id)"
       @click="showReportFromRelated($event, report.id)"
+      :class="{ 'report--normal': (currentReportId === report.id) || $root.inReportCover }"
     )
-      .report__cover-img.full-page.full-img(:id="`report${report.id}__cover`")
+      .report__cover-img.full-page.full-img(:id="`report${report.id}__cover`" :style="{ height: currentReportId !== report.id ? '100%' : '' }")
       .report__cover-txt
         h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#090909'}") {{ report.title }}
         .report__intro(
           v-if="!isReportContent"
-          :style="{ marginTop: $root.inReportCover ? '32px' : '24px', color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#1b2733' }"
+          :style="introStyle(report.id)"
         )
           .report__intro--cover(v-if="$root.inReportCover")
             div(v-html="report.introCover")
-            button(type="button" @click.stop="showReportContent(report.id)") {{ report.btnTxt }}
+            button.link-anim(type="button" @click.stop="showReportContent(report.id)") {{ report.btnTxt }}
           .report__intro--related(v-else)
-            p {{report.introRelated}}
+            p {{ report.introRelated }}
       component(:is="`ReportContent${report.id}`" v-if="isReportContent")
 </template>
 
@@ -99,6 +100,12 @@ export default {
   methods: {
     isReport (id) {
       return !this.currentReportId || (this.currentReportId === id)
+    },
+    introStyle (id) {
+      return {
+        marginTop: this.$root.inReportCover ? '32px' : '24px',
+        color: (id === 5 || id === 2) ? '#f6f6f6' : '#1b2733'
+      }
     },
     showReportFromHome (id) {
       this.$root.currentReport = document.getElementById(`report${id}`)
@@ -203,6 +210,10 @@ export default {
   box-sizing border-box
   overflow hidden
   cursor pointer
+  &--normal
+    padding-top 0
+    padding-bottom 0
+    // height 0
   & h1
     font-size 4.8rem
     font-weight 700
