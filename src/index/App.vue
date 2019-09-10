@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
-    img#logo.link-anim(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
-    CustomCursor(ref="customCursor")
+    img#logo.clickable(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
+    CustomCursor
     HomeCover
     BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
@@ -28,7 +28,7 @@ export default {
     window.addEventListener('popstate', this.handlePopstate)
   },
   mounted () {
-    const linkEls = document.querySelectorAll('.link-anim')
+    const linkEls = document.querySelectorAll('.clickable')
     linkEls.forEach((el) => {
       el.addEventListener('mouseenter', this.animateCursorEnter)
       el.addEventListener('mouseleave', this.animateCursorLeave)
@@ -124,29 +124,31 @@ export default {
       }
     },
     animateCursorEnter () {
-      TweenLite.to(this.$refs.customCursor.$el, 0.65, {
+      TweenLite.to('#circle-cursor', 0.3, {
         css: {
-          scale: 1.2
+          scale: 8,
+          opacity: 0.6
         },
         ease: Power3.easeInOut
       })
     },
     animateCursorLeave () {
-      TweenLite.to(this.$refs.customCursor.$el, 0.65, {
+      TweenLite.to('#circle-cursor', 0.3, {
         css: {
-          scale: 1
+          scale: 1,
+          opacity: 1
         },
         ease: Power2.easeInOut
       })
     }
     // animateCursorClick () {
-    //   TweenLite.to(this.$refs.customCursor.$el, 0.2, {
+    //   TweenLite.to('#circle-cursor', 0.2, {
     //     css: {
     //       scale: 2,
     //       opacity: 0
     //     }
     //   })
-    //   TweenLite.to(this.$refs.customCursor.$el, 0.2, {
+    //   TweenLite.to('#circle-cursor', 0.2, {
     //     css: {
     //       scale: 1,
     //       opacity: 1

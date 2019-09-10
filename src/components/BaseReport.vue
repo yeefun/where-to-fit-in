@@ -25,7 +25,7 @@
         )
           .report__intro--cover(v-if="$root.inReportCover")
             div(v-html="report.introCover")
-            button.link-anim(type="button" @click.stop="showReportContent(report.id)") {{ report.btnTxt }}
+            button.clickable(type="button" @click.stop="showReportContent(report.id)") {{ report.btnTxt }}
           .report__intro--related(v-else)
             p {{ report.introRelated }}
       component(:is="`ReportContent${report.id}`" v-if="isReportContent")
