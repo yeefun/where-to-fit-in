@@ -7,7 +7,7 @@
   //-   :css="false"
   //- )
   //- :class="{ 'report--home': $root.inReportCover }"
-  section#reports(:style="{ height: $root.inReportCover ? 0 : '' }")
+  section.reports(:style="{ height: $root.inReportCover ? 0 : '' }")
     article.report(
       v-for="report in relatedReports"
       :key="report.id"
@@ -16,13 +16,12 @@
       @click="showReportFromRelated($event, report.id)"
       :class="{ 'report--normal': (currentReportId === report.id) || $root.inReportCover }"
     )
+
       .report__cover-img.full-page.full-img(:id="`report${report.id}__cover`" :style="{ height: currentReportId !== report.id ? '100%' : '' }")
-      .report__cover-txt
+      //- transition(:css="false" @enter="fadeReportCoverTxt")
+      .report__cover-txt(:id="`report-cover-txt${report.id}`")
         h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#090909'}") {{ report.title }}
-        .report__intro(
-          v-if="!isReportContent"
-          :style="introStyle(report.id)"
-        )
+        .report__intro(v-if="!isReportContent" :style="introStyle(report.id)")
           .report__intro--cover(v-if="$root.inReportCover")
             div(v-html="report.introCover")
             button.clickable(type="button" @click.stop="showReportContent(report.id)") {{ report.btnTxt }}
@@ -55,6 +54,7 @@ export default {
   data () {
     return {
       isReportContent: false,
+      // isReportCoverTxt: false,
       currentReportId: 0,
       allReports: {
         report1: {
@@ -107,6 +107,16 @@ export default {
         color: (id === 5 || id === 2) ? '#f6f6f6' : '#1b2733'
       }
     },
+    // fadeReportCoverTxt (el, done) {
+    //   TweenLite.from(el, 0.6, {
+    //     css: {
+    //       opacity: 0,
+    //       y: 10
+    //     },
+    //     delay: 0.6,
+    //     ease: Power3.easeInOut
+    //   })
+    // },
     showReportFromHome (id) {
       this.$root.currentReport = document.getElementById(`report${id}`)
       this.isReportContent = true
@@ -194,7 +204,7 @@ export default {
 </script>
 
 <style lang="stylus">
-#reports
+.reports
   overflow hidden
 .report
   display flex
@@ -224,6 +234,7 @@ export default {
     &-txt
       max-width 768px
       text-align center
+      // transform-origin center top
   &__intro
     font-size 2.4rem
     &--cover
@@ -237,8 +248,13 @@ export default {
         font-size 2.0rem
         margin-top 56px
         line-height 1.8
-        background-color #154d70
-        padding 12px 28px
+        background-color rgba(#0a2d4f, 0.88)
+        // border 2px solid rgba(#0a2d4f, 0.9)
+        // background-color transparent
+        // color #0a2d4f
+        border-radius 200px
+        padding 12px 32px
+        font-weight 500
     &--related
       line-height 1.6
 

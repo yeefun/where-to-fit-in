@@ -14,6 +14,7 @@ new Vue({
     currentReport: null,
     removedRelatedReportId: 0,
     isPopState: false,
+    // isReportCoverTxt: false,
     ww: window.innerWidth,
     wh: window.innerHeight
     // isMounted: false

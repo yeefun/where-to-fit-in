@@ -1,8 +1,11 @@
 <template lang="pug">
   #app
     img#logo.clickable(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
-    CustomCursor
-    HomeCover
+    CustomCursor(ref="cursor")
+    HomeCover(ref="homeCover")
+    //- .close
+    //-   .close__cross.close__cross--left
+    //-   .close__cross.close__cross--right
     BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
@@ -22,14 +25,13 @@ export default {
     // TitleAnchor
   },
   created () {
-    TweenLite.selector = function (val) {
-      return document.querySelectorAll(val)
-    }
-    window.addEventListener('popstate', this.handlePopstate)
+    // TweenLite.selector = (val) => document.querySelectorAll(val)
+    window.addEventListener('popstate', this.handlePopState)
   },
   mounted () {
-    const linkEls = document.querySelectorAll('.clickable')
-    linkEls.forEach((el) => {
+    // todo 要動態綁定
+    const clickableEls = document.querySelectorAll('.clickable')
+    clickableEls.forEach((el) => {
       el.addEventListener('mouseenter', this.animateCursorEnter)
       el.addEventListener('mouseleave', this.animateCursorLeave)
       // el.addEventListener('click', this.animateCursorClick)
@@ -78,13 +80,13 @@ export default {
       this.$root.inHome = true
       this.$root.currentReport = null
       this.$root.removedRelatedReportId = 0
-      TweenLite.to('#reports', 0.6, {
+      TweenLite.to('.reports', 0.6, {
         css: {
           autoAlpha: 0
         },
         ease: Power2.easeInOut
       })
-      TweenLite.to('#home-cover', 0.6, {
+      TweenLite.to(this.$refs.homeCover.$el, 0.6, {
         css: {
           autoAlpha: 1
         },
@@ -99,14 +101,14 @@ export default {
       })
       history.pushState({ place: 'home' }, '', './')
     },
-    handlePopstate (evt) {
+    handlePopState (evt) {
       const state = evt.state
       if (!state || state.place === 'home') {
         this.backToHome()
       } else {
         const id = state.id
         if (this.$root.inHome) {
-          TweenLite.to('#home-cover', 0.8, {
+          TweenLite.to(this.$refs.homeCover.$el, 0.8, {
             css: {
               opacity: 0
             },
@@ -124,38 +126,35 @@ export default {
       }
     },
     animateCursorEnter () {
-      TweenLite.to('#circle-cursor', 0.3, {
+      TweenLite.to(this.$refs.cursor.$el, 0.3, {
         css: {
-          scale: 8,
+          scale: 7.2,
           opacity: 0.6
+        },
+        ease: Power3.easeInOut
+      })
+      TweenLite.to('#inner-cursor', 0.2, {
+        css: {
+          scale: 0
         },
         ease: Power3.easeInOut
       })
     },
     animateCursorLeave () {
-      TweenLite.to('#circle-cursor', 0.3, {
+      TweenLite.to(this.$refs.cursor.$el, 0.3, {
         css: {
           scale: 1,
           opacity: 1
         },
         ease: Power2.easeInOut
       })
+      TweenLite.to('#inner-cursor', 0.4, {
+        css: {
+          scale: 1
+        },
+        ease: Power2.easeInOut
+      })
     }
-    // animateCursorClick () {
-    //   TweenLite.to('#circle-cursor', 0.2, {
-    //     css: {
-    //       scale: 2,
-    //       opacity: 0
-    //     }
-    //   })
-    //   TweenLite.to('#circle-cursor', 0.2, {
-    //     css: {
-    //       scale: 1,
-    //       opacity: 1
-    //     },
-    //     delay: 0.8
-    //   })
-    // }
   }
 }
 </script>
@@ -166,7 +165,7 @@ export default {
 html
   font-size 10px
 body
-  font-family "Noto Sans TC", sans-serif
+  font-family "Noto Sans CJK TC", sans-serif
   background-color #f6f6f6
 // #app
 //   overflow hidden
@@ -177,6 +176,25 @@ body
   margin-top 24px
   margin-left 32px
   cursor pointer
+// .close
+//   width 32px
+//   height 32px
+//   position absolute
+//   left 50%
+//   transform translateX(-50%)
+//   z-index 999
+//   bottom 100px
+  // &__cross
+  //   width 32px
+  //   height 4px
+  //   background-color rgba(#fff, 0.8)
+  //   position absolute
+  //   top 50%
+  //   left 50%
+  //   &--left
+  //     transform translate(-50%, -50%) rotate(45deg)
+  //   &--right
+  //     transform translate(-50%, -50%) rotate(-45deg)
 .full-page
   position absolute
   width 100%
@@ -192,7 +210,7 @@ button
   border 0
   outline 0
   cursor pointer
-  font-family "Noto Sans TC", sans-serif
+  font-family "Noto Sans CJK TC", sans-serif
   user-select none
 img
   height auto

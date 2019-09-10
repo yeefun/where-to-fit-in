@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
     img#logo(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
-    HomeCover
+    HomeCover(ref="homeCover")
     BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
 </template>
 
@@ -12,9 +12,9 @@ import BaseReport from '../components/BaseReport.vue'
 export default {
   name: 'app',
   beforeCreate () {
-    TweenLite.selector = function (val) {
-      return document.querySelectorAll(val)
-    }
+    // TweenLite.selector = function (val) {
+    //   return document.querySelectorAll(val)
+    // }
     window.addEventListener('popstate', (evt) => {
       const state = evt.state
       if (!state || state.place === 'home') {
@@ -22,7 +22,7 @@ export default {
       } else {
         const id = state.id
         if (this.$root.inHome) {
-          TweenLite.to('#home-cover', 0.8, {
+          TweenLite.to(this.$refs.homeCover.$el, 0.8, {
             css: {
               opacity: 0
             },
@@ -50,7 +50,7 @@ export default {
       this.$root.inHome = true
       this.$root.currentReport = null
       this.$root.removedRelatedReportId = 0
-      TweenLite.to('#reports', 0.8, {
+      TweenLite.to('.reports', 0.8, {
         css: {
           opacity: 0
         },
@@ -58,7 +58,7 @@ export default {
         onComplete: () => {
           this.$root.inReportCover = true
           this.$root.baseReports.splice(0)
-          TweenLite.to('#home-cover', 0.8, {
+          TweenLite.to(this.$refs.homeCover.$el, 0.8, {
             css: {
               opacity: 1
             },

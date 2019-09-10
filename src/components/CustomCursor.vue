@@ -1,9 +1,11 @@
 <template lang="pug">
-  .custom-cursor(:style="{ marginTop: isCrossCursor ? 0 : '-16px', marginLeft: isCrossCursor ? 0 : '-16px' }")
-    .custom-cursor__circle#circle-cursor(v-show="!isCrossCursor")
-    //- template(v-show="isCrossCursor")
-    .custom-cursor__cross.custom-cursor__cross--left(v-show="isCrossCursor")
-    .custom-cursor__cross.custom-cursor__cross--right(v-show="isCrossCursor")
+  .custom-cursor
+    .custom-cursor__inner#inner-cursor
+      template(v-if="isCrossCursor")
+        .custom-cursor__cross.custom-cursor__cross--left
+        .custom-cursor__cross.custom-cursor__cross--right
+      .custom-cursor__circle(v-else)
+    //- .custom-cursor__circle#circle-cursor
 </template>
 
 <script>
@@ -11,10 +13,10 @@ export default {
   name: 'CustomCursor',
   data () {
     return {
+      pageX: 0,
+      pageY: 0,
       x: 0,
-      y: 0,
-      top: 0,
-      left: 0
+      y: 0
       // isCrossCursor: false
     }
   },
@@ -28,20 +30,20 @@ export default {
   },
   mounted () {
     TweenLite.ticker.addEventListener('tick', () => {
-      this.left += (this.x - this.left) / 8
-      this.top += (this.y - this.top) / 8
+      this.x += (this.pageX - this.x) / 8
+      this.y += (this.pageY - this.y) / 8
       TweenLite.set(this.$el, {
         css: {
-          left: this.left,
-          top: this.top
+          x: this.x,
+          y: this.y
         }
       })
     })
   },
   methods: {
     moveCursor (evt) {
-      this.x = evt.pageX
-      this.y = evt.pageY
+      this.pageX = evt.pageX
+      this.pageY = evt.pageY
     }
   }
 }
@@ -55,22 +57,39 @@ export default {
   left 0
   pointer-events none
   user-select none
-  // margin-top -16px
-  // margin-left -16px
+  width 32px
+  height 32px
+  margin-top -16px
+  margin-left -16px
+  border-radius 50%
+  // background-color rgba(#d5e6f0, 0.4)
+  background-color rgba(#fff, 0.4)
+  box-sizing border-box
+  // mix-blend-mode overlay
+  &__inner
+    position absolute
+    top 50%
+    left 50%
+    transform translate(-50%, -50%)
   &__circle
-    width 32px
-    height 32px
-    // width 24px
-    // height 24px
+    position absolute
+    background-color #fff
+    // background-color #d5e6f0
+    width 6px
+    height 6px
+    top 50%
+    left 50%
+    transform translate(-50%, -50%)
     border-radius 50%
-    // border 1px solid #2198cb
-    background-color rgba(#d5e6f0, 0.4)
-    box-sizing border-box
   &__cross
+    // visibility hidden
+    // opacity 0
     width 28px
-    height 4px
+    height 6px
     // background-color rgba(#144e79, 0.6)
-    background-color rgba(#598cc4, 0.6);
+    background-color #fff
+    // background-color #d5e6f0
+    // background-color rgba(10, 45, 79, 1)
     position absolute
     top 50%
     left 50%
@@ -79,14 +98,9 @@ export default {
     &--right
       transform translate(-50%, -50%) rotate(-45deg)
   // &__circle
-  //   width 20px
-  //   height 20px
-  //   background-color #2198cb
+  //   width 32px
+  //   height 32px
   //   border-radius 50%
-  //   position absolute
-  //   top 50%
-  //   left 50%
-  //   transform translate(-50%, -50%)
-  // &.link
-  //   transform scale(1.2)
+  //   background-color rgba(#d5e6f0, 0.4)
+  //   box-sizing border-box
 </style>
