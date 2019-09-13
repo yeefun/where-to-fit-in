@@ -148,6 +148,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    this.$emit('loaded')
   }
 }
 </script>

@@ -1,10 +1,12 @@
 <template lang="pug">
   .custom-cursor
-    .custom-cursor__inner#inner-cursor
-      template(v-if="isCrossCursor")
-        .custom-cursor__cross.custom-cursor__cross--left
-        .custom-cursor__cross.custom-cursor__cross--right
-      .custom-cursor__circle(v-else)
+    .custom-cursor__inner
+      transition(:css="false" @enter="handleEnter" @leave="handleLeave")
+        //- template(v-if="isCrossCursor")
+        div(v-if="isCrossCursor" key="cross")
+          .custom-cursor__cross.custom-cursor__cross--left
+          .custom-cursor__cross.custom-cursor__cross--right
+        .custom-cursor__circle(v-else key="circle")
     //- .custom-cursor__circle#circle-cursor
 </template>
 
@@ -44,6 +46,25 @@ export default {
     moveCursor (evt) {
       this.pageX = evt.pageX
       this.pageY = evt.pageY
+    },
+    handleEnter (el, done) {
+      TweenLite.from(el, 0.6, {
+        css: {
+          scale: 0
+        },
+        delay: 0.3,
+        ease: Power3.easeInOut,
+        onComplete: done
+      })
+    },
+    handleLeave (el, done) {
+      TweenLite.to(el, 0.6, {
+        css: {
+          scale: 0
+        },
+        ease: Power2.easeInOut,
+        onComplete: done
+      })
     }
   }
 }
@@ -65,7 +86,7 @@ export default {
   // background-color rgba(#d5e6f0, 0.4)
   background-color rgba(#fff, 0.4)
   box-sizing border-box
-  // mix-blend-mode overlay
+  mix-blend-mode overlay
   &__inner
     position absolute
     top 50%
@@ -85,7 +106,7 @@ export default {
     // visibility hidden
     // opacity 0
     width 28px
-    height 6px
+    height 8px
     // background-color rgba(#144e79, 0.6)
     background-color #fff
     // background-color #d5e6f0

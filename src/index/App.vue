@@ -6,7 +6,7 @@
     //- .close
     //-   .close__cross.close__cross--left
     //-   .close__cross.close__cross--right
-    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports")
+    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
 
@@ -77,6 +77,7 @@ export default {
   methods: {
     backToHome () {
       if (this.$root.inHome) return
+      const homeCover = this.$refs.homeCover.$el
       this.$root.inHome = true
       this.$root.currentReport = null
       this.$root.removedRelatedReportId = 0
@@ -86,7 +87,7 @@ export default {
         },
         ease: Power2.easeInOut
       })
-      TweenLite.to(this.$refs.homeCover.$el, 0.6, {
+      TweenLite.to(homeCover, 0.6, {
         css: {
           autoAlpha: 1
         },
@@ -103,12 +104,13 @@ export default {
     },
     handlePopState (evt) {
       const state = evt.state
+      const homeCover = this.$refs.homeCover.$el
       if (!state || state.place === 'home') {
         this.backToHome()
       } else {
         const id = state.id
         if (this.$root.inHome) {
-          TweenLite.to(this.$refs.homeCover.$el, 0.8, {
+          TweenLite.to(homeCover, 0.8, {
             css: {
               opacity: 0
             },
@@ -126,14 +128,16 @@ export default {
       }
     },
     animateCursorEnter () {
-      TweenLite.to(this.$refs.cursor.$el, 0.3, {
+      const cursor = this.$refs.cursor.$el
+      const innerCursor = cursor.firstChild
+      TweenLite.to(cursor, 0.3, {
         css: {
           scale: 7.2,
           opacity: 0.6
         },
         ease: Power3.easeInOut
       })
-      TweenLite.to('#inner-cursor', 0.2, {
+      TweenLite.to(innerCursor, 0.2, {
         css: {
           scale: 0
         },
@@ -141,14 +145,16 @@ export default {
       })
     },
     animateCursorLeave () {
-      TweenLite.to(this.$refs.cursor.$el, 0.3, {
+      const cursor = this.$refs.cursor.$el
+      const innerCursor = cursor.firstChild
+      TweenLite.to(cursor, 0.3, {
         css: {
           scale: 1,
           opacity: 1
         },
         ease: Power2.easeInOut
       })
-      TweenLite.to('#inner-cursor', 0.4, {
+      TweenLite.to(innerCursor, 0.4, {
         css: {
           scale: 1
         },

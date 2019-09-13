@@ -13,24 +13,35 @@
       :key="report.id"
       :id="`report${report.id}`"
       v-if="isReport(report.id)"
-      @click="showReportFromRelated($event, report.id)"
+      @click="handleClick($event, report.id)"
+      :style="{ 'justify-content': $root.inReportCover ? 'center' : ''}"
       :class="{ 'report--normal': (currentReportId === report.id) || $root.inReportCover }"
     )
-
       .report__cover-img.full-page.full-img(:id="`report${report.id}__cover`" :style="{ height: currentReportId !== report.id ? '100%' : '' }")
       //- transition(:css="false" @enter="fadeReportCoverTxt")
       .report__cover-txt(:id="`report-cover-txt${report.id}`")
         h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#090909'}") {{ report.title }}
-        .report__intro(v-if="!isReportContent" :style="introStyle(report.id)")
+        .report__intro(
+          v-if="!isReportContent"
+          :style="introStyle(report.id)"
+          :id="`report-intro${report.id}`"
+        )
           .report__intro--cover(v-if="$root.inReportCover")
             div(v-html="report.introCover")
-            button.clickable(type="button" @click.stop="showReportContent(report.id)") {{ report.btnTxt }}
+            button.clickable(type="button" @click.stop="loadReportContent(report.id)") {{ report.btnTxt }}
           .report__intro--related(v-else)
             p {{ report.introRelated }}
-      component(:is="`ReportContent${report.id}`" v-if="isReportContent")
+      component(
+        :is="`ReportContent${report.id}`"
+        v-if="isReportContent"
+        @loaded="fadeInReportContent"
+        :id="`report-content${report.id}`"
+      )
 </template>
 
 <script>
+// import ReportContent3 from './ReportContent3.vue'
+
 export default {
   name: 'BaseReport',
   components: {
@@ -40,6 +51,7 @@ export default {
     ReportContent4: () => import('./ReportContent4'),
     ReportContent5: () => import('./ReportContent5')
   },
+  props: ['backToHome'],
   created () {
     const id = this.$root.removedRelatedReportId
     if (id) {
@@ -53,6 +65,7 @@ export default {
   },
   data () {
     return {
+      // isReportIntro: true,
       isReportContent: false,
       // isReportCoverTxt: false,
       currentReportId: 0,
@@ -107,6 +120,10 @@ export default {
         color: (id === 5 || id === 2) ? '#f6f6f6' : '#1b2733'
       }
     },
+    handleClick (evt, id) {
+      this.showReportFromRelated(evt, id)
+      if (!this.$root.inHome && this.$root.inReportCover) this.backToHome()
+    },
     // fadeReportCoverTxt (el, done) {
     //   TweenLite.from(el, 0.6, {
     //     css: {
@@ -129,19 +146,38 @@ export default {
       this.$root.switchTimes += 1
       this.$root.baseReports.push(this.$root.switchTimes)
     },
-    showReportContent (id) {
-      this.isReportContent = true
+    loadReportContent (id) {
+      const reportCoverTxt = document.getElementById(`report-cover-txt${id}`)
       this.currentReportId = id
       this.$root.removedRelatedReportId = id
+      TweenLite.to(`#report-intro${id}`, 0.6, {
+        css: {
+          autoAlpha: 0,
+          y: 20
+        },
+        ease: Power2.easeInOut,
+        onComplete: () => {
+          reportCoverTxt.style.marginTop = `${reportCoverTxt.getBoundingClientRect().top}px`
+          this.$root.inReportCover = false
+          this.isReportContent = true
+        }
+      })
+    },
+    fadeInReportContent () {
+      const id = this.currentReportId
       TweenLite.set(this.$root.currentReport, {
         position: '',
         height: ''
       })
+      TweenLite.to(`#report-content${id}`, 0.9, {
+        css: {
+          opacity: 1,
+          y: 0
+        },
+        ease: Power3.easeInOut
+      })
       this.$root.switchTimes += 1
       this.$root.baseReports.push(this.$root.switchTimes)
-      // MODIFY
-      this.$root.inReportCover = false
-      // MODIFY
       history.pushState(
         {
           place: 'report',
@@ -208,7 +244,7 @@ export default {
   overflow hidden
 .report
   display flex
-  justify-content center
+  // justify-content center
   align-items center
   position relative
   width 100%
@@ -222,7 +258,7 @@ export default {
   cursor pointer
   &--normal
     padding-top 0
-    padding-bottom 0
+    padding-bottom 80px
     // height 0
   & h1
     font-size 4.8rem
