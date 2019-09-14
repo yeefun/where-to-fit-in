@@ -104,11 +104,11 @@ export default {
     },
     handlePopState (evt) {
       const state = evt.state
-      const homeCover = this.$refs.homeCover.$el
       if (!state || state.place === 'home') {
         this.backToHome()
       } else {
         const id = state.id
+        const homeCover = this.$refs.homeCover.$el
         if (this.$root.inHome) {
           TweenLite.to(homeCover, 0.8, {
             css: {

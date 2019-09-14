@@ -67,8 +67,8 @@ export default {
     font-size 1.6rem
     line-height 1.5
     &--block
-      display inline-block
-      width 100%
+      // display inline-block
+      // width 100%
       background-color #d7e9f3
       padding 16px 24px
       color: #1b2733

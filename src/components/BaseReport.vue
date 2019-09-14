@@ -1,24 +1,18 @@
 <template lang="pug">
-  //- todo 無法全部動畫結束後才觸發 after-leave
-  //- transition-group#reports(
-  //-   tag="section"
-  //-   @leave="hideRelatedReport"
-  //-   @after-leave="$root.inReportCover = false"
-  //-   :css="false"
-  //- )
-  //- :class="{ 'report--home': $root.inReportCover }"
-  section.reports(:style="{ height: $root.inReportCover ? 0 : '' }")
+  section.reports(:class="{ hide: $root.inReportCover }")
     article.report(
       v-for="report in relatedReports"
-      :key="report.id"
-      :id="`report${report.id}`"
       v-if="isReport(report.id)"
       @click="handleClick($event, report.id)"
-      :style="{ 'justify-content': $root.inReportCover ? 'center' : ''}"
-      :class="{ 'report--normal': (currentReportId === report.id) || $root.inReportCover }"
+      :key="report.id"
+      :style="{ 'justify-content': $root.inReportCover ? 'center' : '' }"
+      :id="`report${report.id}`"
+      :class="{ 'report--current': currentReportId === report.id }"
     )
-      .report__cover-img.full-page.full-img(:id="`report${report.id}__cover`" :style="{ height: currentReportId !== report.id ? '100%' : '' }")
-      //- transition(:css="false" @enter="fadeReportCoverTxt")
+      .report__cover-img.full-page.full-img(
+        :id="`report${report.id}__cover`"
+        :style="{ height: currentReportId !== report.id ? '100%' : '' }"
+      )
       .report__cover-txt(:id="`report-cover-txt${report.id}`")
         h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#090909'}") {{ report.title }}
         .report__intro(
@@ -124,16 +118,6 @@ export default {
       this.showReportFromRelated(evt, id)
       if (!this.$root.inHome && this.$root.inReportCover) this.backToHome()
     },
-    // fadeReportCoverTxt (el, done) {
-    //   TweenLite.from(el, 0.6, {
-    //     css: {
-    //       opacity: 0,
-    //       y: 10
-    //     },
-    //     delay: 0.6,
-    //     ease: Power3.easeInOut
-    //   })
-    // },
     showReportFromHome (id) {
       this.$root.currentReport = document.getElementById(`report${id}`)
       this.isReportContent = true
@@ -147,17 +131,15 @@ export default {
       this.$root.baseReports.push(this.$root.switchTimes)
     },
     loadReportContent (id) {
-      const reportCoverTxt = document.getElementById(`report-cover-txt${id}`)
       this.currentReportId = id
       this.$root.removedRelatedReportId = id
       TweenLite.to(`#report-intro${id}`, 0.6, {
         css: {
           autoAlpha: 0,
-          y: 20
+          y: 24
         },
-        ease: Power2.easeInOut,
+        ease: Circ.easeInOut,
         onComplete: () => {
-          reportCoverTxt.style.marginTop = `${reportCoverTxt.getBoundingClientRect().top}px`
           this.$root.inReportCover = false
           this.isReportContent = true
         }
@@ -165,6 +147,7 @@ export default {
     },
     fadeInReportContent () {
       const id = this.currentReportId
+
       TweenLite.set(this.$root.currentReport, {
         position: '',
         height: ''
@@ -174,10 +157,14 @@ export default {
           opacity: 1,
           y: 0
         },
-        ease: Power3.easeInOut
+        ease: Circ.easeInOut,
+        onComplete: () => {
+          this.$root.switchTimes += 1
+          this.$root.baseReports.push(this.$root.switchTimes)
+        }
       })
-      this.$root.switchTimes += 1
-      this.$root.baseReports.push(this.$root.switchTimes)
+      // this.$root.switchTimes += 1
+      // this.$root.baseReports.push(this.$root.switchTimes)
       history.pushState(
         {
           place: 'report',
@@ -187,53 +174,48 @@ export default {
         `./report${id}`
       )
     },
-    // hideRelatedReport (el, done) {
-    //   if (this.$root.inReportCover) {
-    //     done()
-    //   } else {
-    //     TweenLite.to(el, 0.8, {
-    //       css: {
-    //         opacity: 0
-    //       },
-    //       ease: Power3.easeIn,
-    //       onComplete: done
-    //     })
-    //   }
-    // },
     showReportFromRelated (evt, id) {
       const self = evt.currentTarget
-      if ((this.$root.currentReport === self) || this.isShowingReport) return
+      const currentReport = this.$root.currentReport
+      if ((currentReport === self) || this.isShowingReport) return
+
       this.isShowingReport = true
-      this.currentReportId = id
-      this.$root.removedRelatedReportId = id
-      // MODIFY
-      this.$root.currentReport.style.opacity = 0
-      // MODIFY
-      // TweenLite.to(this.$root.currentReport, 0.8, {
-      //   css: {
-      //     opacity: 0
-      //   },
-      //   ease: Power3.easeIn,
-      //   onComplete: () => {
-      this.$root.baseReports.shift()
-      self.style.cursor = 'auto'
-      this.$root.switchTimes += 1
-      this.$root.baseReports.push(this.$root.switchTimes)
-      this.isReportContent = true
-      this.isShowingReport = false
-      //   }
-      // })
-      this.$root.currentReport = self
-      if (!this.$root.isPopState) {
-        history.pushState(
-          {
-            place: 'report',
-            id
-          },
-          '',
-          `./report${id}`
-        )
-      }
+      const otherReports = [1, 2, 3, 4, 5].filter((num) => num !== id).map((num) => `#report${num}`)
+      const selfT = self.getBoundingClientRect().top
+
+      TweenLite.to(self, 0.45, {
+        css: {
+          y: -selfT,
+          height: '100vh'
+        },
+        ease: Circ.easeInOut,
+        onComplete: () => {
+          TweenLite.set(self, {
+            css: {
+              position: 'fixed',
+              y: 0,
+              cursor: 'auto'
+            }
+          })
+          this.$root.baseReports.shift()
+          document.documentElement.scrollTop = 0
+          document.body.scrollTop = 0
+        }
+      })
+      TweenLite.to(otherReports, 0.45, {
+        css: {
+          autoAlpha: 0
+        },
+        ease: Circ.easeInOut,
+        onComplete: () => {
+          // this.currentReportId = id
+          // this.$root.removedRelatedReportId = id
+          this.$root.currentReport = self
+          this.isShowingReport = false
+          // this.isReportContent = true
+          this.loadReportContent(id)
+        }
+      })
     }
   }
 }
@@ -241,7 +223,9 @@ export default {
 
 <style lang="stylus">
 .reports
-  overflow hidden
+  &.hide
+    overflow hidden
+    height 0
 .report
   display flex
   // justify-content center
@@ -249,6 +233,7 @@ export default {
   position relative
   width 100%
   top 0
+  left 0
   z-index 19
   flex-direction column
   padding-top 64px
@@ -256,10 +241,9 @@ export default {
   box-sizing border-box
   overflow hidden
   cursor pointer
-  &--normal
-    padding-top 0
+  &--current
+    padding-top 24vh
     padding-bottom 80px
-    // height 0
   & h1
     font-size 4.8rem
     font-weight 700
@@ -270,7 +254,6 @@ export default {
     &-txt
       max-width 768px
       text-align center
-      // transform-origin center top
   &__intro
     font-size 2.4rem
     &--cover
@@ -294,9 +277,6 @@ export default {
     &--related
       line-height 1.6
 
-// .report--home
-//   height 0
-//   transform translateY(100vh)
 #report1__cover
   background-image url(../assets/img/cover/lap/report1_bottom.png), url(../assets/img/cover/lap/report1_top.jpg)
   background-position center bottom, center top

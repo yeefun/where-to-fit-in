@@ -17,6 +17,7 @@ export default {
   & img
     width 100%
     display block
+    border-radius 2px
   & figcaption
     font-size 1.8rem
     line-height 1.4
