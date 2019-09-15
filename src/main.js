@@ -19,11 +19,7 @@ new Vue({
     beginningReportId: 0
   },
   created () {
-    const regexp = /^\/report[1-5]$/i
-    const pathname = window.location.pathname
-    if (regexp.test(pathname)) {
-      this.beginningReportId = Number(pathname[7])
-    }
+    this.checkReportId()
   },
   mounted () {
     window.addEventListener('resize', this.alterWindowSize)
@@ -32,6 +28,13 @@ new Vue({
     alterWindowSize () {
       this.ww = window.innerWidth
       this.wh = window.innerHeight
+    },
+    checkReportId () {
+      const regexp = /^\/report[1-5]$/i
+      const pathname = window.location.pathname
+      if (regexp.test(process.env.NODE_ENV === 'production' ? pathname.split('where-to-fit-in')[1] : pathname)) {
+        this.beginningReportId = Number(pathname[7])
+      }
     }
   }
 }).$mount('#app')

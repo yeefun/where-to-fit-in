@@ -146,7 +146,7 @@ export default {
           display: 'inline'
         },
         {
-          txt: '（160 公分／曾 85公斤）',
+          txt: '（160 公分／曾 85 公斤）',
           display: 'inline'
         }
       ]

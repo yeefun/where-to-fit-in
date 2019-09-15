@@ -7,7 +7,7 @@
       :key="report.id"
       :style="{ 'justify-content': $root.inReportCover ? 'center' : '' }"
       :id="`report${report.id}`"
-      :class="{ 'report--current': currentReportId === report.id }"
+      :class="reportClass(report.id)"
     )
       .report__cover-img.full-page.full-img(
         :id="`report${report.id}__cover`"
@@ -46,9 +46,12 @@ export default {
     ReportContent4: () => import('./ReportContent4'),
     ReportContent5: () => import('./ReportContent5')
   },
-  props: ['backToHome'],
+  props: ['backToHome', 'bindMouseEventsToCursor'],
   created () {
     if (!this.showReportFromBeginning()) this.loadRelatedReports()
+  },
+  mounted () {
+    this.bindMouseEventsToCursor()
   },
   data () {
     return {
@@ -100,6 +103,12 @@ export default {
   methods: {
     isReport (id) {
       return !this.currentReportId || (this.currentReportId === id)
+    },
+    reportClass (id) {
+      return {
+        'report--current': this.currentReportId === id,
+        clickable: !this.$root.inReportCover && (this.currentReportId !== id)
+      }
     },
     introStyle (id) {
       return {

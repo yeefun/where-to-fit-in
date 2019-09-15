@@ -17,6 +17,7 @@
 <script>
 export default {
   name: 'HomeCover',
+  props: ['bindMouseEventsToCursor'],
   data () {
     return {
       // (1921 / 1388).toFixed(2) = 1.38
@@ -86,12 +87,14 @@ export default {
           cursor: 'auto'
         }
       })
+
       TweenLite.to(this.$el, 0.6, {
         css: {
           autoAlpha: 0
         },
         ease: Power2.easeInOut
       })
+
       TweenLite.from(this.$root.currentReport, 0.6, {
         css: {
           opacity: 0
@@ -107,6 +110,7 @@ export default {
           this.isGoingReportCover = false
         }
       })
+
       TweenLite.from(`#report-cover-txt${idx}`, 0.25, {
         css: {
           scale: 0,
@@ -115,6 +119,8 @@ export default {
         delay: 0.6,
         ease: Expo.easeOut
       })
+
+      this.bindMouseEventsToCursor()
     }
   }
 }

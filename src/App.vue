@@ -1,9 +1,11 @@
 <template lang="pug">
   #app
+    //- todo detect touch screen
+    //- https://stackoverflow.com/a/4819886
     img#logo.clickable(src="./assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     CustomCursor(ref="cursor")
-    HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }")
-    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
+    HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }" :bindMouseEventsToCursor="bindMouseEventsToCursor")
+    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports" :backToHome="backToHome" :bindMouseEventsToCursor="bindMouseEventsToCursor")
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
 
@@ -26,13 +28,7 @@ export default {
     window.addEventListener('popstate', this.handlePopState)
   },
   mounted () {
-    // todo 要動態綁定
-    const clickableEls = document.querySelectorAll('.clickable')
-    clickableEls.forEach((el) => {
-      el.addEventListener('mouseenter', this.animateCursorEnter)
-      el.addEventListener('mouseleave', this.animateCursorLeave)
-      // el.addEventListener('click', this.animateCursorClick)
-    })
+    this.bindMouseEventsToCursor()
   },
   data () {
     return {
@@ -127,7 +123,14 @@ export default {
         }
       }
     },
-    animateCursorEnter () {
+    bindMouseEventsToCursor () {
+      const clickableEls = document.querySelectorAll('.clickable')
+      clickableEls.forEach((el) => {
+        el.addEventListener('mouseenter', this.animateCursorEnter)
+        el.addEventListener('mouseleave', this.animateCursorLeave)
+      })
+    },
+    animateCursorEnter (evt) {
       const cursor = this.$refs.cursor.$el
       const innerCursor = cursor.firstChild
       TweenLite.to(cursor, 0.3, {
@@ -144,7 +147,7 @@ export default {
         ease: Power3.easeInOut
       })
     },
-    animateCursorLeave () {
+    animateCursorLeave (evt) {
       const cursor = this.$refs.cursor.$el
       const innerCursor = cursor.firstChild
       TweenLite.to(cursor, 0.3, {
