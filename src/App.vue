@@ -1,19 +1,16 @@
 <template lang="pug">
   #app
-    img#logo.clickable(src="../assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
+    img#logo.clickable(src="./assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     CustomCursor(ref="cursor")
-    HomeCover(ref="homeCover")
-    //- .close
-    //-   .close__cross.close__cross--left
-    //-   .close__cross.close__cross--right
+    HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }")
     BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
 
 <script>
-import HomeCover from '../components/HomeCover.vue'
-import BaseReport from '../components/BaseReport.vue'
-import CustomCursor from '../components/CustomCursor.vue'
+import HomeCover from './components/HomeCover.vue'
+import BaseReport from './components/BaseReport.vue'
+import CustomCursor from './components/CustomCursor.vue'
 // import TitleAnchor from '../components/TitleAnchor.vue'
 
 export default {
@@ -25,7 +22,7 @@ export default {
     // TitleAnchor
   },
   created () {
-    // TweenLite.selector = (val) => document.querySelectorAll(val)
+    if (this.$root.beginningReportId) this.isHomeCover = false
     window.addEventListener('popstate', this.handlePopState)
   },
   mounted () {
@@ -39,6 +36,7 @@ export default {
   },
   data () {
     return {
+      isHomeCover: true,
       anchors: {
         report2: [
           '不健康的身體不只有胖',
@@ -77,17 +75,20 @@ export default {
   methods: {
     backToHome () {
       if (this.$root.inHome) return
-      const homeCover = this.$refs.homeCover.$el
+
       this.$root.inHome = true
       this.$root.currentReport = null
       this.$root.removedRelatedReportId = 0
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
+
       TweenLite.to('.reports', 0.6, {
         css: {
-          autoAlpha: 0
+          opacity: 0
         },
         ease: Power2.easeInOut
       })
-      TweenLite.to(homeCover, 0.6, {
+      TweenLite.to(this.$refs.homeCover.$el, 0.6, {
         css: {
           autoAlpha: 1
         },
@@ -95,6 +96,7 @@ export default {
         ease: Power3.easeInOut,
         onComplete: () => {
           this.$root.inReportCover = true
+
           this.$root.baseReports.splice(0)
           this.$root.switchTimes += 1
           this.$root.baseReports.push(this.$root.switchTimes)
@@ -108,22 +110,20 @@ export default {
         this.backToHome()
       } else {
         const id = state.id
-        const homeCover = this.$refs.homeCover.$el
+        this.$root.isPopState = true
         if (this.$root.inHome) {
-          TweenLite.to(homeCover, 0.8, {
+          TweenLite.to(this.$refs.homeCover.$el, 0.6, {
             css: {
-              opacity: 0
+              autoAlpha: 0
             },
-            // ease: Power3.easeIn,
+            ease: Power2.easeInOut,
             onComplete: () => {
               this.$refs.baseReports[0].showReportFromHome(id)
               this.$root.inHome = false
             }
           })
         } else {
-          this.$root.isPopState = true
           document.getElementById(`report${id}`).click()
-          this.$root.isPopState = false
         }
       }
     },
@@ -166,7 +166,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../util/report.styl'
+@import './util/report.styl'
 
 html
   font-size 10px
@@ -182,25 +182,6 @@ body
   margin-top 24px
   margin-left 32px
   cursor pointer
-// .close
-//   width 32px
-//   height 32px
-//   position absolute
-//   left 50%
-//   transform translateX(-50%)
-//   z-index 999
-//   bottom 100px
-  // &__cross
-  //   width 32px
-  //   height 4px
-  //   background-color rgba(#fff, 0.8)
-  //   position absolute
-  //   top 50%
-  //   left 50%
-  //   &--left
-  //     transform translate(-50%, -50%) rotate(45deg)
-  //   &--right
-  //     transform translate(-50%, -50%) rotate(-45deg)
 .full-page
   position absolute
   width 100%

@@ -14,13 +14,18 @@ new Vue({
     currentReport: null,
     removedRelatedReportId: 0,
     isPopState: false,
-    // isReportCoverTxt: false,
     ww: window.innerWidth,
-    wh: window.innerHeight
-    // isMounted: false
+    wh: window.innerHeight,
+    beginningReportId: 0
+  },
+  created () {
+    const regexp = /^\/report[1-5]$/i
+    const pathname = window.location.pathname
+    if (regexp.test(pathname)) {
+      this.beginningReportId = Number(pathname[7])
+    }
   },
   mounted () {
-    // this.isMounted = true
     window.addEventListener('resize', this.alterWindowSize)
   },
   methods: {

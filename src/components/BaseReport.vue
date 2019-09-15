@@ -17,6 +17,7 @@
         h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#090909'}") {{ report.title }}
         .report__intro(
           v-if="!isReportContent"
+          v-show="isReportIntro"
           :style="introStyle(report.id)"
           :id="`report-intro${report.id}`"
         )
@@ -47,21 +48,11 @@ export default {
   },
   props: ['backToHome'],
   created () {
-    const id = this.$root.removedRelatedReportId
-    if (id) {
-      for (let i = 1; i <= 4; i++) {
-        const idx = id + i
-        this.relatedReports.push(this.allReports[`report${idx > 5 ? (idx - 5) : idx}`])
-      }
-    } else {
-      this.relatedReports = this.allReports
-    }
+    if (!this.showReportFromBeginning()) this.loadRelatedReports()
   },
   data () {
     return {
-      // isReportIntro: true,
       isReportContent: false,
-      // isReportCoverTxt: false,
       currentReportId: 0,
       allReports: {
         report1: {
@@ -101,7 +92,9 @@ export default {
         }
       },
       relatedReports: [],
-      isShowingReport: false
+      isShowingReport: false,
+      isReportIntro: true,
+      isBeginning: false
     }
   },
   methods: {
@@ -114,21 +107,112 @@ export default {
         color: (id === 5 || id === 2) ? '#f6f6f6' : '#1b2733'
       }
     },
+    loadRelatedReports () {
+      const id = this.$root.removedRelatedReportId
+      if (id) {
+        for (let i = 1; i <= 4; i++) {
+          const idx = id + i
+          this.relatedReports.push(this.allReports[`report${idx > 5 ? (idx - 5) : idx}`])
+        }
+      } else {
+        this.relatedReports = this.allReports
+      }
+    },
     handleClick (evt, id) {
       this.showReportFromRelated(evt, id)
       if (!this.$root.inHome && this.$root.inReportCover) this.backToHome()
     },
+    showReportFromBeginning () {
+      const id = this.$root.beginningReportId
+      if (id) {
+        this.isShowingReport = true
+        this.isBeginning = true
+        this.$root.inHome = false
+        this.$root.inReportCover = false
+
+        this.currentReportId = id
+        this.$root.removedRelatedReportId = id
+
+        this.relatedReports.push(this.allReports[`report${id}`])
+
+        this.isReportContent = true
+
+        this.$root.beginningReportId = 0
+      }
+      return id
+    },
     showReportFromHome (id) {
       this.$root.currentReport = document.getElementById(`report${id}`)
-      this.isReportContent = true
+      this.isReportIntro = false
+
+      TweenLite.set(this.$root.currentReport, {
+        css: {
+          position: 'absolute',
+          height: '100vh',
+          cursor: 'auto'
+        }
+      })
+
       this.currentReportId = id
       this.$root.removedRelatedReportId = id
-      TweenLite.set(this.$root.currentReport, {
-        position: '',
-        height: ''
-      })
-      this.$root.switchTimes += 1
-      this.$root.baseReports.push(this.$root.switchTimes)
+      this.$root.inReportCover = false
+      this.isReportContent = true
+    },
+    showReportFromRelated (evt, id) {
+      const self = evt.currentTarget
+      if ((this.$root.currentReport === self) || this.isShowingReport) return
+
+      this.isShowingReport = true
+
+      if (!this.$root.isPopState) {
+        const otherReports = [1, 2, 3, 4, 5].filter((num) => num !== id).map((num) => `#report${num}`)
+        const selfT = self.getBoundingClientRect().top
+        TweenLite.to(self, 0.45, {
+          css: {
+            y: -selfT,
+            height: '100vh'
+          },
+          ease: Circ.easeInOut,
+          onComplete: () => {
+            TweenLite.set(self, {
+              css: {
+                position: 'fixed',
+                y: 0,
+                cursor: 'auto'
+              }
+            })
+            this.$root.baseReports.shift()
+            document.documentElement.scrollTop = 0
+            document.body.scrollTop = 0
+          }
+        })
+        TweenLite.to(otherReports, 0.45, {
+          css: {
+            autoAlpha: 0
+          },
+          ease: Circ.easeInOut,
+          onComplete: () => {
+            this.$root.currentReport = self
+            this.isShowingReport = false
+            this.loadReportContent(id)
+          }
+        })
+      } else {
+        TweenLite.set(self, {
+          css: {
+            position: 'fixed',
+            height: '100vh',
+            cursor: 'auto'
+          }
+        })
+        document.documentElement.scrollTop = 0
+        document.body.scrollTop = 0
+        this.$root.baseReports.shift()
+
+        this.$root.currentReport = self
+        this.isShowingReport = false
+        this.loadReportContent(id)
+      }
     },
     loadReportContent (id) {
       this.currentReportId = id
@@ -147,75 +231,46 @@ export default {
     },
     fadeInReportContent () {
       const id = this.currentReportId
-
-      TweenLite.set(this.$root.currentReport, {
-        position: '',
-        height: ''
-      })
-      TweenLite.to(`#report-content${id}`, 0.9, {
-        css: {
-          opacity: 1,
-          y: 0
-        },
-        ease: Circ.easeInOut,
-        onComplete: () => {
-          this.$root.switchTimes += 1
-          this.$root.baseReports.push(this.$root.switchTimes)
-        }
-      })
-      // this.$root.switchTimes += 1
-      // this.$root.baseReports.push(this.$root.switchTimes)
-      history.pushState(
-        {
-          place: 'report',
-          id
-        },
-        '',
-        `./report${id}`
-      )
-    },
-    showReportFromRelated (evt, id) {
-      const self = evt.currentTarget
-      const currentReport = this.$root.currentReport
-      if ((currentReport === self) || this.isShowingReport) return
-
-      this.isShowingReport = true
-      const otherReports = [1, 2, 3, 4, 5].filter((num) => num !== id).map((num) => `#report${num}`)
-      const selfT = self.getBoundingClientRect().top
-
-      TweenLite.to(self, 0.45, {
-        css: {
-          y: -selfT,
-          height: '100vh'
-        },
-        ease: Circ.easeInOut,
-        onComplete: () => {
-          TweenLite.set(self, {
-            css: {
-              position: 'fixed',
-              y: 0,
-              cursor: 'auto'
-            }
-          })
-          this.$root.baseReports.shift()
-          document.documentElement.scrollTop = 0
-          document.body.scrollTop = 0
-        }
-      })
-      TweenLite.to(otherReports, 0.45, {
-        css: {
-          autoAlpha: 0
-        },
-        ease: Circ.easeInOut,
-        onComplete: () => {
-          // this.currentReportId = id
-          // this.$root.removedRelatedReportId = id
-          this.$root.currentReport = self
-          this.isShowingReport = false
-          // this.isReportContent = true
-          this.loadReportContent(id)
-        }
-      })
+      if (!this.isBeginning) {
+        TweenLite.set(this.$root.currentReport, {
+          position: '',
+          height: ''
+        })
+        TweenLite.to(`#report-content${id}`, 0.9, {
+          css: {
+            opacity: 1,
+            y: 0
+          },
+          ease: Circ.easeInOut,
+          onComplete: () => {
+            this.$root.switchTimes += 1
+            this.$root.baseReports.push(this.$root.switchTimes)
+          }
+        })
+      } else {
+        this.$root.currentReport = document.getElementById(`report${id}`)
+        TweenLite.set(`#report-content${id}`, {
+          css: {
+            opacity: 1,
+            y: 0
+          }
+        })
+        this.$root.switchTimes += 1
+        this.$root.baseReports.push(this.$root.switchTimes)
+        this.isBeginning = false
+      }
+      if (!this.$root.isPopState) {
+        history.pushState(
+          {
+            place: 'report',
+            id
+          },
+          '',
+          `./report${id}`
+        )
+      } else {
+        this.$root.isPopState = false
+      }
     }
   }
 }
@@ -228,7 +283,6 @@ export default {
     height 0
 .report
   display flex
-  // justify-content center
   align-items center
   position relative
   width 100%

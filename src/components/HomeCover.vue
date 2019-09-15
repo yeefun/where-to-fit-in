@@ -45,13 +45,13 @@ export default {
       this.$root.currentPerson = document.getElementById(`person${idx}`)
       TweenLite.to(this.$root.currentPerson, 0.65, {
         css: {
-          autoAlpha: 1
+          opacity: 1
         },
         ease: Power3.easeOut
       })
       TweenLite.to(this.$refs.mask, 0.65, {
         css: {
-          autoAlpha: 0.6
+          opacity: 0.6
         },
         ease: Expo.easeOut
       })
@@ -60,24 +60,25 @@ export default {
       if (this.isGoingReportCover) return
       TweenLite.to(this.$root.currentPerson, 0.65, {
         css: {
-          autoAlpha: 0
+          opacity: 0
         },
         ease: Power2.easeOut
       })
       TweenLite.to(this.$refs.mask, 0.65, {
         css: {
-          autoAlpha: 0
+          opacity: 0
         },
         ease: Expo.easeOut
       })
     },
     showReportCover (evt) {
-      // evt.stopImmediatePropagation()
       const self = evt.currentTarget
       const idx = self.dataset.person
+
       this.$root.currentReport = document.getElementById(`report${idx}`)
       this.isGoingReportCover = true
       this.$root.inHome = false
+
       TweenLite.set(this.$root.currentReport, {
         css: {
           position: 'absolute',
@@ -85,15 +86,6 @@ export default {
           cursor: 'auto'
         }
       })
-      // TweenLite.set([reportTitle, reportIntro], {
-      //   opacity: 0,
-      //   // y: 16
-      //   // scale: 0
-      // })
-      // TweenLite.set(reportBtn, {
-      //   autoAlpha: 0,
-      // })
-      // this.$root.isReportCoverTxt = true
       TweenLite.to(this.$el, 0.6, {
         css: {
           autoAlpha: 0
@@ -102,15 +94,14 @@ export default {
       })
       TweenLite.from(this.$root.currentReport, 0.6, {
         css: {
-          autoAlpha: 0
+          opacity: 0
         },
         delay: 0.3,
         ease: Power3.easeInOut,
         onComplete: () => {
-          // this.$root.isReportCoverTxt = true
           TweenLite.set([this.$root.currentPerson, this.$refs.mask], {
             css: {
-              autoAlpha: 0
+              opacity: 0
             }
           })
           this.isGoingReportCover = false
@@ -124,31 +115,6 @@ export default {
         delay: 0.6,
         ease: Expo.easeOut
       })
-      // TweenLite.to(reportTitle, 0.3, {
-      //   css: {
-      //     opacity: 1,
-      //     // scale: 1
-      //   },
-      //   delay: 0.8,
-      //   ease: Power2.easeOut,
-      //   onComplete: () => {
-      //     TweenLite.to(reportIntro, 0.3, {
-      //       css: {
-      //         opacity: 1,
-      //         // scale: 1
-      //       },
-      //       ease: Power1.easeOut,
-      //       onComplete: () => {
-      //         TweenLite.to(reportBtn, 0.6, {
-      //           css: {
-      //             autoAlpha: 1,
-      //           },
-      //           ease: Power3.easeInOut,
-      //         })
-      //       }
-      //     })
-      //   }
-      // })
     }
   }
 }
@@ -161,6 +127,9 @@ export default {
   width 100%
   height 100vh
   overflow hidden
+  &.hide
+    opacity 0
+    visibility hidden
   &__mrt
     height 100%
     background-image url(../assets/img/cover/lap/home_mrt.jpg)

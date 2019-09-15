@@ -76,7 +76,7 @@ export default {
       ],
       notations: [
         {
-          txt: '（155 公分／曾 120公斤）',
+          txt: '（155 公分／曾 120 公斤）',
           display: 'inline'
         },
         {
