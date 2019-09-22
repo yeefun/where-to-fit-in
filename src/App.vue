@@ -5,7 +5,8 @@
     img#logo.clickable(src="./assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     CustomCursor(ref="cursor")
     HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }" :bindMouseEventsToCursor="bindMouseEventsToCursor")
-    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports" :backToHome="backToHome" :bindMouseEventsToCursor="bindMouseEventsToCursor")
+    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports" :backToHome="backToHome" :bindMouseEventsToCursor="bindMouseEventsToCursor" :animateCursorLeave="animateCursorLeave")
+
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
 
@@ -13,7 +14,7 @@
 import HomeCover from './components/HomeCover.vue'
 import BaseReport from './components/BaseReport.vue'
 import CustomCursor from './components/CustomCursor.vue'
-// import TitleAnchor from '../components/TitleAnchor.vue'
+// import TitleAnchor from './components/TitleAnchor.vue'
 
 export default {
   name: 'app',
@@ -71,9 +72,8 @@ export default {
   methods: {
     backToHome () {
       if (this.$root.inHome) return
-
       this.$root.inHome = true
-      this.$root.currentReport = null
+      // this.$root.currentReport = null
       this.$root.removedRelatedReportId = 0
       document.documentElement.scrollTop = 0
       document.body.scrollTop = 0
@@ -96,6 +96,7 @@ export default {
           this.$root.baseReports.splice(0)
           this.$root.switchTimes += 1
           this.$root.baseReports.push(this.$root.switchTimes)
+          this.$root.currentReport = null
         }
       })
       history.pushState({ place: 'home' }, '', './')
@@ -131,6 +132,7 @@ export default {
       })
     },
     animateCursorEnter (evt) {
+      if (evt.currentTarget === this.$root.currentReport) return
       const cursor = this.$refs.cursor.$el
       const innerCursor = cursor.firstChild
       TweenLite.to(cursor, 0.3, {
@@ -147,7 +149,7 @@ export default {
         ease: Power3.easeInOut
       })
     },
-    animateCursorLeave (evt) {
+    animateCursorLeave () {
       const cursor = this.$refs.cursor.$el
       const innerCursor = cursor.firstChild
       TweenLite.to(cursor, 0.3, {

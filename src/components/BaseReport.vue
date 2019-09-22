@@ -46,7 +46,7 @@ export default {
     ReportContent4: () => import('./ReportContent4'),
     ReportContent5: () => import('./ReportContent5')
   },
-  props: ['backToHome', 'bindMouseEventsToCursor'],
+  props: ['backToHome', 'bindMouseEventsToCursor', 'animateCursorLeave'],
   created () {
     if (!this.showReportFromBeginning()) this.loadRelatedReports()
   },
@@ -107,7 +107,7 @@ export default {
     reportClass (id) {
       return {
         'report--current': this.currentReportId === id,
-        clickable: !this.$root.inReportCover && (this.currentReportId !== id)
+        clickable: !this.$root.inReportCover
       }
     },
     introStyle (id) {
@@ -193,6 +193,7 @@ export default {
             this.$root.baseReports.shift()
             document.documentElement.scrollTop = 0
             document.body.scrollTop = 0
+            this.animateCursorLeave()
           }
         })
         TweenLite.to(otherReports, 0.45, {

@@ -12,13 +12,13 @@ smoothscroll.polyfill()
 export default {
   name: 'TitleAnchor',
   props: ['anchors'],
-  // computed: {
-  //   top () {
-  //     if (!this.$root.isMounted) return this.$root.wh
-  //     const el = this.$el || document.getElementById('title-anchor')
-  //     return (this.$root.wh - el.offsetHeight) / 2
-  //   }
-  // },
+  computed: {
+    top () {
+      if (!this.$root.isMounted) return this.$root.wh
+      const el = this.$el || document.getElementById('title-anchor')
+      return (this.$root.wh - el.offsetHeight) / 2
+    }
+  },
   methods: {
     scrollToTitle (title) {
       document.getElementById(title).scrollIntoView({ behavior: 'smooth' })

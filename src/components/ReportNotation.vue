@@ -1,14 +1,18 @@
 <template lang="pug">
-  //- todo 去除 p tag
-  abbr.report-notation(:title="notation.txt")
-    span.report-notation__wrapped(@click="toggleNotation" :class="[isNotation ? 'active' : '', isInline ? 'inline' : 'block' ]")
+  //- todo 去除 abbr 中的 p tag
+  abbr.report-notation(:title="notation.txt" @click="toggleNotation")
+    span.report-notation__wrapped
       slot
+    img(:src="arrowImg" :class="[isInline ? 'inline' : 'block', isNotation ? 'active' : '']")
     template(v-if="isNotation")
       span.report-notation__txt(v-if="isInline") {{ notation.txt }}
       .report-notation__txt.report-notation__txt--block(v-else v-html="notation.txt")
 </template>
 
 <script>
+import arrowImgX from '../assets/img/arrow-x.png'
+import arrowImgY from '../assets/img/arrow-y.png'
+
 export default {
   name: 'ReportNotation',
   props: ['notation'],
@@ -20,6 +24,9 @@ export default {
   computed: {
     isInline () {
       return this.notation.display === 'inline'
+    },
+    arrowImg () {
+      return this.isInline ? arrowImgX : arrowImgY
     }
   },
   methods: {
@@ -36,39 +43,29 @@ export default {
   text-decoration none
   &__wrapped
     position relative
-    padding-right 16px
     cursor pointer
     user-select none
-    &:after
-      content ''
-      position absolute
-      right 6px
-      width 0
-      height 0
-      display block
-      border-style solid
-      border-width 0 4px 6.9px 4px
-      border-color transparent transparent #053050 transparent
-      transition transform 0.2s
-    &.block
-      &:after
-        top 4px
-        transform rotate(180deg)
-      &.active:after
-        transform rotate(240deg)
+  & img
+    width 12px
+    vertical-align top
+    position relative
+    margin-right 2px
+    transition transform 0.2s ease-in-out
     &.inline
-      &:after
-        top 2px
-        transform rotate(-30deg)
-      &.active:after
-        transform rotate(-90deg)
-        // right 2px
+      top 6px
+      margin-left 2px
+      &.active
+        transform scaleX(-1)
+    &.block
+      top 4px
+      &.active
+        transform scaleY(-1)
   &__txt
     font-size 1.6rem
     line-height 1.5
     &--block
-      // display inline-block
-      // width 100%
+      display inline-block
+      width 100%
       background-color #d7e9f3
       padding 16px 24px
       color: #1b2733
