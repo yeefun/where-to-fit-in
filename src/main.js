@@ -18,7 +18,8 @@ new Vue({
     htmlEl: document.documentElement,
     ww: Math.min(document.documentElement.clientWidth, window.innerWidth),
     wh: window.innerHeight,
-    beginningReportId: 0
+    beginningReportId: 0,
+    pathname: process.env.NODE_ENV === 'production' ? '/where-to-fit-in/' : '/'
   },
   created () {
     this.checkReportId()

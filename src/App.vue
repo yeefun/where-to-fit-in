@@ -99,15 +99,17 @@ export default {
           this.$root.currentReport = null
         }
       })
-      history.pushState({ place: 'home' }, '', './')
+      if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', this.$root.pathname)
+      else this.$root.isPopState = false
     },
     handlePopState (evt) {
       const state = evt.state
+      this.$root.isPopState = true
       if (!state || state.place === 'home') {
         this.backToHome()
       } else {
         const id = state.id
-        this.$root.isPopState = true
+        // this.$root.isPopState = true
         if (this.$root.inHome) {
           TweenLite.to(this.$refs.homeCover.$el, 0.6, {
             css: {

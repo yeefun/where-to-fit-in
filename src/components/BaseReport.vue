@@ -46,7 +46,7 @@ export default {
     ReportContent4: () => import('./ReportContent4'),
     ReportContent5: () => import('./ReportContent5')
   },
-  props: ['backToHome', 'bindMouseEventsToCursor', 'animateCursorLeave'],
+  props: ['backToHome', 'bindMouseEventsToCursor', 'animateCursorOut'],
   created () {
     if (!this.showReportFromBeginning()) this.loadRelatedReports()
   },
@@ -193,7 +193,7 @@ export default {
             this.$root.baseReports.shift()
             document.documentElement.scrollTop = 0
             document.body.scrollTop = 0
-            this.animateCursorLeave()
+            this.animateCursorOut()
           }
         })
         TweenLite.to(otherReports, 0.45, {
@@ -265,21 +265,36 @@ export default {
             y: 0
           }
         })
+        TweenLite.set(this.$root.currentReport, {
+          css: {
+            cursor: 'auto'
+          }
+        })
         this.$root.switchTimes += 1
         this.$root.baseReports.push(this.$root.switchTimes)
-        this.isBeginning = false
       }
-      if (!this.$root.isPopState) {
+      if (this.isBeginning) {
+        history.replaceState(
+          {
+            place: 'report',
+            id
+          },
+          '',
+          `${this.$root.pathname}report${id}`
+        )
+        this.isBeginning = false
+      } else if (!this.$root.isPopState) {
         history.pushState(
           {
             place: 'report',
             id
           },
           '',
-          `./report${id}`
+          `${this.$root.pathname}report${id}`
         )
       } else {
         this.$root.isPopState = false
+        // this.isBeginning = false
       }
     }
   }
