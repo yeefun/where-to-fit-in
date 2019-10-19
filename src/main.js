@@ -33,10 +33,9 @@ new Vue({
     },
     checkReportId () {
       const regexp = /^\/report[1-5](\/?)$/i
-      const pathname = window.location.pathname
-      if (regexp.test(process.env.NODE_ENV === 'production' ? pathname.split('where-to-fit-in')[1] : pathname)) {
-        this.beginningReportId = Number(pathname[7])
-      }
+      let pathname = window.location.pathname
+      if (process.env.NODE_ENV === 'production') pathname = pathname.split('where-to-fit-in')[1]
+      if (regexp.test(pathname)) this.beginningReportId = Number(pathname[7])
     }
   }
 }).$mount('#app')
