@@ -14,7 +14,9 @@ new Vue({
     currentReport: null,
     removedRelatedReportId: 0,
     isPopState: false,
-    ww: window.innerWidth,
+    wEl: window,
+    htmlEl: document.documentElement,
+    ww: Math.min(document.documentElement.clientWidth, window.innerWidth),
     wh: window.innerHeight,
     beginningReportId: 0
   },
@@ -26,11 +28,11 @@ new Vue({
   },
   methods: {
     alterWindowSize () {
-      this.ww = window.innerWidth
-      this.wh = window.innerHeight
+      this.ww = this.htmlEl.clientWidth
+      this.wh = this.wEl.innerHeight
     },
     checkReportId () {
-      const regexp = /^\/report[1-5]$/i
+      const regexp = /^\/report[1-5](\/?)$/i
       const pathname = window.location.pathname
       if (regexp.test(process.env.NODE_ENV === 'production' ? pathname.split('where-to-fit-in')[1] : pathname)) {
         this.beginningReportId = Number(pathname[7])

@@ -72,6 +72,7 @@ export default {
 
 <style lang="stylus">
 .custom-cursor
+  // todo absolute or fixed?
   position absolute
   // position fixed
   z-index 999

@@ -105,7 +105,7 @@ export default {
           display: 'inline'
         },
         {
-          txt: '（150 公分／曾 120 公斤））',
+          txt: '（150 公分／曾 120 公斤）',
           display: 'inline'
         },
         {

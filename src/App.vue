@@ -5,7 +5,7 @@
     img#logo.clickable(src="./assets/img/logo.png" alt="胖子之大，何處可容身？" @click="backToHome")
     CustomCursor(ref="cursor")
     HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }" :bindMouseEventsToCursor="bindMouseEventsToCursor")
-    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports" :backToHome="backToHome" :bindMouseEventsToCursor="bindMouseEventsToCursor" :animateCursorLeave="animateCursorLeave")
+    BaseReport(v-for="report in $root.baseReports" :key="report" ref="baseReports" :backToHome="backToHome" :bindMouseEventsToCursor="bindMouseEventsToCursor" :animateCursorOut="animateCursorOut")
 
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
@@ -127,11 +127,11 @@ export default {
     bindMouseEventsToCursor () {
       const clickableEls = document.querySelectorAll('.clickable')
       clickableEls.forEach((el) => {
-        el.addEventListener('mouseover', this.animateCursorEnter)
-        el.addEventListener('mouseout', this.animateCursorLeave)
+        el.addEventListener('mouseover', this.animateCursorOver)
+        el.addEventListener('mouseout', this.animateCursorOut)
       })
     },
-    animateCursorEnter (evt) {
+    animateCursorOver (evt) {
       if (evt.currentTarget === this.$root.currentReport) return
       const cursor = this.$refs.cursor.$el
       const innerCursor = cursor.firstChild
@@ -149,7 +149,7 @@ export default {
         ease: Power3.easeInOut
       })
     },
-    animateCursorLeave () {
+    animateCursorOut () {
       const cursor = this.$refs.cursor.$el
       const innerCursor = cursor.firstChild
       TweenLite.to(cursor, 0.3, {
@@ -172,12 +172,14 @@ export default {
 
 <style lang="stylus">
 @import './util/report.styl'
+// $font-family = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Heiti TC", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
+// $font-family = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
+$font-family = "PT Serif", "Songti TC", "Noto Serif CJK TC", serif
 
 html
   font-size 10px
 body
-  // font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
-  font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
+  font-family $font-family
   background-color #f6f6f6
   overflow-y scroll
 // #app
@@ -204,7 +206,7 @@ button
   border 0
   outline 0
   cursor pointer
-  font-family "Noto Sans CJK TC", sans-serif
+  font-family $font-family
   user-select none
 img
   height auto
