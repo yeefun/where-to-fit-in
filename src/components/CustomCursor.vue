@@ -73,6 +73,7 @@ export default {
 <style lang="stylus">
 .custom-cursor
   position absolute
+  // position fixed
   z-index 999
   top 0
   left 0
@@ -86,7 +87,7 @@ export default {
   // background-color rgba(#d5e6f0, 0.4)
   background-color rgba(#fff, 0.4)
   box-sizing border-box
-  mix-blend-mode overlay
+  // mix-blend-mode overlay
   &__inner
     position absolute
     top 50%

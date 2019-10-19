@@ -63,6 +63,7 @@ export default {
   &__txt
     font-size 1.6rem
     line-height 1.5
+    cursor pointer
     &--block
       display inline-block
       width 100%

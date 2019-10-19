@@ -305,6 +305,9 @@ export default {
   box-sizing border-box
   overflow hidden
   cursor pointer
+  // transition transform 0.3s ease-in-out
+  // &:hover
+  //   transform translateY(-16px)
   &--current
     padding-top 24vh
     padding-bottom 80px
@@ -331,7 +334,8 @@ export default {
         font-size 2.0rem
         margin-top 56px
         line-height 1.8
-        background-color rgba(#0a2d4f, 0.88)
+        // background-color rgba(#0a2d4f, 0.88)
+        background-color #0a2d4f
         // border 2px solid rgba(#0a2d4f, 0.9)
         // background-color transparent
         // color #0a2d4f

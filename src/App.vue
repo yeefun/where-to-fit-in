@@ -33,42 +33,42 @@ export default {
   },
   data () {
     return {
-      isHomeCover: true,
-      anchors: {
-        report2: [
-          '不健康的身體不只有胖',
-          '健康大旗打翻一船胖子',
-          '胖子減肥不擇手段',
-          '減肥並非以胖為恥'
-        ],
-        report3: [
-          '你這麼胖不行',
-          '胖孩子的教育',
-          '樂觀的隱形斗篷',
-          '不用胖定義胖子'
-        ],
-        report4: [
-          '以肥胖污名規範社會秩序',
-          '穿不下的代價太大',
-          '超出標準的胖子坐立難安',
-          '胖子努力縮小改變人生'
-        ],
-        report5: [
-          '直美熱潮影響有限',
-          '胖子的網路逆襲',
-          '臺灣的解放胖女體行動',
-          '鼓勵胖子現身說法',
-          '自信內在胖也美麗'
-        ]
-      }
+      isHomeCover: true
+      // anchors: {
+      //   report2: [
+      //     '不健康的身體不只有胖',
+      //     '健康大旗打翻一船胖子',
+      //     '胖子減肥不擇手段',
+      //     '減肥並非以胖為恥'
+      //   ],
+      //   report3: [
+      //     '你這麼胖不行',
+      //     '胖孩子的教育',
+      //     '樂觀的隱形斗篷',
+      //     '不用胖定義胖子'
+      //   ],
+      //   report4: [
+      //     '以肥胖污名規範社會秩序',
+      //     '穿不下的代價太大',
+      //     '超出標準的胖子坐立難安',
+      //     '胖子努力縮小改變人生'
+      //   ],
+      //   report5: [
+      //     '直美熱潮影響有限',
+      //     '胖子的網路逆襲',
+      //     '臺灣的解放胖女體行動',
+      //     '鼓勵胖子現身說法',
+      //     '自信內在胖也美麗'
+      //   ]
+      // }
     }
   },
-  computed: {
-    theAnchors () {
-      const currentReportId = this.$root.removedRelatedReportId
-      return currentReportId > 1 ? this.anchors[`report${currentReportId}`] : []
-    }
-  },
+  // computed: {
+  //   theAnchors () {
+  //     const currentReportId = this.$root.removedRelatedReportId
+  //     return currentReportId > 1 ? this.anchors[`report${currentReportId}`] : []
+  //   }
+  // },
   methods: {
     backToHome () {
       if (this.$root.inHome) return
@@ -127,8 +127,8 @@ export default {
     bindMouseEventsToCursor () {
       const clickableEls = document.querySelectorAll('.clickable')
       clickableEls.forEach((el) => {
-        el.addEventListener('mouseenter', this.animateCursorEnter)
-        el.addEventListener('mouseleave', this.animateCursorLeave)
+        el.addEventListener('mouseover', this.animateCursorEnter)
+        el.addEventListener('mouseout', this.animateCursorLeave)
       })
     },
     animateCursorEnter (evt) {
@@ -176,8 +176,10 @@ export default {
 html
   font-size 10px
 body
-  font-family "Noto Sans CJK TC", sans-serif
+  // font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
+  font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
   background-color #f6f6f6
+  overflow-y scroll
 // #app
 //   overflow hidden
 #logo
