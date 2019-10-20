@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 
+// import { isTouchDevice, isMob } from '../util.js'
+
 Vue.config.productionTip = false
 
 new Vue({
@@ -21,6 +23,9 @@ new Vue({
     beginningReportId: 0,
     pathname: process.env.NODE_ENV === 'production' ? '/where-to-fit-in/' : '/'
   },
+  // beforeCreate () {
+  //   if (isTouchDevice() || isMob()) window.location.href = '/where-to-fit-in/'
+  // },
   created () {
     this.checkReportId()
   },
