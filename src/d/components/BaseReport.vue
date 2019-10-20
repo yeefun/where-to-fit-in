@@ -361,18 +361,18 @@ export default {
       line-height 1.6
 
 #report1__cover
-  background-image url(../../assets/img/cover/lap/report1_bottom.png), url(../../assets/img/cover/lap/report1_top.jpg)
+  background-image url(../../assets/img/cover/desktop/report1-bottom.png), url(../../assets/img/cover/desktop/report1-top.jpg)
   background-position center bottom, center top
   background-size cover
   // background-size 1280px
   background-repeat no-repeat
   // background-attachment fixed, scroll
 #report2__cover
-  background-image url(../../assets/img/cover/lap/report2.jpg)
+  background-image url(../../assets/img/cover/desktop/report2.jpg)
 #report3__cover
-  background-image url(../../assets/img/cover/lap/report3.jpg)
+  background-image url(../../assets/img/cover/desktop/report3.jpg)
 #report4__cover
-  background-image url(../../assets/img/cover/lap/report4.jpg)
+  background-image url(../../assets/img/cover/desktop/report4.jpg)
 #report5__cover
-  background-image url(../../assets/img/cover/lap/report5.jpg)
+  background-image url(../../assets/img/cover/desktop/report5.jpg)
 </style>

@@ -21,6 +21,7 @@
     return check;
   }
 
-  var origPathname = window.location.pathname.split('/index')[0];
-  if (!(isTouchDevice() || isMobileOrTablet())) window.location.href = (origPathname + '/index-d.html')
-})()
+  var origHref = window.location.href.split('/index')[0];
+  var newFile = origHref[origHref.length - 1] === '/' ? 'index-d.html' : '/index-d.html';
+  if (!(isTouchDevice() || isMobileOrTablet())) window.location.href = (origHref + newFile);
+})();

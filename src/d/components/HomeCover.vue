@@ -138,7 +138,7 @@ export default {
     visibility hidden
   &__mrt
     height 100%
-    background-image url(../../assets/img/cover/lap/home_mrt.jpg)
+    background-image url(../../assets/img/cover/desktop/home-mrt.jpg)
     // background-size cover
   &__mask
     background-color #0a2d4f
@@ -156,13 +156,13 @@ export default {
     opacity 0
     // background-size cover
 #person1
-  background-image url(../../assets/img/cover/lap/home_person1.png)
+  background-image url(../../assets/img/cover/desktop/home-person1.png)
 #person2
-  background-image url(../../assets/img/cover/lap/home_person2.png)
+  background-image url(../../assets/img/cover/desktop/home-person2.png)
 #person3
-  background-image url(../../assets/img/cover/lap/home_person3.png)
+  background-image url(../../assets/img/cover/desktop/home-person3.png)
 #person4
-  background-image url(../../assets/img/cover/lap/home_person4.png)
+  background-image url(../../assets/img/cover/desktop/home-person4.png)
 #person5
-  background-image url(../../assets/img/cover/lap/home_person5.png)
+  background-image url(../../assets/img/cover/desktop/home-person5.png)
 </style>
