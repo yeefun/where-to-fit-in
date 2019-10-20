@@ -14,7 +14,9 @@
         :style="{ height: currentReportId !== report.id ? '100%' : '' }"
       )
       .report__cover-txt(:id="`report-cover-txt${report.id}`")
-        h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#f6f6f6' : '#090909'}") {{ report.title }}
+        //- todo #f6f6f6 or #fff
+        //- #fff need text-shadow
+        h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#fff' : '#090909'}") {{ report.title }}
         .report__intro(
           v-if="!isReportContent"
           v-show="isReportIntro"
@@ -113,7 +115,7 @@ export default {
     introStyle (id) {
       return {
         marginTop: this.$root.inReportCover ? '32px' : '24px',
-        color: (id === 5 || id === 2) ? '#f6f6f6' : '#1b2733'
+        color: (id === 5 || id === 2) ? '#fff' : '#1b2733'
       }
     },
     loadRelatedReports () {
@@ -327,6 +329,7 @@ export default {
     padding-top 24vh
     padding-bottom 80px
   & h1
+    max-width 992px
     font-size 4.8rem
     font-weight 700
     line-height 1.5
@@ -334,10 +337,12 @@ export default {
     &-img
       z-index -9
     &-txt
-      max-width 768px
+      // max-width 768px
       text-align center
   &__intro
+    max-width 768px
     font-size 2.4rem
+    font-weight 500
     &--cover
       line-height 1.8
       & p
@@ -345,12 +350,14 @@ export default {
         & + p
           margin-top 16px
       & button
-        color #f6f6f6
+        color #fff
         font-size 2.0rem
         margin-top 56px
         line-height 1.8
         // background-color rgba(#0a2d4f, 0.88)
-        background-color #0a2d4f
+        // background-color #0a2d4f
+        // todo try 漸層色
+        background-color #003152
         // border 2px solid rgba(#0a2d4f, 0.9)
         // background-color transparent
         // color #0a2d4f
@@ -361,11 +368,13 @@ export default {
       line-height 1.6
 
 #report1__cover
-  background-image url(../../assets/img/cover/desktop/report1-bottom.png), url(../../assets/img/cover/desktop/report1-top.jpg)
-  background-position center bottom, center top
-  background-size cover
+  // todo one or tow img?
+  // background-image url(../../assets/img/cover/desktop/report1-bottom.png), url(../../assets/img/cover/desktop/report1-top.jpg)
+  background-image url(../../assets/img/cover/desktop/report1.jpg)
+  // background-position center bottom, center top
+  // background-size cover
   // background-size 1280px
-  background-repeat no-repeat
+  // background-repeat no-repeat
   // background-attachment fixed, scroll
 #report2__cover
   background-image url(../../assets/img/cover/desktop/report2.jpg)

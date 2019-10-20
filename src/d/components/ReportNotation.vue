@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import arrowImgX from '../../assets/img/arrow-x.png'
-import arrowImgY from '../../assets/img/arrow-y.png'
+import arrowImgX from '../../assets/img/arrow-x-glyph.png'
+import arrowImgY from '../../assets/img/arrow-y-glyph.png'
 
 export default {
   name: 'ReportNotation',
@@ -41,15 +41,16 @@ export default {
 .report-notation
   color #08517c
   text-decoration none
+  user-select none
   &__wrapped
     position relative
     cursor pointer
-    user-select none
+    // user-select none
   & img
     width 12px
     vertical-align top
     position relative
-    margin-right 2px
+    margin-right 4px
     transition transform 0.2s ease-in-out
     &.inline
       top 6px
