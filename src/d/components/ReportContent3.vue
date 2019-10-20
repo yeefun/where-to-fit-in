@@ -64,11 +64,11 @@
 import ReportQuote from './ReportQuote.vue'
 import ReportFigure from './ReportFigure.vue'
 import ReportNotation from './ReportNotation.vue'
-import ReportImg1 from '../assets/img/report3/report3-1.jpg'
-import ReportImg2 from '../assets/img/report3/report3-2.jpg'
-import ReportImg3 from '../assets/img/report3/report3-3.jpg'
-import ReportImg4 from '../assets/img/report3/report3-4.jpg'
-import ReportImg5 from '../assets/img/report3/report3-5.gif'
+import ReportImg1 from '../../assets/img/report3/report3-1.jpg'
+import ReportImg2 from '../../assets/img/report3/report3-2.jpg'
+import ReportImg3 from '../../assets/img/report3/report3-3.jpg'
+import ReportImg4 from '../../assets/img/report3/report3-4.jpg'
+import ReportImg5 from '../../assets/img/report3/report3-5.gif'
 
 export default {
   name: 'ReportContent3',
