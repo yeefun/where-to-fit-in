@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import arrowImgX from '../../assets/img/arrow-x-glyph.png'
-import arrowImgY from '../../assets/img/arrow-y-glyph.png'
+import arrowImgX from '../assets/img/arrow-x-glyph.png'
+import arrowImgY from '../assets/img/arrow-y-glyph.png'
 
 export default {
   name: 'ReportNotation',

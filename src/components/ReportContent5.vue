@@ -67,7 +67,7 @@
 import FbPost from './FbPost.vue'
 import ReportFigure from './ReportFigure.vue'
 import ReportQuote from './ReportQuote.vue'
-import ReportImg1 from '../../assets/img/report5/report5-1.png'
+import ReportImg1 from '../assets/img/report5/report5-1.png'
 
 export default {
   name: 'ReportContent5',

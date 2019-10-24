@@ -369,19 +369,19 @@ export default {
 
 #report1__cover
   // todo one or tow img?
-  // background-image url(../../assets/img/cover/desktop/report1-bottom.png), url(../../assets/img/cover/desktop/report1-top.jpg)
-  background-image url(../../assets/img/cover/desktop/report1.jpg)
+  // background-image url(../assets/img/cover/report1-bottom.png), url(../assets/img/cover/report1-top.jpg)
+  background-image url(../assets/img/cover/report1.jpg)
   // background-position center bottom, center top
   // background-size cover
   // background-size 1280px
   // background-repeat no-repeat
   // background-attachment fixed, scroll
 #report2__cover
-  background-image url(../../assets/img/cover/desktop/report2.jpg)
+  background-image url(../assets/img/cover/report2.jpg)
 #report3__cover
-  background-image url(../../assets/img/cover/desktop/report3.jpg)
+  background-image url(../assets/img/cover/report3.jpg)
 #report4__cover
-  background-image url(../../assets/img/cover/desktop/report4.jpg)
+  background-image url(../assets/img/cover/report4.jpg)
 #report5__cover
-  background-image url(../../assets/img/cover/desktop/report5.jpg)
+  background-image url(../assets/img/cover/report5.jpg)
 </style>
