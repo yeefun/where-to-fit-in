@@ -8,35 +8,35 @@ module.exports = {
   },
   publicPath: process.env.NODE_ENV === 'production' ? '/where-to-fit-in/' : '/',
   pages: {
-    'index-desktop': {
+    index: {
       entry: 'src/main.js',
-      template: 'public/index-desktop.html',
-      filename: 'index-desktop.html'
+      template: 'public/index.html',
+      filename: 'index.html'
     },
-    'report1-desktop': {
+    report1: {
       entry: 'src/main.js',
-      template: 'public/report1/index-desktop.html',
-      filename: 'report1/index-desktop.html'
+      template: 'public/report1/index.html',
+      filename: 'report1/index.html'
     },
-    'report2-desktop': {
+    report2: {
       entry: 'src/main.js',
-      template: 'public/report2/index-desktop.html',
-      filename: 'report2/index-desktop.html'
+      template: 'public/report2/index.html',
+      filename: 'report2/index.html'
     },
-    'report3-desktop': {
+    report3: {
       entry: 'src/main.js',
-      template: 'public/report3/index-desktop.html',
-      filename: 'report3/index-desktop.html'
+      template: 'public/report3/index.html',
+      filename: 'report3/index.html'
     },
-    'report4-desktop': {
+    report4: {
       entry: 'src/main.js',
-      template: 'public/report4/index-desktop.html',
-      filename: 'report4/index-desktop.html'
+      template: 'public/report4/index.html',
+      filename: 'report4/index.html'
     },
-    'report5-desktop': {
+    report5: {
       entry: 'src/main.js',
-      template: 'public/report5/index-desktop.html',
-      filename: 'report5/index-desktop.html'
+      template: 'public/report5/index.html',
+      filename: 'report5/index.html'
     }
   }
 }

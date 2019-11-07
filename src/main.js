@@ -15,10 +15,8 @@ new Vue({
     htmlEl: document.documentElement,
     ww: Math.min(document.documentElement.clientWidth, window.innerWidth),
     wh: window.innerHeight,
-    mob: {
-
-    },
-    desk: {
+    mobData: {},
+    deskData: {
       inHome: true,
       inReportCover: true,
       switchTimes: 0,
@@ -30,21 +28,25 @@ new Vue({
     }
   },
   created () {
-    this.checkReportId()
+    this.deskMethods.checkReportId()
   },
   mounted () {
     window.addEventListener('resize', this.alterWindowSize)
   },
   methods: {
+    deskMethods () {
+      return {
+        checkReportId () {
+          const regexp = /^\/report[1-5](\/?)/i
+          let pathname = window.location.pathname
+          if (process.env.NODE_ENV === 'production') pathname = pathname.split('where-to-fit-in')[1]
+          if (regexp.test(pathname)) this.deskData.beginningReportId = Number(pathname[7])
+        }
+      }
+    },
     alterWindowSize () {
       this.ww = this.htmlEl.clientWidth
       this.wh = this.wEl.innerHeight
-    },
-    checkReportId () {
-      const regexp = /^\/report[1-5](\/?)/i
-      let pathname = window.location.pathname
-      if (process.env.NODE_ENV === 'production') pathname = pathname.split('where-to-fit-in')[1]
-      if (regexp.test(pathname)) this.desk.beginningReportId = Number(pathname[7])
     }
   }
 }).$mount('#app')

@@ -15,18 +15,15 @@ export default {
 
 <style lang="stylus">
 @import './util/report.styl'
-$font-family = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Heiti TC", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
-// $font-family = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
-// $font-family = "PT Serif", "Songti TC", "Noto Serif CJK TC", serif
+
+$ff--sans-serif = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Heiti TC", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
 
 html
   font-size 10px
 body
-  font-family $font-family
+  font-family $ff--sans-serif
   background-color #f6f6f6
   overflow-y scroll
-// #app
-//   overflow hidden
 #logo
   position fixed
   z-index 99
@@ -37,7 +34,6 @@ body
 .full-page
   position absolute
   width 100%
-  // height 100%
   height 100vh
   top 0
   left 0
@@ -49,7 +45,7 @@ button
   border 0
   outline 0
   cursor pointer
-  font-family $font-family
+  font-family $ff--sans-serif
   user-select none
 img
   height auto

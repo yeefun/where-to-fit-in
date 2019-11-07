@@ -3,7 +3,7 @@
     img#logo.clickable(src="../assets/img/logo-shadow.png" alt="胖子之大，何處可容身？" @click="backToHome")
     CustomCursor(ref="cursor")
     HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }" :bindMouseEventsToCursor="bindMouseEventsToCursor")
-    BaseReport(v-for="report in $root.desk.baseReports" :key="report" ref="baseReports" :backToHome="backToHome" :bindMouseEventsToCursor="bindMouseEventsToCursor" :animateCursorOut="animateCursorOut")
+    BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports" :backToHome="backToHome" :bindMouseEventsToCursor="bindMouseEventsToCursor" :animateCursorOut="animateCursorOut")
 
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
@@ -22,7 +22,7 @@ export default {
     // TitleAnchor
   },
   created () {
-    if (this.$root.desk.beginningReportId) this.isHomeCover = false
+    if (this.$root.deskData.beginningReportId) this.isHomeCover = false
     window.addEventListener('popstate', this.handlePopState)
   },
   mounted () {
@@ -62,15 +62,15 @@ export default {
   },
   // computed: {
   //   theAnchors () {
-  //     const currentReportId = this.$root.desk.removedRelatedReportId
+  //     const currentReportId = this.$root.deskData.removedRelatedReportId
   //     return currentReportId > 1 ? this.anchors[`report${currentReportId}`] : []
   //   }
   // },
   methods: {
     backToHome () {
-      if (this.$root.desk.inHome) return
-      this.$root.desk.inHome = true
-      this.$root.desk.removedRelatedReportId = 0
+      if (this.$root.deskData.inHome) return
+      this.$root.deskData.inHome = true
+      this.$root.deskData.removedRelatedReportId = 0
       document.documentElement.scrollTop = 0
       document.body.scrollTop = 0
 
@@ -87,15 +87,15 @@ export default {
         delay: 0.3,
         ease: Power3.easeInOut,
         onComplete: () => {
-          this.$root.desk.inReportCover = true
+          this.$root.deskData.inReportCover = true
 
-          this.$root.desk.baseReports.splice(0)
-          this.$root.desk.switchTimes += 1
-          this.$root.desk.baseReports.push(this.$root.desk.switchTimes)
-          this.$root.desk.currentReport = null
+          this.$root.deskData.baseReports.splice(0)
+          this.$root.deskData.switchTimes += 1
+          this.$root.deskData.baseReports.push(this.$root.deskData.switchTimes)
+          this.$root.deskData.currentReport = null
         }
       })
-      if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', `${this.$root.pathname}index-desktop.html`)
+      if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', `${this.$root.pathname}index.html`)
       else this.$root.isPopState = false
     },
     handlePopState (evt) {
@@ -105,7 +105,7 @@ export default {
         this.backToHome()
       } else {
         const id = state.id
-        if (this.$root.desk.inHome) {
+        if (this.$root.deskData.inHome) {
           TweenLite.to(this.$refs.homeCover.$el, 0.6, {
             css: {
               autoAlpha: 0
@@ -113,7 +113,7 @@ export default {
             ease: Power2.easeInOut,
             onComplete: () => {
               this.$refs.baseReports[0].showReportFromHome(id)
-              this.$root.desk.inHome = false
+              this.$root.deskData.inHome = false
             }
           })
         } else {
@@ -129,7 +129,7 @@ export default {
       })
     },
     animateCursorOver (evt) {
-      if (evt.currentTarget === this.$root.desk.currentReport) return
+      if (evt.currentTarget === this.$root.deskData.currentReport) return
       const cursor = this.$refs.cursor.$el
       const innerCursor = cursor.firstChild
       TweenLite.to(cursor, 0.3, {

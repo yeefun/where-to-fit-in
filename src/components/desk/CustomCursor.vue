@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     isCrossCursor () {
-      return !this.$root.desk.inHome && this.$root.desk.inReportCover
+      return !this.$root.deskData.inHome && this.$root.deskData.inReportCover
     }
   },
   mounted () {

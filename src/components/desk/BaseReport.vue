@@ -1,11 +1,11 @@
 <template lang="pug">
-  section.reports(:class="{ hide: $root.desk.inReportCover }")
+  section.reports(:class="{ hide: $root.deskData.inReportCover }")
     article.report(
       v-for="report in relatedReports"
       v-if="isReport(report.id)"
       @click="handleClick($event, report.id)"
       :key="report.id"
-      :style="{ 'justify-content': $root.desk.inReportCover ? 'center' : '' }"
+      :style="{ 'justify-content': $root.deskData.inReportCover ? 'center' : '' }"
       :id="`report${report.id}`"
       :class="reportClass(report.id)"
     )
@@ -23,7 +23,7 @@
           :style="introStyle(report.id)"
           :id="`report-intro${report.id}`"
         )
-          .report__intro--cover(v-if="$root.desk.inReportCover")
+          .report__intro--cover(v-if="$root.deskData.inReportCover")
             div(v-html="report.introCover")
             button.clickable(type="button" @click.stop="loadReportContent(report.id)") {{ report.btnTxt }}
           .report__intro--related(v-else)
@@ -109,17 +109,17 @@ export default {
     reportClass (id) {
       return {
         'report--current': this.currentReportId === id,
-        clickable: !this.$root.desk.inReportCover
+        clickable: !this.$root.deskData.inReportCover
       }
     },
     introStyle (id) {
       return {
-        marginTop: this.$root.desk.inReportCover ? '32px' : '24px',
+        marginTop: this.$root.deskData.inReportCover ? '32px' : '24px',
         color: (id === 5 || id === 2) ? '#fff' : '#1b2733'
       }
     },
     loadRelatedReports () {
-      const id = this.$root.desk.removedRelatedReportId
+      const id = this.$root.deskData.removedRelatedReportId
       if (id) {
         for (let i = 1; i <= 4; i++) {
           const idx = id + i
@@ -131,32 +131,32 @@ export default {
     },
     handleClick (evt, id) {
       this.showReportFromRelated(evt, id)
-      if (!this.$root.desk.inHome && this.$root.desk.inReportCover) this.backToHome()
+      if (!this.$root.deskData.inHome && this.$root.deskData.inReportCover) this.backToHome()
     },
     showReportFromBeginning () {
-      const id = this.$root.desk.beginningReportId
+      const id = this.$root.deskData.beginningReportId
       if (id) {
         this.isShowingReport = true
         this.isBeginning = true
-        this.$root.desk.inHome = false
-        this.$root.desk.inReportCover = false
+        this.$root.deskData.inHome = false
+        this.$root.deskData.inReportCover = false
 
         this.currentReportId = id
-        this.$root.desk.removedRelatedReportId = id
+        this.$root.deskData.removedRelatedReportId = id
 
         this.relatedReports.push(this.allReports[`report${id}`])
 
         this.isReportContent = true
 
-        this.$root.desk.beginningReportId = 0
+        this.$root.deskData.beginningReportId = 0
       }
       return id
     },
     showReportFromHome (id) {
-      this.$root.desk.currentReport = document.getElementById(`report${id}`)
+      this.$root.deskData.currentReport = document.getElementById(`report${id}`)
       this.isReportIntro = false
 
-      TweenLite.set(this.$root.desk.currentReport, {
+      TweenLite.set(this.$root.deskData.currentReport, {
         css: {
           position: 'absolute',
           height: '100vh',
@@ -165,13 +165,13 @@ export default {
       })
 
       this.currentReportId = id
-      this.$root.desk.removedRelatedReportId = id
-      this.$root.desk.inReportCover = false
+      this.$root.deskData.removedRelatedReportId = id
+      this.$root.deskData.inReportCover = false
       this.isReportContent = true
     },
     showReportFromRelated (evt, id) {
       const self = evt.currentTarget
-      if ((this.$root.desk.currentReport === self) || this.isShowingReport) return
+      if ((this.$root.deskData.currentReport === self) || this.isShowingReport) return
 
       this.isShowingReport = true
 
@@ -192,7 +192,7 @@ export default {
                 cursor: 'auto'
               }
             })
-            this.$root.desk.baseReports.shift()
+            this.$root.deskData.baseReports.shift()
             document.documentElement.scrollTop = 0
             document.body.scrollTop = 0
             this.animateCursorOut()
@@ -204,7 +204,7 @@ export default {
           },
           ease: Circ.easeInOut,
           onComplete: () => {
-            this.$root.desk.currentReport = self
+            this.$root.deskData.currentReport = self
             this.isShowingReport = false
             this.loadReportContent(id)
           }
@@ -219,16 +219,16 @@ export default {
         })
         document.documentElement.scrollTop = 0
         document.body.scrollTop = 0
-        this.$root.desk.baseReports.shift()
+        this.$root.deskData.baseReports.shift()
 
-        this.$root.desk.currentReport = self
+        this.$root.deskData.currentReport = self
         this.isShowingReport = false
         this.loadReportContent(id)
       }
     },
     loadReportContent (id) {
       this.currentReportId = id
-      this.$root.desk.removedRelatedReportId = id
+      this.$root.deskData.removedRelatedReportId = id
       TweenLite.to(`#report-intro${id}`, 0.6, {
         css: {
           autoAlpha: 0,
@@ -236,7 +236,7 @@ export default {
         },
         ease: Circ.easeInOut,
         onComplete: () => {
-          this.$root.desk.inReportCover = false
+          this.$root.deskData.inReportCover = false
           this.isReportContent = true
         }
       })
@@ -244,7 +244,7 @@ export default {
     fadeInReportContent () {
       const id = this.currentReportId
       if (!this.isBeginning) {
-        TweenLite.set(this.$root.desk.currentReport, {
+        TweenLite.set(this.$root.deskData.currentReport, {
           position: '',
           height: ''
         })
@@ -255,25 +255,25 @@ export default {
           },
           ease: Circ.easeInOut,
           onComplete: () => {
-            this.$root.desk.switchTimes += 1
-            this.$root.desk.baseReports.push(this.$root.desk.switchTimes)
+            this.$root.deskData.switchTimes += 1
+            this.$root.deskData.baseReports.push(this.$root.deskData.switchTimes)
           }
         })
       } else {
-        this.$root.desk.currentReport = document.getElementById(`report${id}`)
+        this.$root.deskData.currentReport = document.getElementById(`report${id}`)
         TweenLite.set(`#report-content${id}`, {
           css: {
             opacity: 1,
             y: 0
           }
         })
-        TweenLite.set(this.$root.desk.currentReport, {
+        TweenLite.set(this.$root.deskData.currentReport, {
           css: {
             cursor: 'auto'
           }
         })
-        this.$root.desk.switchTimes += 1
-        this.$root.desk.baseReports.push(this.$root.desk.switchTimes)
+        this.$root.deskData.switchTimes += 1
+        this.$root.deskData.baseReports.push(this.$root.deskData.switchTimes)
       }
       if (this.isBeginning) {
         history.replaceState(
@@ -282,7 +282,7 @@ export default {
             id
           },
           '',
-          `${this.$root.pathname}report${id}/index-desktop.html`
+          `${this.$root.pathname}report${id}/index.html`
         )
         this.isBeginning = false
       } else if (!this.$root.isPopState) {
@@ -292,7 +292,7 @@ export default {
             id
           },
           '',
-          `${this.$root.pathname}report${id}/index-desktop.html`
+          `${this.$root.pathname}report${id}/index.html`
         )
       } else {
         this.$root.isPopState = false
