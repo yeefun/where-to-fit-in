@@ -14,21 +14,17 @@ export default {
 
 <style lang="stylus">
 .report-quote
-  // color #08517c
   color #003152
-  // border-left 6px solid #08517c
   margin-top 64px
   margin-bottom 64px
   &__txt
     font-size 2.4rem
     line-height 1.6
     font-weight 500
-    // border-left 4px solid #08517c
     border-left 4px solid #003152
     padding-top 8px
     padding-bottom 8px
     padding-left 24px
-    // border-radius 8px
     & p + p
       margin-top 16px
   &__name

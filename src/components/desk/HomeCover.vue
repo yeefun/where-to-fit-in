@@ -43,8 +43,8 @@ export default {
       if (this.isGoingReportCover) return
       const self = evt.currentTarget
       const idx = self.dataset.person
-      this.$root.currentPerson = document.getElementById(`person${idx}`)
-      TweenLite.to(this.$root.currentPerson, 0.65, {
+      this.$root.desk.currentPerson = document.getElementById(`person${idx}`)
+      TweenLite.to(this.$root.desk.currentPerson, 0.65, {
         css: {
           opacity: 1
         },
@@ -59,7 +59,7 @@ export default {
     },
     hidePerson () {
       if (this.isGoingReportCover) return
-      TweenLite.to(this.$root.currentPerson, 0.65, {
+      TweenLite.to(this.$root.desk.currentPerson, 0.65, {
         css: {
           opacity: 0
         },
@@ -76,11 +76,11 @@ export default {
       const self = evt.currentTarget
       const idx = self.dataset.person
 
-      this.$root.currentReport = document.getElementById(`report${idx}`)
+      this.$root.desk.currentReport = document.getElementById(`report${idx}`)
       this.isGoingReportCover = true
-      this.$root.inHome = false
+      this.$root.desk.inHome = false
 
-      TweenLite.set(this.$root.currentReport, {
+      TweenLite.set(this.$root.desk.currentReport, {
         css: {
           position: 'absolute',
           height: '100vh',
@@ -95,14 +95,14 @@ export default {
         ease: Power2.easeInOut
       })
 
-      TweenLite.from(this.$root.currentReport, 0.6, {
+      TweenLite.from(this.$root.desk.currentReport, 0.6, {
         css: {
           opacity: 0
         },
         delay: 0.3,
         ease: Power3.easeInOut,
         onComplete: () => {
-          TweenLite.set([this.$root.currentPerson, this.$refs.mask], {
+          TweenLite.set([this.$root.desk.currentPerson, this.$refs.mask], {
             css: {
               opacity: 0
             }
@@ -138,7 +138,7 @@ export default {
     visibility hidden
   &__mrt
     height 100%
-    background-image url(../assets/img/cover/home-mrt.jpg)
+    background-image url(../../assets/img/cover/home-mrt.jpg)
     // background-size cover
   &__mask
     background-color #0a2d4f
@@ -156,13 +156,13 @@ export default {
     opacity 0
     // background-size cover
 #person1
-  background-image url(../assets/img/cover/home-person1.png)
+  background-image url(../../assets/img/cover/home-person1.png)
 #person2
-  background-image url(../assets/img/cover/home-person2.png)
+  background-image url(../../assets/img/cover/home-person2.png)
 #person3
-  background-image url(../assets/img/cover/home-person3.png)
+  background-image url(../../assets/img/cover/home-person3.png)
 #person4
-  background-image url(../assets/img/cover/home-person4.png)
+  background-image url(../../assets/img/cover/home-person4.png)
 #person5
-  background-image url(../assets/img/cover/home-person5.png)
+  background-image url(../../assets/img/cover/home-person5.png)
 </style>

@@ -48,9 +48,9 @@
 <script>
 import ReportNotation from './ReportNotation.vue'
 import ReportFigure from './ReportFigure.vue'
-import ReportImg1 from '../assets/img/report2/report2-1.jpg'
-import ReportImg2 from '../assets/img/report2/report2-2.jpg'
-import ReportImg3 from '../assets/img/report2/report2-3.jpg'
+import ReportImg1 from '../../assets/img/report2/report2-1.jpg'
+import ReportImg2 from '../../assets/img/report2/report2-2.jpg'
+import ReportImg3 from '../../assets/img/report2/report2-3.jpg'
 
 export default {
   name: 'ReportContent2',

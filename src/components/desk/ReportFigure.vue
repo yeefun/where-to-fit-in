@@ -21,7 +21,6 @@ export default {
   & figcaption
     font-size 1.8rem
     line-height 1.4
-    // color #031b37
     color #08517c
     padding-left 40px
     padding-right 40px
