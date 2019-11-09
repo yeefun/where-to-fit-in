@@ -1,0 +1,94 @@
+<template lang="pug">
+  section.the-credit
+    div
+      .the-credit__container
+        div
+          .the-credit__wrapper
+            .the-credit__title 採訪報導
+            .the-credit__name 林梵謹
+          .the-credit__wrapper
+            .the-credit__title 網頁製作
+            .the-credit__name 林昱帆
+        div
+          .the-credit__wrapper
+            .the-credit__title 網頁設計
+            .the-credit__name 林梵謹、林昱帆
+          .the-credit__wrapper
+            .the-credit__title 聲音作曲
+            .the-credit__name 蔡昀恬
+      div
+        .the-credit__title 特別感謝
+        .the-credit__name 張錦華、謝吉隆、方念萱、董谷音<br>歐成予、沈佩泠、Xavier Wang
+      img(src="../../assets/img/logo-shadow.png" alt="")
+      .the-credit__name © 2017-2019 林梵謹
+</template>
+
+<script>
+export default {
+  name: 'TheCredit'
+}
+</script>
+
+<style lang="stylus">
+@import "../../util/global.styl"
+
+.the-credit
+  position fixed
+  z-index 199
+  left 0
+  right 0
+  top 0
+  bottom 0
+  background-color rgba(#08517C, 0.96)
+  color #fff
+  font-size 1.8rem
+  line-height 1.6
+  text-align center
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  overflow auto
+  @media (min-width $tablet)
+    font-size 2.0rem
+  & > div
+    min-width 270px
+  &__container
+    display flex
+    margin-bottom 20px
+    justify-content center
+    @media (min-width $tablet)
+      margin-bottom 32px
+    & > div
+      &:first-child
+        padding-right 20px
+        @media (min-width $tablet)
+          padding-right 32px
+      &:last-child
+        padding-left 20px
+        @media (min-width $tablet)
+          padding-left 32px
+  &__wrapper
+    & + .the-credit__wrapper
+      margin-top 20px
+      @media (min-width $tablet)
+        margin-top 32px
+  &__title
+    font-size 2.2rem
+    line-height 1.5
+    font-weight 700
+    margin-bottom 4px
+    @media (min-width $tablet)
+      font-size 2.4rem
+      margin-bottom 8px
+  &__name
+    color #f6f6f6
+  & img
+    width 192px
+    margin-top 40px
+    margin-bottom 40px
+    vertical-align middle
+    @media (min-width $tablet)
+      margin-top 56px
+      margin-bottom 56px
+</style>

@@ -1,0 +1,65 @@
+@import "./global.styl"
+
+.reports-list
+  &__report
+    background-size cover
+    background-repeat no-repeat
+    background-position center top
+    padding-top 72px
+    padding-bottom 56px
+    text-align center
+    @media (min-width $tablet)
+      padding-top 64px
+      padding-bottom 64px
+    & h1
+      font-size 3.2rem
+      line-height 1.5
+      font-weight 700
+      color #090909
+      margin-bottom 8px
+      margin-right auto
+      margin-left auto
+      padding-left 24px
+      padding-right 24px
+      max-width 620px
+      // max-width 320px
+      @media (min-width $tablet)
+        font-size 4.8rem
+        margin-bottom 24px
+        padding-left 0
+        padding-right 0
+      @media (min-width $desktop)
+        max-width 992px
+    & p
+      font-size 1.8rem
+      line-height 1.8
+      font-weight 500
+      color #1b2733
+      margin-right auto
+      margin-left auto
+      margin-bottom 24px
+      padding-left 32px
+      padding-right 32px
+      max-width 311px
+      @media (min-width $tablet)
+        line-height 1.6
+        font-size 2.4rem
+        max-width 456px
+        margin-bottom 48px
+        padding-left 0
+        padding-right 0
+      @media (min-width $desktop)
+        max-width 768px
+    & button
+      font-size 1.6rem
+      font-weight 500
+      color #fff
+      border-radius 200px
+      background-color #003152
+      padding 8px 20px
+      line-height 1.5
+      @media (min-width $tablet)
+        // padding 12px 32px
+        padding 12px 48px
+        line-height 1.8
+        font-size 2.0rem

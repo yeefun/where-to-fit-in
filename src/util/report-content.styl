@@ -1,0 +1,57 @@
+@import "./global.styl"
+
+.report-content
+  // max-width 620px
+  // margin-right auto
+  // margin-left auto
+  color #1b2733
+  // opacity 0
+  // transform translateY(24px)
+  padding 72px 24px 64px 24px
+  font-size 1.8rem
+  line-height 1.8
+  @media (min-width $tablet)
+    font-size 2.0rem
+  & h2
+    color #090909
+    font-weight 500
+    font-size 2.8rem
+    line-height 1.5
+    margin-top 8px
+    margin-bottom 48px
+    text-align center
+    @media (min-width $tablet)
+      font-size 3.2rem
+      line-height 1.4
+      margin-top 16px
+      margin-bottom 64px
+      letter-spacing 12px
+  & h3
+    font-size 2.4rem
+    font-weight 700
+    text-align center
+    color #090909
+    line-height 1.5
+    margin-top 48px
+    margin-bottom 48px
+    @media (min-width $tablet)
+      font-size 2.8rem
+      line-height 1.4
+      margin-top 64px
+      margin-bottom 64px
+  & h4
+    white-space pre-wrap
+    color #090909
+    font-size 2.2rem
+    font-weight 700
+    line-height 1.6
+    margin-top 48px
+    margin-bottom 32px
+    @media (min-width $tablet)
+      font-size 2.4rem
+      margin-top 64px
+      margin-bottom 40px
+  & p + p
+    margin-top 32px
+    @media (min-width $tablet)
+      margin-top 40px
