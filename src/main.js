@@ -56,11 +56,5 @@ new Vue({
     'mobData.isTransition' () {
       this.mobMethods().toggleBodyScrollBar()
     }
-    // isReportContent () {
-    //   this.isTransition = false
-    // },
-    // isTransition () {
-    //   this.toggleBodyScrollBar()
-    // }
   }
 }).$mount('#app')

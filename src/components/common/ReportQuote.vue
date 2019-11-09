@@ -34,6 +34,7 @@ export default {
       font-size 2.4rem
       padding-left 24px
       margin-left 0
+      font-weight 500
     & p + p
       margin-top 12px
       @media (min-width $tablet)

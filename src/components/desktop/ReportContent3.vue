@@ -61,9 +61,9 @@
 
 <script>
 // import TitleAnchor from './TitleAnchor.vue'
-import ReportQuote from './ReportQuote.vue'
+import ReportQuote from '../common/ReportQuote.vue'
 import ReportFigure from './ReportFigure.vue'
-import ReportNotation from './ReportNotation.vue'
+import ReportNotation from '../common/ReportNotation.vue'
 import ReportImg1 from '../../assets/img/report3/report3-1.jpg'
 import ReportImg2 from '../../assets/img/report3/report3-2.jpg'
 import ReportImg3 from '../../assets/img/report3/report3-3.jpg'

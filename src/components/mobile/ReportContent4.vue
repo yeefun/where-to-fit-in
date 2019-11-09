@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import ReportQuote from './ReportQuote.vue'
-import ReportNotation from './ReportNotation.vue'
+import ReportQuote from '../common/ReportQuote.vue'
+import ReportNotation from '../common/ReportNotation.vue'
 
 export default {
   name: 'ReportContent4',
