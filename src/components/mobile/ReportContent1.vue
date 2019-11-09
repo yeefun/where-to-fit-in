@@ -16,7 +16,8 @@ export default {
   name: 'ReportContent1',
   mounted () {
     if (this.$root.mobData.isShowingRelatedReport) {
-      this.$root.mobMethods().applyCurrentReportScrollTop()
+      // this.$root.mobMethods().applyCurrentReportScrollTop()
+      this.$root.mobMethods().backToTop()
       this.$root.mobData.isTransition = false
       this.$root.mobData.isShowingRelatedReport = false
     }

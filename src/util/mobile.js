@@ -11,8 +11,8 @@ const mobData = {
   isTransition: false,
   isMovingBack: false,
   isShowingRelatedReport: false,
-  baseReportEl: null,
-  ReportsScrollTop: [ 0, 0, 0, 0, 0 ],
+  // baseReportEl: null,
+  // ReportsScrollTop: [ 0, 0, 0, 0, 0 ],
   reports: [
     {
       id: 1,
@@ -55,13 +55,13 @@ function mobMethods () {
     white: (id) => {
       return { 'font-white': (id === 2 || id === 5) }
     },
-    getCurrentReportScrollTop: () => {
-      const idx = this.mobData.currentReportId - 1
-      this.mobData.ReportsScrollTop[idx] = this.mobData.baseReportEl.scrollTop
-    },
-    applyCurrentReportScrollTop: () => {
-      this.mobData.baseReportEl.scrollTop = this.mobData.ReportsScrollTop[(this.mobData.currentReportId - 1)]
-    },
+    // getCurrentReportScrollTop: () => {
+    //   const idx = this.mobData.currentReportId - 1
+    //   this.mobData.ReportsScrollTop[idx] = this.mobData.baseReportEl.scrollTop
+    // },
+    // applyCurrentReportScrollTop: () => {
+    //   this.mobData.baseReportEl.scrollTop = this.mobData.ReportsScrollTop[(this.mobData.currentReportId - 1)]
+    // },
     checkBeginningReportId: () => {
       const regexp = /^\/report[1-5](\/?)/i
       let pathname = window.location.pathname
@@ -74,6 +74,9 @@ function mobMethods () {
           id: this.mobData.currentReportId
         }, '', `${this.$root.pathname}report${this.mobData.currentReportId}/index.html`)
       }
+    },
+    backToTop: () => {
+      document.getElementById('base-report').scrollTop = 0
     }
   }
 }

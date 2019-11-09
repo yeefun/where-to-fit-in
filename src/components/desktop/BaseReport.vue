@@ -22,6 +22,7 @@
           v-show="isReportIntro"
           :style="introStyle(report.id)"
           :id="`report-intro${report.id}`"
+          :class="[ $root.deskData.inReportCover ? 'cover' : 'related' ]"
         )
           .report__intro--cover(v-if="$root.deskData.inReportCover")
             div(v-html="report.introCover")
@@ -114,7 +115,7 @@ export default {
     },
     introStyle (id) {
       return {
-        marginTop: this.$root.deskData.inReportCover ? '32px' : '24px',
+        // marginTop: this.$root.deskData.inReportCover ? '32px' : '24px',
         color: (id === 5 || id === 2) ? '#fff' : '#1b2733'
       }
     },
@@ -304,6 +305,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import "../../util/global.styl"
+
 .reports
   &.hide
     overflow hidden
@@ -330,30 +333,54 @@ export default {
     padding-bottom 80px
   & h1
     max-width 992px
-    font-size 4.8rem
+    font-size 3.2rem
     font-weight 700
     line-height 1.5
+    // max-width 620px
+    max-width 992px
+    padding-left 40px
+    padding-right 40px
+    @media (min-width $tablet)
+      font-size 4.8rem
+    // @media (min-width $desktop)
+    //   max-width 992px
   &__cover
     &-img
       z-index -9
     &-txt
-      // max-width 768px
       text-align center
   &__intro
     max-width 768px
-    font-size 2.4rem
-    font-weight 500
+    // font-size 2.4rem
+    // font-weight 500
+    font-size 2rem
+    padding-left 40px
+    padding-right 40px
+    @media (min-width $tablet)
+      font-size 2.4rem
+      // font-weight 500
+    // @media (min-width $desktop)
+    //   max-width 768px
+    &.cover
+      margin-top 24px
+      @media (min-width $tablet)
+        margin-top 32px
+    &.related
+      margin-top 16px
+      @media (min-width $tablet)
+        margin-top 24px
     &--cover
       line-height 1.8
-      & p
-        font-size 2.4rem
-        & + p
+      & p + p
+        margin-top 12px
+        @media (min-width $tablet)
           margin-top 16px
       & button
         color #fff
-        font-size 2.0rem
-        margin-top 56px
-        line-height 1.8
+        font-size 1.8rem
+        margin-top 40px
+        line-height 1.5
+        // line-height 1.8
         // background-color rgba(#0a2d4f, 0.88)
         // background-color #0a2d4f
         // todo try 漸層色
@@ -362,8 +389,13 @@ export default {
         // background-color transparent
         // color #0a2d4f
         border-radius 200px
-        padding 12px 32px
+        padding 16px 28px
         font-weight 500
+        @media (min-width $tablet)
+          line-height 1.8
+          margin-top 48px
+          font-size 2rem
+          padding 12px 32px
     &--related
       line-height 1.6
 

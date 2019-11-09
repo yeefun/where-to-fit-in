@@ -47,7 +47,7 @@ export default {
   methods: {
     moveBack () {
       this.$root.mobData.isMovingBack = true
-      this.$root.mobMethods().getCurrentReportScrollTop()
+      // this.$root.mobMethods().getCurrentReportScrollTop()
       this.$root.mobData.isTransition = true
     },
     handleFadeInAfter () {
@@ -91,12 +91,12 @@ export default {
 @import '../util/report-content.styl'
 @import '../util/report-content--mob.styl'
 
-$ff-sans-serif = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Heiti TC", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
+$ff--sans-serif = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Heiti TC", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
 
 html
   font-size 10px
 body
-  font-family $ff-sans-serif
+  font-family $ff--sans-serif
   // background-color #6b8ba3
   &.no-scroll
     overflow hidden
@@ -146,7 +146,7 @@ button
   border 0
   outline 0
   cursor pointer
-  font-family $ff-sans-serif
+  font-family $ff--sans-serif
 .font-white
   color #fff !important
   &--tablet

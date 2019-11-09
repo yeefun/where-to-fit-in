@@ -15,6 +15,11 @@ export default {
     ReportContent5: () => import('./ReportContent5.vue'),
     RelatedReports: () => import('./RelatedReports.vue')
   }
+  // methods: {
+  //   backToTop () {
+  //     this.$el.scrollTop = 0
+  //   }
+  // }
 }
 </script>
 

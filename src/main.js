@@ -35,8 +35,11 @@ new Vue({
     }
   },
   mounted () {
-    if (this.isMob) this.mobData.baseReportEl = document.getElementById('base-report')
-    else window.addEventListener('resize', this.alterWindowSize)
+    // if (this.isMob) this.mobData.baseReportEl = document.getElementById('base-report')
+    // else window.addEventListener('resize', this.alterWindowSize)
+    if (!this.isMob) {
+      window.addEventListener('resize', this.alterWindowSize)
+    }
   },
   methods: {
     mobMethods,
@@ -47,9 +50,7 @@ new Vue({
       this.wh = this.wEl.innerHeight
     }
   },
-  // todo
   watch: {
-    // mob
     'mobData.isReportContent' () {
       this.mobData.isTransition = false
     },

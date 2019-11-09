@@ -17,7 +17,8 @@ export default {
     showReportContent (id) {
       this.$root.mobData.isTransition = true
       this.$root.mobData.currentReportId = id
-      this.$root.mobMethods().applyCurrentReportScrollTop()
+      this.$root.mobMethods().backToTop()
+      // this.$root.mobMethods().applyCurrentReportScrollTop()
     }
   }
 }

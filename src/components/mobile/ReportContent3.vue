@@ -80,8 +80,9 @@ export default {
     ReportNotation
   },
   mounted () {
-    if (this.$root.isShowingRelatedReport) {
-      this.$root.mobMethods().applyCurrentReportScrollTop()
+    if (this.$root.mobData.isShowingRelatedReport) {
+      // this.$root.mobMethods().applyCurrentReportScrollTop()
+      this.$root.mobMethods().backToTop()
       this.$root.mobData.isTransition = false
       this.$root.mobData.isShowingRelatedReport = false
     }

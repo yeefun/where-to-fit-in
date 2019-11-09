@@ -27,7 +27,7 @@ export default {
   methods: {
     showRelatedReport (id) {
       this.$root.mobData.isShowingRelatedReport = true
-      this.$root.mobMethods().getCurrentReportScrollTop()
+      // this.$root.mobMethods().getCurrentReportScrollTop()
       this.$root.mobData.relatedReportId = id
       this.$root.mobData.isTransition = true
     }
