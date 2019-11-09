@@ -63,7 +63,7 @@
 
 <script>
 import ReportQuote from '../common/ReportQuote.vue'
-import ReportFigure from './ReportFigure.vue'
+import ReportFigure from '../common/ReportFigure.vue'
 import ReportNotation from '../common/ReportNotation.vue'
 
 import ReportImg1 from '../../assets/img/report3/report3-1.jpg'

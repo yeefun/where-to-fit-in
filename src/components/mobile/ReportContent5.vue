@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import ReportFigure from './ReportFigure.vue'
+import ReportFigure from '../common/ReportFigure.vue'
 import ReportQuote from '../common/ReportQuote.vue'
 
 import ReportImg1 from '../../assets/img/report5/report5-1.png'

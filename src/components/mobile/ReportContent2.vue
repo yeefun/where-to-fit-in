@@ -51,7 +51,7 @@
 
 <script>
 import ReportNotation from '../common/ReportNotation.vue'
-import ReportFigure from './ReportFigure.vue'
+import ReportFigure from '../common/ReportFigure.vue'
 
 import ReportImg1 from '../../assets/img/report2/report2-1.jpg'
 import ReportImg2 from '../../assets/img/report2/report2-2.jpg'
