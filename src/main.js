@@ -29,8 +29,8 @@ new Vue({
     else this.deskMethods().checkReportId()
   },
   beforeMount () {
+    this.bodyEl = document.body
     if (this.isMob) {
-      this.bodyEl = document.body
       this.mobMethods().toggleBodyScrollBar()
     }
   },

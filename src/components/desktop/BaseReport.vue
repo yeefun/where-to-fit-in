@@ -131,8 +131,12 @@ export default {
       }
     },
     handleClick (evt, id) {
+      if (!this.$root.deskData.inHome && this.$root.deskData.inReportCover) {
+        this.backToHome()
+        return
+      }
       this.showReportFromRelated(evt, id)
-      if (!this.$root.deskData.inHome && this.$root.deskData.inReportCover) this.backToHome()
+      // if (!this.$root.deskData.inHome && this.$root.deskData.inReportCover) this.backToHome()
     },
     showReportFromBeginning () {
       const id = this.$root.deskData.beginningReportId
@@ -194,8 +198,8 @@ export default {
               }
             })
             this.$root.deskData.baseReports.shift()
-            document.documentElement.scrollTop = 0
-            document.body.scrollTop = 0
+            this.$root.htmlEl.scrollTop = 0
+            this.$root.bodyEl.scrollTop = 0
             this.animateCursorOut()
           }
         })
@@ -218,8 +222,8 @@ export default {
             cursor: 'auto'
           }
         })
-        document.documentElement.scrollTop = 0
-        document.body.scrollTop = 0
+        this.$root.htmlEl.scrollTop = 0
+        this.$root.bodyEl.scrollTop = 0
         this.$root.deskData.baseReports.shift()
 
         this.$root.deskData.currentReport = self
@@ -228,6 +232,7 @@ export default {
       }
     },
     loadReportContent (id) {
+      if (this.$root.deskData.inHome) return
       this.currentReportId = id
       this.$root.deskData.removedRelatedReportId = id
       TweenLite.to(`#report-intro${id}`, 0.6, {

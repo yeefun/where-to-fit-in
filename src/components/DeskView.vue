@@ -71,8 +71,8 @@ export default {
       if (this.$root.deskData.inHome) return
       this.$root.deskData.inHome = true
       this.$root.deskData.removedRelatedReportId = 0
-      document.documentElement.scrollTop = 0
-      document.body.scrollTop = 0
+      this.$root.htmlEl.scrollTop = 0
+      this.$root.bodyEl.scrollTop = 0
 
       TweenLite.to('.reports', 0.6, {
         css: {
