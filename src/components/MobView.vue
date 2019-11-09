@@ -89,7 +89,7 @@ export default {
 <style lang="stylus">
 @import '../util/reports-list.styl'
 @import '../util/report-content.styl'
-@import '../util/report-content--mobile.styl'
+@import '../util/report-content--mob.styl'
 
 $ff-sans-serif = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Heiti TC", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
 

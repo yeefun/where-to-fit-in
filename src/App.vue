@@ -4,14 +4,14 @@
 </template>
 
 <script>
-import MobView from './components/MobView.vue'
+// import MobView from './components/MobView.vue'
 
 export default {
   name: 'app',
   components: {
     DeskView: () => import('./components/DeskView.vue'),
-    // MobView: () => import('./components/MobView.vue'),
-    MobView
+    MobView: () => import('./components/MobView.vue')
+    // MobView
   }
 }
 </script>

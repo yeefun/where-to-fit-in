@@ -1,8 +1,11 @@
 @import "./global.styl"
 
 .report-content
+  padding-top 72px
+  padding-bottom 64px
   @media (min-width $tablet)
-    padding 24vh 0 80px 0
+    padding-top 24vh
+    padding-bottom 80px
   &__cover
     background-position top center
     background-size cover
@@ -34,9 +37,3 @@
       font-size 4.8rem
     @media (min-width $desktop)
       max-width 992px
-  &__img-link
-    display block
-    cursor pointer
-  // & .font-white-tablet
-  //   @media (min-width $tablet)
-  //     color #fff
