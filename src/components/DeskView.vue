@@ -1,9 +1,9 @@
 <template lang="pug">
   div
-    img#logo.clickable(src="../assets/img/logo-shadow.png" alt="胖子之大，何處可容身？" @click="backToHome")
+    img#logo(src="../assets/img/logo-shadow.png" alt="胖子之大，何處可容身？" @click="backToHome")
     CustomCursor(ref="cursor")
-    HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }" :bindMouseEventsToCursor="bindMouseEventsToCursor")
-    BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports" :backToHome="backToHome" :bindMouseEventsToCursor="bindMouseEventsToCursor" :animateCursorOut="animateCursorOut")
+    HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }")
+    BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
 
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
@@ -25,9 +25,9 @@ export default {
     if (this.$root.deskData.beginningReportId) this.isHomeCover = false
     window.addEventListener('popstate', this.handlePopState)
   },
-  mounted () {
-    this.bindMouseEventsToCursor()
-  },
+  // mounted () {
+  //   this.bindMouseEventsToCursor()
+  // },
   data () {
     return {
       isHomeCover: true
@@ -120,49 +120,49 @@ export default {
           document.getElementById(`report${id}`).click()
         }
       }
-    },
-    bindMouseEventsToCursor () {
-      const clickableEls = document.querySelectorAll('.clickable')
-      clickableEls.forEach((el) => {
-        el.addEventListener('mouseover', this.animateCursorOver)
-        el.addEventListener('mouseout', this.animateCursorOut)
-      })
-    },
-    animateCursorOver (evt) {
-      if (evt.currentTarget === this.$root.deskData.currentReport) return
-      const cursor = this.$refs.cursor.$el
-      const innerCursor = cursor.firstChild
-      TweenLite.to(cursor, 0.3, {
-        css: {
-          scale: 7.2,
-          opacity: 0.6
-        },
-        ease: Power3.easeInOut
-      })
-      TweenLite.to(innerCursor, 0.2, {
-        css: {
-          scale: 0
-        },
-        ease: Power3.easeInOut
-      })
-    },
-    animateCursorOut () {
-      const cursor = this.$refs.cursor.$el
-      const innerCursor = cursor.firstChild
-      TweenLite.to(cursor, 0.3, {
-        css: {
-          scale: 1,
-          opacity: 1
-        },
-        ease: Power2.easeInOut
-      })
-      TweenLite.to(innerCursor, 0.4, {
-        css: {
-          scale: 1
-        },
-        ease: Power2.easeInOut
-      })
     }
+    // bindMouseEventsToCursor () {
+    //   const clickableEls = document.querySelectorAll('.clickable')
+    //   clickableEls.forEach((el) => {
+    //     el.addEventListener('mouseover', this.animateCursorOver)
+    //     el.addEventListener('mouseout', this.animateCursorOut)
+    //   })
+    // },
+    // animateCursorOver (evt) {
+    //   if (evt.currentTarget === this.$root.deskData.currentReport) return
+    //   const cursor = this.$refs.cursor.$el
+    //   const innerCursor = cursor.firstChild
+    //   TweenLite.to(cursor, 0.3, {
+    //     css: {
+    //       scale: 7.2,
+    //       opacity: 0.6
+    //     },
+    //     ease: Power3.easeInOut
+    //   })
+    //   TweenLite.to(innerCursor, 0.2, {
+    //     css: {
+    //       scale: 0
+    //     },
+    //     ease: Power3.easeInOut
+    //   })
+    // },
+    // animateCursorOut () {
+    //   const cursor = this.$refs.cursor.$el
+    //   const innerCursor = cursor.firstChild
+    //   TweenLite.to(cursor, 0.3, {
+    //     css: {
+    //       scale: 1,
+    //       opacity: 1
+    //     },
+    //     ease: Power2.easeInOut
+    //   })
+    //   TweenLite.to(innerCursor, 0.4, {
+    //     css: {
+    //       scale: 1
+    //     },
+    //     ease: Power2.easeInOut
+    //   })
+    // }
   }
 }
 </script>

@@ -9,7 +9,7 @@
           :data-person="idx + 1"
           @mouseenter="showPerson" @mouseleave="hidePerson" @click="showReportCover"
         )
-          path.clickable(:d="path")
+          path(:d="path" @mouseover="animateCursorOver" @mouseout="animateCursorOut")
     .full-page
       .home-cover__person.full-page.full-img(v-for="idx in 5" :id="`person${idx}`")
 </template>
@@ -17,7 +17,7 @@
 <script>
 export default {
   name: 'HomeCover',
-  props: ['bindMouseEventsToCursor'],
+  // props: ['bindMouseEventsToCursor'],
   data () {
     return {
       // (1921 / 1388).toFixed(2) = 1.38
@@ -120,7 +120,42 @@ export default {
         ease: Expo.easeOut
       })
 
-      this.bindMouseEventsToCursor()
+      // this.bindMouseEventsToCursor()
+    },
+    animateCursorOver () {
+      // if (evt.currentTarget === this.$root.deskData.currentReport) return
+      const cursor = this.$parent.$refs.cursor.$el
+      const innerCursor = cursor.firstChild
+      TweenLite.to(cursor, 0.3, {
+        css: {
+          scale: 7.2,
+          opacity: 0.6
+        },
+        ease: Power3.easeInOut
+      })
+      TweenLite.to(innerCursor, 0.2, {
+        css: {
+          scale: 0
+        },
+        ease: Power3.easeInOut
+      })
+    },
+    animateCursorOut () {
+      const cursor = this.$parent.$refs.cursor.$el
+      const innerCursor = cursor.firstChild
+      TweenLite.to(cursor, 0.3, {
+        css: {
+          scale: 1,
+          opacity: 1
+        },
+        ease: Power2.easeInOut
+      })
+      TweenLite.to(innerCursor, 0.4, {
+        css: {
+          scale: 1
+        },
+        ease: Power2.easeInOut
+      })
     }
   }
 }

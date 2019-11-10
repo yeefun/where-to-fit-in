@@ -26,7 +26,7 @@
         )
           .report__intro--cover(v-if="$root.deskData.inReportCover")
             div(v-html="report.introCover")
-            button.clickable(type="button" @click.stop="loadReportContent(report.id)") {{ report.btnTxt }}
+            button(type="button" @click.stop="loadReportContent(report.id)") {{ report.btnTxt }}
           .report__intro--related(v-else)
             p {{ report.introRelated }}
       component(
@@ -49,13 +49,13 @@ export default {
     ReportContent4: () => import('./ReportContent4'),
     ReportContent5: () => import('./ReportContent5')
   },
-  props: ['backToHome', 'bindMouseEventsToCursor', 'animateCursorOut'],
+  props: ['backToHome'],
   created () {
     if (!this.showReportFromBeginning()) this.loadRelatedReports()
   },
-  mounted () {
-    this.bindMouseEventsToCursor()
-  },
+  // mounted () {
+  //   this.bindMouseEventsToCursor()
+  // },
   data () {
     return {
       isReportContent: false,
@@ -109,8 +109,8 @@ export default {
     },
     reportClass (id) {
       return {
-        'report--current': this.currentReportId === id,
-        clickable: !this.$root.deskData.inReportCover
+        'report--current': this.currentReportId === id
+        // clickable: !this.$root.deskData.inReportCover
       }
     },
     introStyle (id) {
@@ -200,7 +200,7 @@ export default {
             this.$root.deskData.baseReports.shift()
             this.$root.htmlEl.scrollTop = 0
             this.$root.bodyEl.scrollTop = 0
-            this.animateCursorOut()
+            // this.animateCursorOut()
           }
         })
         TweenLite.to(otherReports, 0.45, {
@@ -384,26 +384,24 @@ export default {
         // todo try 漸層色
         // background-color #003152
         // background-color #08517c
-        // background-color rgba(#003152, 0.8)
-        background-color #2e5a7e
-        border 1px solid #22567d
         // background-color #2e5a7e
-        // background-color #223e59
-        // border 1px solid rgba(#003152, 0.4)
+        // background-color rgba(#08517c, 0.88)
+        background-color #2f5b7f
+        // border 1px solid darken(#2f5b7f, 8%)
+        // background-color #5d7090
+        // background-color #787676
+        // background-color #6dabcb
+        // border 1px solid darken(#2c5666, 24%)
+        // border 1px solid darken(#54626c, 16%)
         // background-image linear-gradient(to right, #08517c, #003152)
         // background-image linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%)
         // border-radius 200px
-        border-radius 4px
-        padding 12px 24px
-        // letter-spacing 0.4px
-        // font-weight 500
-        // &:hover
-        //   background-position right center
+        // border-top-left-radius 20px
+        // border-bottom-right-radius 20px
+        padding 14px 32px
         @media (min-width $tablet)
           // line-height 1.8
-          // margin-top 40px
           font-size 2rem
-          // padding 12px 28px
     &--related
       line-height 1.6
 
