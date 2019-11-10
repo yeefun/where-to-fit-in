@@ -1,12 +1,14 @@
 <template lang="pug">
-  .custom-cursor
+  .custom-cursor(:class="{ back: isBackImg }")
     .custom-cursor__inner
       transition(:css="false" @enter="handleEnter" @leave="handleLeave")
         //- template(v-if="isCrossCursor")
-        div(v-if="isCrossCursor" key="cross")
-          .custom-cursor__cross.custom-cursor__cross--left
-          .custom-cursor__cross.custom-cursor__cross--right
-        .custom-cursor__circle(v-else key="circle")
+        //- div(v-if="isCrossCursor" key="cross")
+        //-   .custom-cursor__cross.custom-cursor__cross--left
+        //-   .custom-cursor__cross.custom-cursor__cross--right
+        //- .custom-cursor__circle(v-else key="circle")
+        img.custom-cursor__home(src="../../assets/img/icon/arrow-back--desk.png" v-if="isBackImg" alt="")
+        .custom-cursor__circle(v-else)
     //- .custom-cursor__circle#circle-cursor
 </template>
 
@@ -23,10 +25,13 @@ export default {
     }
   },
   created () {
-    window.addEventListener('mousemove', this.moveCursor)
+    this.$root.wEl.addEventListener('mousemove', this.moveCursor)
   },
   computed: {
-    isCrossCursor () {
+    // isCrossCursor () {
+    //   return !this.$root.deskData.inHome && this.$root.deskData.inReportCover
+    // }
+    isBackImg () {
       return !this.$root.deskData.inHome && this.$root.deskData.inReportCover
     }
   },
@@ -66,6 +71,9 @@ export default {
         onComplete: done
       })
     }
+  },
+  beforeDestroy () {
+    this.$root.wEl.removeEventListener('mousemove', this.moveCursor)
   }
 }
 </script>
@@ -86,7 +94,16 @@ export default {
   // background-color rgba(#d5e6f0, 0.4)
   background-color rgba(#fff, 0.4)
   box-sizing border-box
-  // mix-blend-mode overlay
+  mix-blend-mode overlay
+  &.back
+    mix-blend-mode normal
+  // easeInOutQuart
+  // transition background-color 0.3s 0.6s cubic-bezier(0.77, 0, 0.175, 1)
+  // &.hide
+  //   // background-color rgba(#fff, 0)
+  //   mix-blend-mode normal
+  //   easeInOutCubic
+  //   transition background-color 0.3s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
   &__inner
     position absolute
     top 50%
@@ -102,26 +119,22 @@ export default {
     left 50%
     transform translate(-50%, -50%)
     border-radius 50%
-  &__cross
-    // visibility hidden
-    // opacity 0
-    width 28px
-    height 8px
-    // background-color rgba(#144e79, 0.6)
-    background-color #fff
-    // background-color #d5e6f0
-    // background-color rgba(10, 45, 79, 1)
+  &__home
+    width 40px
+    height 40px
     position absolute
     top 50%
     left 50%
-    &--left
-      transform translate(-50%, -50%) rotate(45deg)
-    &--right
-      transform translate(-50%, -50%) rotate(-45deg)
-  // &__circle
-  //   width 32px
-  //   height 32px
-  //   border-radius 50%
-  //   background-color rgba(#d5e6f0, 0.4)
-  //   box-sizing border-box
+    transform translate(-50%, -50%)
+  // &__cross
+  //   width 28px
+  //   height 8px
+  //   background-color #fff
+  //   position absolute
+  //   top 50%
+  //   left 50%
+  //   &--left
+  //     transform translate(-50%, -50%) rotate(45deg)
+  //   &--right
+  //     transform translate(-50%, -50%) rotate(-45deg)
 </style>

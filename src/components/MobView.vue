@@ -1,7 +1,7 @@
 <template lang="pug">
   //- todo touchstart or click
-  div
-    img.icon.icon--back-to(src="../assets/img/icon/arrow-left.png" alt="" @click="moveBack" v-show="$root.mobData.isReportContent")
+  .mob-view
+    img.icon.icon--back-to(src="../assets/img/icon/arrow-back--mob.png" alt="" @click="moveBack" v-show="$root.mobData.isReportContent")
 
     transition(name="fadeNormal")
       img.icon.icon--cancel(src="../assets/img/icon/cancel.png" alt="" v-if="isCredit" @click="toggleCredit" key="cancel")
@@ -37,7 +37,7 @@ export default {
     TransitionMask
   },
   created () {
-    window.addEventListener('popstate', this.handlePopState)
+    this.$root.wEl.addEventListener('popstate', this.handlePopState)
   },
   data () {
     return {
@@ -82,6 +82,9 @@ export default {
     toggleCredit () {
       this.isCredit = !this.isCredit
     }
+  },
+  beforeDestroy () {
+    this.$root.wEl.removeEventListener('popstate', this.handlePopState)
   }
 }
 </script>

@@ -128,8 +128,10 @@ export default {
       const innerCursor = cursor.firstChild
       TweenLite.to(cursor, 0.3, {
         css: {
-          scale: 7.2,
-          opacity: 0.6
+          scale: 7.2
+          // backgroundColor: 'rgba(255, 255, 255, 0.4)'
+          // opacity: 0.6
+          // backgroundColor: 'rgba(255, 255, 255, 0.2)'
         },
         ease: Power3.easeInOut
       })
@@ -145,11 +147,21 @@ export default {
       const innerCursor = cursor.firstChild
       TweenLite.to(cursor, 0.3, {
         css: {
-          scale: 1,
-          opacity: 1
+          scale: 1
+          // opacity: 1
+          // backgroundColor: 'rgba(255, 255, 255, 0.4)'
         },
         ease: Power2.easeInOut
       })
+      // if (!this.$root.deskData.inHome && this.$root.deskData.inReportCover) {
+      //     TweenLite.to(cursor, 0.3, {
+      //     css: {
+      //       scale: 1,
+      //       backgroundColor: 'rgba(255, 255, 255, 0)'
+      //     },
+      //     ease: Power2.easeInOut
+      //   })
+      // }
       TweenLite.to(innerCursor, 0.4, {
         css: {
           scale: 1

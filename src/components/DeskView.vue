@@ -1,10 +1,11 @@
 <template lang="pug">
-  div
+  .desk-view
     img#logo(src="../assets/img/logo-shadow.png" alt="胖子之大，何處可容身？" @click="backToHome")
     CustomCursor(ref="cursor")
     HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }")
     BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
 
+    //- img(src="../assets/img/icon/home.png" v-show="!$root.deskData.inHome && $root.deskData.inReportCover" alt="")
     //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
 </template>
 
@@ -23,7 +24,7 @@ export default {
   },
   created () {
     if (this.$root.deskData.beginningReportId) this.isHomeCover = false
-    window.addEventListener('popstate', this.handlePopState)
+    this.$root.wEl.addEventListener('popstate', this.handlePopState)
   },
   // mounted () {
   //   this.bindMouseEventsToCursor()
@@ -163,6 +164,9 @@ export default {
     //     ease: Power2.easeInOut
     //   })
     // }
+  },
+  beforeDestroy () {
+    this.$root.wEl.removeEventListener('popstate', this.handlePopState)
   }
 }
 </script>
