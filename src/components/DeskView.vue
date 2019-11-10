@@ -95,7 +95,7 @@ export default {
           this.$root.deskData.currentReport = null
         }
       })
-      if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', `${this.$root.pathname}index.html`)
+      if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', `${this.$root.pathname}`)
       else this.$root.isPopState = false
     },
     handlePopState (evt) {
@@ -188,6 +188,7 @@ body
   margin-top 24px
   margin-left 32px
   cursor pointer
+  mix-blend-mode difference
 .full-page
   position absolute
   width 100%

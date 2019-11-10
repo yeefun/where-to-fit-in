@@ -288,7 +288,7 @@ export default {
             id
           },
           '',
-          `${this.$root.pathname}report${id}/index.html`
+          `${this.$root.pathname}report${id}`
         )
         this.isBeginning = false
       } else if (!this.$root.isPopState) {
@@ -298,7 +298,7 @@ export default {
             id
           },
           '',
-          `${this.$root.pathname}report${id}/index.html`
+          `${this.$root.pathname}report${id}`
         )
       } else {
         this.$root.isPopState = false
@@ -341,14 +341,12 @@ export default {
     font-size 3.2rem
     font-weight 700
     line-height 1.5
-    // max-width 620px
-    max-width 992px
-    padding-left 40px
-    padding-right 40px
+    padding-left 24px
+    padding-right 24px
     @media (min-width $tablet)
       font-size 4.8rem
-    // @media (min-width $desktop)
-    //   max-width 992px
+      padding-left 40px
+      padding-right 40px
   &__cover
     &-img
       z-index -9
@@ -356,16 +354,14 @@ export default {
       text-align center
   &__intro
     max-width 768px
-    // font-size 2.4rem
-    // font-weight 500
     font-size 2rem
-    padding-left 40px
-    padding-right 40px
+    padding-left 32px
+    padding-right 32px
+    @media (min-width $mobile)
+      padding-left 40px
+      padding-right 40px
     @media (min-width $tablet)
       font-size 2.4rem
-      // font-weight 500
-    // @media (min-width $desktop)
-    //   max-width 768px
     &.cover
       margin-top 24px
       @media (min-width $tablet)
@@ -384,23 +380,30 @@ export default {
         color #fff
         font-size 1.8rem
         margin-top 40px
-        line-height 1.5
-        // line-height 1.8
-        // background-color rgba(#0a2d4f, 0.88)
-        // background-color #0a2d4f
+        line-height 1.8
         // todo try 漸層色
-        background-color #003152
-        // border 2px solid rgba(#0a2d4f, 0.9)
-        // background-color transparent
-        // color #0a2d4f
-        border-radius 200px
-        padding 16px 28px
-        font-weight 500
+        // background-color #003152
+        // background-color #08517c
+        // background-color rgba(#003152, 0.8)
+        background-color #2e5a7e
+        border 1px solid #22567d
+        // background-color #2e5a7e
+        // background-color #223e59
+        // border 1px solid rgba(#003152, 0.4)
+        // background-image linear-gradient(to right, #08517c, #003152)
+        // background-image linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%)
+        // border-radius 200px
+        border-radius 4px
+        padding 12px 24px
+        // letter-spacing 0.4px
+        // font-weight 500
+        // &:hover
+        //   background-position right center
         @media (min-width $tablet)
-          line-height 1.8
-          margin-top 48px
+          // line-height 1.8
+          // margin-top 40px
           font-size 2rem
-          padding 12px 32px
+          // padding 12px 28px
     &--related
       line-height 1.6
 

@@ -16,7 +16,6 @@ new Vue({
     isMob: isTouchDevice() || isMobileOrTablet(),
     pathname: process.env.NODE_ENV === 'production' ? '/where-to-fit-in/' : '/',
     isPopState: false,
-    // mob
     bodyEl: null,
     // desk
     wEl: window,
@@ -35,8 +34,6 @@ new Vue({
     }
   },
   mounted () {
-    // if (this.isMob) this.mobData.baseReportEl = document.getElementById('base-report')
-    // else window.addEventListener('resize', this.alterWindowSize)
     if (!this.isMob) {
       window.addEventListener('resize', this.alterWindowSize)
     }

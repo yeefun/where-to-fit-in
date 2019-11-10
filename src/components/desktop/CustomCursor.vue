@@ -15,8 +15,8 @@ export default {
   name: 'CustomCursor',
   data () {
     return {
-      pageX: 0,
-      pageY: 0,
+      clientX: 0,
+      clientY: 0,
       x: 0,
       y: 0
       // isCrossCursor: false
@@ -32,8 +32,8 @@ export default {
   },
   mounted () {
     TweenLite.ticker.addEventListener('tick', () => {
-      this.x += (this.pageX - this.x) / 8
-      this.y += (this.pageY - this.y) / 8
+      this.x += (this.clientX - this.x) / 8
+      this.y += (this.clientY - this.y) / 8
       TweenLite.set(this.$el, {
         css: {
           x: this.x,
@@ -44,8 +44,8 @@ export default {
   },
   methods: {
     moveCursor (evt) {
-      this.pageX = evt.pageX
-      this.pageY = evt.pageY
+      this.clientX = evt.clientX
+      this.clientY = evt.clientY
     },
     handleEnter (el, done) {
       TweenLite.from(el, 0.6, {
@@ -72,9 +72,7 @@ export default {
 
 <style lang="stylus">
 .custom-cursor
-  // todo absolute or fixed?
-  position absolute
-  // position fixed
+  position fixed
   z-index 999
   top 0
   left 0

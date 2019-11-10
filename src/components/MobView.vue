@@ -54,7 +54,7 @@ export default {
       if (this.$root.mobData.isMovingBack) {
         this.$root.mobData.isReportContent = false
         this.$root.mobData.isMovingBack = false
-        if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', `${this.$root.pathname}index.html`)
+        if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', `${this.$root.pathname}`)
         else this.$root.isPopState = false
         return
       }
@@ -63,7 +63,7 @@ export default {
       else this.$root.mobData.isReportContent = true
 
       const id = this.$root.mobData.currentReportId
-      if (!this.$root.isPopState) history.pushState({ place: 'report', id }, '', `${this.$root.pathname}report${id}/index.html`)
+      if (!this.$root.isPopState) history.pushState({ place: 'report', id }, '', `${this.$root.pathname}report${id}`)
       else this.$root.isPopState = false
     },
     handlePopState (evt) {

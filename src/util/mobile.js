@@ -72,7 +72,7 @@ function mobMethods () {
         history.replaceState({
           place: 'report',
           id: this.mobData.currentReportId
-        }, '', `${this.$root.pathname}report${this.mobData.currentReportId}/index.html`)
+        }, '', `${this.$root.pathname}report${this.mobData.currentReportId}`)
       }
     },
     backToTop: () => {
