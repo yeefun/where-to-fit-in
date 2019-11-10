@@ -97,6 +97,8 @@ export default {
   mix-blend-mode overlay
   &.back
     mix-blend-mode normal
+  &.hide
+    visibility hidden
   // easeInOutQuart
   // transition background-color 0.3s 0.6s cubic-bezier(0.77, 0, 0.175, 1)
   // &.hide

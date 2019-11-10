@@ -26,7 +26,7 @@
         )
           .report__intro--cover(v-if="$root.deskData.inReportCover")
             div(v-html="report.introCover")
-            button(type="button" @click.stop="loadReportContent(report.id)") {{ report.btnTxt }}
+            button(type="button" @click.stop="loadReportContent(report.id)" @mouseover="toggleCursor" @mouseout="toggleCursor") {{ report.btnTxt }}
           .report__intro--related(v-else)
             p {{ report.introRelated }}
       component(
@@ -304,6 +304,9 @@ export default {
         this.$root.isPopState = false
         // this.isBeginning = false
       }
+    },
+    toggleCursor () {
+      this.$parent.$refs.cursor.$el.classList.toggle('hide')
     }
   }
 }

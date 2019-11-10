@@ -1,7 +1,9 @@
 <template lang="pug">
   .desk-view
     img#logo(src="../assets/img/logo-shadow.png" alt="胖子之大，何處可容身？" @click="backToHome")
-    CustomCursor(ref="cursor")
+    //- transition
+    CustomCursor(ref="cursor" v-if="$root.deskData.inHome || $root.deskData.inReportCover")
+
     HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }")
     BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
 
