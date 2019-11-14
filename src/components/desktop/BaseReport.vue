@@ -9,13 +9,16 @@
       :id="`report${report.id}`"
       :class="reportClass(report.id)"
     )
+      transition(name="coverMaskSlideUp")
+        .report__mask(
+          v-if="isMask[ report.id - 1 ] && !isReportContent"
+          :class="[ (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]"
+        )
       .report__cover-img.full-page.full-img(
         :id="`report${report.id}__cover`"
-        :style="{ height: currentReportId !== report.id ? '100%' : '' }"
+        :style="{ height: (currentReportId !== report.id) ? '100%' : '' }"
       )
       .report__cover-txt(:id="`report-cover-txt${report.id}`")
-        //- todo #f6f6f6 or #fff
-        //- #fff need text-shadow
         h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#fff' : '#090909'}") {{ report.title }}
         .report__intro(
           v-if="!isReportContent"
@@ -54,53 +57,56 @@ export default {
     if (!this.showReportFromBeginning()) this.loadRelatedReports()
   },
   // mounted () {
-  //   this.bindMouseEventsToCursor()
+  //   // this.bindMouseEventsToCursor()
+  //   console.log(this.isMask[0])
   // },
   data () {
     return {
       isReportContent: false,
       currentReportId: 0,
-      allReports: {
-        report1: {
+      allReports: [
+        {
           id: 1,
           title: '為什麼我們懼／拒胖？',
           introCover: '<p>我們正處在一個懼怕肥胖、拒絕變胖的時代。因為深怕與不健康、難看、懶惰等肥胖污名連結，人們多少對身材和體重感到焦慮。</p><p>事實上，1940 年代以前的臺灣社會認為，「胖」象徵一個人身強體壯、能力好⋯⋯臺灣人身材審美觀的轉變經歷了什麼？</p>',
           introRelated: '處在一個懼怕肥胖、拒絕變胖的時代，是誰定義胖就不好？',
           btnTxt: '為什麼怕胖？'
         },
-        report2: {
+        {
           id: 2,
           title: '「胖不健康」是提醒，還是詛咒？',
           introCover: '<p>「胖不健康」是發自內心的關心，或是用自己的健康標準來期待胖子？不健康的身體樣貌很多種，肥胖卻最容易遭到嚴厲批評，甚至人身攻擊。</p><p>「我替自己推拿，推到肚子時一邊推、一邊哭，一邊跟它說『對不起』，我還是瘦不下來。」140 公斤的張凱鈞多次節食，卻從未減重成功⋯⋯</p>',
           introRelated: '不健康的身體樣貌有很多種，「肥胖」就真的是「病態」？',
           btnTxt: '張凱鈞健康嗎？'
         },
-        report3: {
+        {
           id: 3,
           title: '不想瘦？胖子：想被當成普通人看待',
           introCover: '<p>許多胖子從小就胖，長大過程中常遭家人和同儕的指指點點。但胖子最大的期望不是瘦下來，而是得到與普通人同等的對待。</p><p>90 公斤的舞蹈老師黃冠潔在高中時愛上跳舞，是熱舞社裡最胖的女生，當她鼓起自信站上舞台時，卻有人說：「妳這麼胖，怎麼還敢跳舞？」</p>',
           introRelated: '許多胖子從小就胖，要怎麼教育胖孩子？該如何蛻變成長？',
           btnTxt: '黃冠潔如何蛻變？'
         },
-        report4: {
+        {
           id: 4,
           title: '縮小人生：胖子之大，何處可容身？',
           introCover: '<p>「坐在捷運的座位上時，我的身體會超出一格。」145 公斤的簡秀娟在人滿為患的車廂裡總是坐立難安。在臺灣人的日常生活中，充斥著沈默的社會規範與空間規則，無意冒犯常規的胖子顯得格格不入，過著被標準排擠的縮小人生。</p>',
           introRelated: '討厭被胖子擠壓？空間需求和身障相同，卻得不到同理。',
           btnTxt: '尋找胖子的容身處'
         },
-        report5: {
+        {
           id: 5,
           title: '胖網紅現身：渡邊直美改變了什麼？',
           introCover: '<p>身形肥胖的搞笑女星、IG 女神渡邊直美，是時下許多胖男胖女心中的偶像，她啟發粉絲對身材有自信、擁抱美麗。大大小小的胖網紅如雨後春筍般出現，在臺灣也不例外，他們呼籲大眾無論高矮胖瘦，尊重多元身體的存在。</p>',
           introRelated: '胖直美啟發粉絲擁抱身材，想問她如何成為有自信的胖子！',
           btnTxt: '如何成為有自信的胖子？'
         }
-      },
+      ],
+      isMask: [ true, true, true, true, true ],
       relatedReports: [],
       isShowingReport: false,
       isReportIntro: true,
-      isBeginning: false
+      isBeginning: false,
+      isTransition: false
     }
   },
   methods: {
@@ -109,7 +115,9 @@ export default {
     },
     reportClass (id) {
       return {
-        'report--current': this.currentReportId === id
+        'report--current': this.currentReportId === id,
+        // 'in-report-content': !this.$root.deskData.inHome && !this.$root.deskData.inReportCover
+        'related': !this.isReportContent && !this.$root.deskData.inReportCover
         // clickable: !this.$root.deskData.inReportCover
       }
     },
@@ -123,8 +131,8 @@ export default {
       const id = this.$root.deskData.removedRelatedReportId
       if (id) {
         for (let i = 1; i <= 4; i++) {
-          const idx = id + i
-          this.relatedReports.push(this.allReports[`report${idx > 5 ? (idx - 5) : idx}`])
+          const idx = (id - 1) + i
+          this.relatedReports.push(this.allReports[(idx >= 5 ? (idx - 5) : idx)])
         }
       } else {
         this.relatedReports = this.allReports
@@ -149,7 +157,7 @@ export default {
         this.currentReportId = id
         this.$root.deskData.removedRelatedReportId = id
 
-        this.relatedReports.push(this.allReports[`report${id}`])
+        this.relatedReports.push(this.allReports[id - 1])
 
         this.isReportContent = true
 
@@ -181,7 +189,7 @@ export default {
       this.isShowingReport = true
 
       if (!this.$root.isPopState) {
-        const otherReports = [1, 2, 3, 4, 5].filter((num) => num !== id).map((num) => `#report${num}`)
+        const otherReports = [ 1, 2, 3, 4, 5 ].filter((num) => num !== id).map((num) => `#report${num}`)
         const selfT = self.getBoundingClientRect().top
         TweenLite.to(self, 0.45, {
           css: {
@@ -233,6 +241,9 @@ export default {
     },
     loadReportContent (id) {
       if (this.$root.deskData.inHome) return
+      this.isTransition = true
+      this.isMask[ id - 1 ] = false
+
       this.currentReportId = id
       this.$root.deskData.removedRelatedReportId = id
       TweenLite.to(`#report-intro${id}`, 0.6, {
@@ -244,6 +255,7 @@ export default {
         onComplete: () => {
           this.$root.deskData.inReportCover = false
           this.isReportContent = true
+          this.isTransition = false
         }
       })
     },
@@ -306,6 +318,8 @@ export default {
       }
     },
     toggleCursor () {
+      if (this.isTransition) return
+
       this.$parent.$refs.cursor.$el.classList.toggle('hide')
     }
   }
@@ -333,9 +347,16 @@ export default {
   box-sizing border-box
   overflow hidden
   cursor pointer
-  // transition transform 0.3s ease-in-out
-  // &:hover
-  //   transform translateY(-16px)
+  & .report__mask
+    height 100vh
+  &.related
+    & .report__mask
+      height 100%
+    &:hover .report__mask
+      &.dark
+        background-color rgba(#000, 0.56)
+      &.light
+        background-color rgba(#fff, 0.56)
   &--current
     padding-top 24vh
     padding-bottom 80px
@@ -350,11 +371,24 @@ export default {
       font-size 4.8rem
       padding-left 40px
       padding-right 40px
+  &__mask
+    position absolute
+    top 0
+    left 0
+    width 100%
+    // height 100%
+    transition background-color 0.3s ease-out
+    &.dark
+      background-color rgba(#000, 0.4)
+    &.light
+      background-color rgba(#fff, 0.4)
   &__cover
     &-img
       z-index -9
     &-txt
       text-align center
+      position relative
+      // transition letter-spacing 0.3s ease-in-out
   &__intro
     max-width 768px
     font-size 2rem
@@ -390,21 +424,14 @@ export default {
         // background-color #2e5a7e
         // background-color rgba(#08517c, 0.88)
         background-color #2f5b7f
-        // border 1px solid darken(#2f5b7f, 8%)
-        // background-color #5d7090
-        // background-color #787676
-        // background-color #6dabcb
-        // border 1px solid darken(#2c5666, 24%)
-        // border 1px solid darken(#54626c, 16%)
-        // background-image linear-gradient(to right, #08517c, #003152)
-        // background-image linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%)
-        // border-radius 200px
-        // border-top-left-radius 20px
-        // border-bottom-right-radius 20px
         padding 14px 32px
+        transition all 0.3s ease-in-out
         @media (min-width $tablet)
           // line-height 1.8
           font-size 2rem
+        &:hover
+          letter-spacing 2px
+          background-color darken(#2f5b7f, 16%)
     &--related
       line-height 1.6
 
@@ -425,4 +452,10 @@ export default {
   background-image url(../../assets/img/cover/report4.jpg)
 #report5__cover
   background-image url(../../assets/img/cover/report5.jpg)
+// transition
+.coverMaskSlideUp
+  &-enter-active, &-leave-active
+    transition all 0.3s cubic-bezier(0.19, 1, 0.22, 1)
+  &-enter, &-leave-to
+    transform translateX(-100vh)
 </style>
