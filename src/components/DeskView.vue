@@ -25,12 +25,11 @@ export default {
     // TitleAnchor
   },
   created () {
-    if (this.$root.deskData.beginningReportId) this.isHomeCover = false
+    if (this.deskData.beginningReportId) {
+      this.isHomeCover = false
+    }
     this.$root.wEl.addEventListener('popstate', this.handlePopState)
   },
-  // mounted () {
-  //   this.bindMouseEventsToCursor()
-  // },
   data () {
     return {
       isHomeCover: true
@@ -63,115 +62,72 @@ export default {
       // }
     }
   },
-  // computed: {
-  //   theAnchors () {
-  //     const currentReportId = this.$root.deskData.removedRelatedReportId
-  //     return currentReportId > 1 ? this.anchors[`report${currentReportId}`] : []
-  //   }
-  // },
+  computed: {
+    // theAnchors () {
+    //   const currentReportId = this.deskData.removedRelatedReportId
+    //   return currentReportId > 1 ? this.anchors[`report${currentReportId}`] : []
+    // }
+    deskData () {
+      return this.$root.deskData
+    }
+  },
   methods: {
     backToHome () {
-      if (this.$root.deskData.inHome) return
-      this.$root.deskData.inHome = true
-      this.$root.deskData.removedRelatedReportId = 0
+      if (this.deskData.inHome) return
+      this.deskData.inHome = true
+      this.deskData.removedRelatedReportId = 0
       this.$root.htmlEl.scrollTop = 0
       this.$root.bodyEl.scrollTop = 0
 
-      TweenLite.to('.reports', 0.6, {
-        css: {
-          opacity: 0
-        },
-        ease: Power2.easeInOut
+      gsap.to('.reports', {
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.inOut'
       })
-      TweenLite.to(this.$refs.homeCover.$el, 0.6, {
-        css: {
-          autoAlpha: 1
-        },
+      gsap.to(this.$refs.homeCover.$el, {
+        autoAlpha: 1,
+        duration: 0.6,
         delay: 0.3,
-        ease: Power3.easeInOut,
+        ease: 'power3.inOut',
         onComplete: () => {
-          this.$root.deskData.inReportCover = true
+          this.deskData.inReportCover = true
 
-          this.$root.deskData.baseReports.splice(0)
-          this.$root.deskData.switchTimes += 1
-          this.$root.deskData.baseReports.push(this.$root.deskData.switchTimes)
-          this.$root.deskData.currentReport = null
+          this.deskData.baseReports.splice(0)
+          this.deskData.switchTimes += 1
+          this.deskData.baseReports.push(this.deskData.switchTimes)
+          this.deskData.currentReport = null
         }
       })
-      if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', this.$root.pathname)
-      else this.$root.isPopState = false
+      if (!this.$root.isPopState) {
+        history.pushState({ place: 'home' }, '', this.$root.pathname)
+      } else {
+        this.$root.isPopState = false
+      }
     },
     handlePopState (evt) {
       const state = evt.state
       this.$root.isPopState = true
       if (!state || state.place === 'home') {
-        console.log('home')
         this.backToHome()
       } else if (state.place === 'report cover') {
-        console.log('report cover')
         this.$refs.homeCover.showReportCover(null, state.id)
       } else {
         const id = state.id
-        if (this.$root.deskData.inHome) {
-          console.log('report inHome')
-          TweenLite.to(this.$refs.homeCover.$el, 0.6, {
-            css: {
-              autoAlpha: 0
-            },
-            ease: Power2.easeInOut,
+        if (this.deskData.inHome) {
+          gsap.to(this.$refs.homeCover.$el, {
+            autoAlpha: 0,
+            duration: 0.6,
+            ease: 'power2.inOut',
             onComplete: () => {
               this.$refs.baseReports[0].showReportFromHome(id)
-              this.$root.deskData.inHome = false
+              this.deskData.inHome = false
             }
           })
         } else {
-          console.log('report inReport')
           document.getElementById(`report${id}`).click()
         }
       }
     }
-    // bindMouseEventsToCursor () {
-    //   const clickableEls = document.querySelectorAll('.clickable')
-    //   clickableEls.forEach((el) => {
-    //     el.addEventListener('mouseover', this.animateCursorOver)
-    //     el.addEventListener('mouseout', this.animateCursorOut)
-    //   })
-    // },
-    // animateCursorOver (evt) {
-    //   if (evt.currentTarget === this.$root.deskData.currentReport) return
-    //   const cursor = this.$refs.cursor.$el
-    //   const innerCursor = cursor.firstChild
-    //   TweenLite.to(cursor, 0.3, {
-    //     css: {
-    //       scale: 7.2,
-    //       opacity: 0.6
-    //     },
-    //     ease: Power3.easeInOut
-    //   })
-    //   TweenLite.to(innerCursor, 0.2, {
-    //     css: {
-    //       scale: 0
-    //     },
-    //     ease: Power3.easeInOut
-    //   })
-    // },
-    // animateCursorOut () {
-    //   const cursor = this.$refs.cursor.$el
-    //   const innerCursor = cursor.firstChild
-    //   TweenLite.to(cursor, 0.3, {
-    //     css: {
-    //       scale: 1,
-    //       opacity: 1
-    //     },
-    //     ease: Power2.easeInOut
-    //   })
-    //   TweenLite.to(innerCursor, 0.4, {
-    //     css: {
-    //       scale: 1
-    //     },
-    //     ease: Power2.easeInOut
-    //   })
-    // }
   },
   beforeDestroy () {
     this.$root.wEl.removeEventListener('popstate', this.handlePopState)

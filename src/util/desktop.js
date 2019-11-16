@@ -6,7 +6,8 @@ const deskData = {
   currentPerson: null,
   currentReport: null,
   removedRelatedReportId: 0,
-  beginningReportId: 0
+  beginningReportId: 0,
+  isBeginning: false
   // fromHome: true
 }
 

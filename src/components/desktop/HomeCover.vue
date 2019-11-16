@@ -17,7 +17,6 @@
 <script>
 export default {
   name: 'HomeCover',
-  // props: ['bindMouseEventsToCursor'],
   data () {
     return {
       // (1921 / 1388).toFixed(2) = 1.38
@@ -32,10 +31,20 @@ export default {
       ]
     }
   },
+  mounted () {
+    const state = window.history.state
+    if (state && state.place === 'report cover') {
+      this.deskData.isBeginning = true
+      this.showReportCover(null, state.id)
+    }
+  },
   computed: {
     clickablePersonsSize () {
       const windowAspectRatio = this.$root.ww / this.$root.wh
       return this.clickablePersonsAspectRatio > windowAspectRatio ? { width: `${1921 * (this.$root.wh / 1388)}px` } : { height: `${1388 * (this.$root.ww / 1921)}px` }
+    },
+    deskData () {
+      return this.$root.deskData
     }
   },
   methods: {
@@ -43,83 +52,77 @@ export default {
       if (this.isGoingReportCover) return
       const self = evt.currentTarget
       const idx = self.dataset.person
-      this.$root.deskData.currentPerson = document.getElementById(`person${idx}`)
-      TweenLite.to(this.$root.deskData.currentPerson, 0.65, {
-        css: {
-          opacity: 1
-        },
-        ease: Power3.easeOut
+      this.deskData.currentPerson = document.getElementById(`person${idx}`)
+      gsap.to(this.deskData.currentPerson, {
+        opacity: 1,
+        duration: 0.65,
+        ease: 'power3.out'
       })
-      TweenLite.to(this.$refs.mask, 0.65, {
-        css: {
-          opacity: 0.6
-        },
-        ease: Expo.easeOut
+      gsap.to(this.$refs.mask, {
+        opacity: 0.6,
+        duration: 0.65,
+        ease: 'expo.out'
       })
     },
     hidePerson () {
       if (this.isGoingReportCover) return
-      TweenLite.to(this.$root.deskData.currentPerson, 0.65, {
-        css: {
-          opacity: 0
-        },
-        ease: Power2.easeOut
+
+      gsap.to(this.deskData.currentPerson, {
+        opacity: 0,
+        duration: 0.65,
+        ease: 'power2.out'
       })
-      TweenLite.to(this.$refs.mask, 0.65, {
-        css: {
-          opacity: 0
-        },
-        ease: Expo.easeOut
+      gsap.to(this.$refs.mask, {
+        opacity: 0,
+        duration: 0.65,
+        ease: 'expo.out'
       })
     },
     showReportCover (evt, reportId) {
-      const id = evt ? evt.currentTarget.dataset.person : reportId
-      // const self = evt.currentTarget
-      // const id = self.dataset.person
-
-      this.$root.deskData.currentReport = document.getElementById(`report${id}`)
+      const id = (evt ? evt.currentTarget.dataset.person : reportId)
+      this.deskData.currentReport = document.getElementById(`report${id}`)
       this.isGoingReportCover = true
-      this.$root.deskData.inHome = false
+      this.deskData.inHome = false
 
-      TweenLite.set(this.$root.deskData.currentReport, {
-        css: {
-          position: 'absolute',
-          height: '100vh',
-          cursor: 'auto'
-        }
+      gsap.set(this.deskData.currentReport, {
+        position: 'absolute',
+        height: '100vh',
+        cursor: 'auto'
       })
 
-      TweenLite.to(this.$el, 0.6, {
-        css: {
-          autoAlpha: 0
-        },
-        ease: Power2.easeInOut
+      gsap.to(this.$el, {
+        autoAlpha: 0,
+        duration: 0.6,
+        ease: 'power2.inOut'
       })
 
-      TweenLite.from(this.$root.deskData.currentReport, 0.6, {
-        css: {
-          opacity: 0
-        },
+      gsap.from(this.deskData.currentReport, {
+        opacity: 0,
+        duration: 0.6,
         delay: 0.3,
-        ease: Power3.easeInOut,
+        ease: 'power3.inOut',
         onComplete: () => {
-          TweenLite.set([this.$root.deskData.currentPerson, this.$refs.mask], {
-            css: {
+          if (this.deskData.currentPerson) {
+            gsap.set([this.deskData.currentPerson, this.$refs.mask], {
               opacity: 0
-            }
-          })
+            })
+          }
           this.isGoingReportCover = false
         }
       })
 
-      TweenLite.from(`#report-cover-txt${id}`, 0.25, {
-        css: {
-          scale: 0,
-          opacity: 0
-        },
+      gsap.from(`#report-cover-txt${id}`, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.25,
         delay: 0.6,
-        ease: Expo.easeOut
+        ease: 'expo.out'
       })
+
+      if (this.deskData.isBeginning) {
+        this.deskData.isBeginning = false
+        return
+      }
 
       if (!this.$root.isPopState) {
         history.pushState({ place: 'report cover', id }, '', this.$root.pathname)
@@ -128,50 +131,32 @@ export default {
       }
     },
     animateCursorOver () {
-      // if (evt.currentTarget === this.$root.deskData.currentReport) return
       const cursor = this.$parent.$refs.cursor.$el
       const innerCursor = cursor.firstChild
-      TweenLite.to(cursor, 0.3, {
-        css: {
-          scale: 7.2
-          // backgroundColor: 'rgba(255, 255, 255, 0.4)'
-          // opacity: 0.6
-          // backgroundColor: 'rgba(255, 255, 255, 0.2)'
-        },
-        ease: Power3.easeInOut
+      gsap.to(cursor, {
+        scale: 7.2,
+        duration: 0.3,
+        ease: 'power3.inOut'
       })
-      TweenLite.to(innerCursor, 0.2, {
-        css: {
-          scale: 0
-        },
-        ease: Power3.easeInOut
+      gsap.to(innerCursor, {
+        scale: 0,
+        duration: 0.2,
+        ease: 'power3.inOut',
+        overwrite: 'auto'
       })
     },
     animateCursorOut () {
       const cursor = this.$parent.$refs.cursor.$el
       const innerCursor = cursor.firstChild
-      TweenLite.to(cursor, 0.3, {
-        css: {
-          scale: 1
-          // opacity: 1
-          // backgroundColor: 'rgba(255, 255, 255, 0.4)'
-        },
-        ease: Power2.easeInOut
+      gsap.to(cursor, {
+        scale: 1,
+        duration: 0.3,
+        ease: 'power2.inOut'
       })
-      // if (!this.$root.deskData.inHome && this.$root.deskData.inReportCover) {
-      //     TweenLite.to(cursor, 0.3, {
-      //     css: {
-      //       scale: 1,
-      //       backgroundColor: 'rgba(255, 255, 255, 0)'
-      //     },
-      //     ease: Power2.easeInOut
-      //   })
-      // }
-      TweenLite.to(innerCursor, 0.4, {
-        css: {
-          scale: 1
-        },
-        ease: Power2.easeInOut
+      gsap.to(innerCursor, {
+        scale: 1,
+        duration: 0.4,
+        ease: 'power2.inOut'
       })
     }
   }

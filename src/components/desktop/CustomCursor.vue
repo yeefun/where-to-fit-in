@@ -28,22 +28,22 @@ export default {
     this.$root.wEl.addEventListener('mousemove', this.moveCursor)
   },
   computed: {
-    // isCrossCursor () {
-    //   return !this.$root.deskData.inHome && this.$root.deskData.inReportCover
-    // }
+    deskData () {
+      return this.$root.deskData
+    },
     isBackImg () {
-      return !this.$root.deskData.inHome && this.$root.deskData.inReportCover
+      return !this.deskData.inHome && this.deskData.inReportCover
     }
   },
   mounted () {
-    TweenLite.ticker.addEventListener('tick', () => {
+    // todo opt
+    // https://greensock.com/docs/v3/GSAP/gsap.quickSetter()
+    gsap.ticker.add(() => {
       this.x += (this.clientX - this.x) / 8
       this.y += (this.clientY - this.y) / 8
-      TweenLite.set(this.$el, {
-        css: {
-          x: this.x,
-          y: this.y
-        }
+      gsap.set(this.$el, {
+        x: this.x,
+        y: this.y
       })
     })
   },
@@ -53,21 +53,19 @@ export default {
       this.clientY = evt.clientY
     },
     handleEnter (el, done) {
-      TweenLite.from(el, 0.6, {
-        css: {
-          scale: 0
-        },
+      gsap.from(el, {
+        scale: 0,
+        duration: 0.6,
         delay: 0.3,
-        ease: Power3.easeInOut,
+        ease: 'power3.inOut',
         onComplete: done
       })
     },
     handleLeave (el, done) {
-      TweenLite.to(el, 0.6, {
-        css: {
-          scale: 0
-        },
-        ease: Power2.easeInOut,
+      gsap.to(el, {
+        scale: 0,
+        duration: 0.6,
+        ease: 'power2.inOut',
         onComplete: done
       })
     }

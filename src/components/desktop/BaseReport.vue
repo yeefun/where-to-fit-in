@@ -111,6 +111,11 @@ export default {
       isFromRelated: false
     }
   },
+  computed: {
+    deskData () {
+      return this.$root.deskData
+    }
+  },
   methods: {
     isReport (id) {
       return !this.currentReportId || (this.currentReportId === id)
@@ -118,18 +123,18 @@ export default {
     reportClass (id) {
       return {
         'report--current': this.currentReportId === id,
-        'related': !this.isReportContent && !this.$root.deskData.inReportCover,
-        'jcc': this.$root.deskData.inReportCover
+        'related': !this.isReportContent && !this.deskData.inReportCover,
+        'jcc': this.deskData.inReportCover
       }
     },
     introClass (id) {
       return [
-        this.$root.deskData.inReportCover ? 'cover' : 'related',
+        this.deskData.inReportCover ? 'cover' : 'related',
         this.$root.white(id)
       ]
     },
     loadRelatedReports () {
-      const id = this.$root.deskData.removedRelatedReportId
+      const id = this.deskData.removedRelatedReportId
       if (id) {
         for (let i = 1; i <= 4; i++) {
           const idx = (id - 1) + i
@@ -140,52 +145,50 @@ export default {
       }
     },
     handleClick (evt, id) {
-      if (!this.$root.deskData.inHome && this.$root.deskData.inReportCover) {
+      if (!this.deskData.inHome && this.deskData.inReportCover) {
         this.backToHome()
         return
       }
       this.showReportFromRelated(evt, id)
     },
     showReportFromBeginning () {
-      const id = this.$root.deskData.beginningReportId
+      const id = this.deskData.beginningReportId
       if (id) {
         this.isShowingReport = true
         this.isBeginning = true
-        this.$root.deskData.inHome = false
-        this.$root.deskData.inReportCover = false
+        this.deskData.inHome = false
+        this.deskData.inReportCover = false
 
         this.currentReportId = id
-        this.$root.deskData.removedRelatedReportId = id
+        this.deskData.removedRelatedReportId = id
 
         this.relatedReports.push(this.allReports[id - 1])
 
         this.isReportContent = true
 
-        this.$root.deskData.beginningReportId = 0
+        this.deskData.beginningReportId = 0
       }
       return id
     },
     showReportFromHome (id) {
       this.isMask = false
-      this.$root.deskData.currentReport = document.getElementById(`report${id}`)
+      this.deskData.currentReport = document.getElementById(`report${id}`)
       this.isReportIntro = false
 
-      TweenLite.set(this.$root.deskData.currentReport, {
-        css: {
-          position: 'absolute',
-          height: '100vh',
-          cursor: 'auto'
-        }
+      gsap.set(this.deskData.currentReport, {
+        position: 'absolute',
+        height: '100vh',
+        cursor: 'auto'
       })
 
       this.currentReportId = id
-      this.$root.deskData.removedRelatedReportId = id
-      this.$root.deskData.inReportCover = false
+      this.deskData.removedRelatedReportId = id
+      this.deskData.inReportCover = false
       this.isReportContent = true
     },
     showReportFromRelated (evt, id) {
       const self = evt.currentTarget
-      if ((this.$root.deskData.currentReport === self) || this.isShowingReport) return
+      if ((this.deskData.currentReport === self) || this.isShowingReport) return
 
       this.isMask = false
       this.isShowingReport = true
@@ -193,70 +196,63 @@ export default {
       if (!this.$root.isPopState) {
         const otherReports = [ 1, 2, 3, 4, 5 ].filter((num) => num !== id).map((num) => `#report${num}`)
         const selfT = self.getBoundingClientRect().top
-        TweenLite.to(self, 0.45, {
-          css: {
-            y: -selfT,
-            height: '100vh'
-          },
-          ease: Circ.easeInOut,
+        gsap.to(self, {
+          y: -selfT,
+          height: '100vh',
+          duration: 0.45,
+          ease: 'circ.inOut',
           onComplete: () => {
-            TweenLite.set(self, {
-              css: {
-                position: 'fixed',
-                y: 0,
-                cursor: 'auto'
-              }
+            gsap.set(self, {
+              position: 'fixed',
+              y: 0,
+              cursor: 'auto'
             })
-            this.$root.deskData.baseReports.shift()
+            this.deskData.baseReports.shift()
             this.$root.htmlEl.scrollTop = 0
             this.$root.bodyEl.scrollTop = 0
           }
         })
-        TweenLite.to(otherReports, 0.45, {
-          css: {
-            autoAlpha: 0
-          },
-          ease: Circ.easeInOut,
+        gsap.to(otherReports, {
+          autoAlpha: 0,
+          duration: 0.45,
+          ease: 'circ.inOut',
           onComplete: () => {
-            this.$root.deskData.currentReport = self
+            this.deskData.currentReport = self
             this.isShowingReport = false
             this.loadReportContent(id, true)
           }
         })
       } else {
-        TweenLite.set(self, {
-          css: {
-            position: 'fixed',
-            height: '100vh',
-            cursor: 'auto'
-          }
+        gsap.set(self, {
+          position: 'fixed',
+          height: '100vh',
+          cursor: 'auto'
         })
         this.$root.htmlEl.scrollTop = 0
         this.$root.bodyEl.scrollTop = 0
-        this.$root.deskData.baseReports.shift()
+        this.deskData.baseReports.shift()
 
-        this.$root.deskData.currentReport = self
+        this.deskData.currentReport = self
         this.isShowingReport = false
         this.loadReportContent(id, true)
       }
     },
     loadReportContent (id, isFromRelated = false) {
-      if (this.$root.deskData.inHome) return
+      if (this.deskData.inHome) return
 
       this.isFromRelated = isFromRelated
       this.isMask = false
       this.isTransition = true
 
       this.currentReportId = id
-      this.$root.deskData.removedRelatedReportId = id
-      TweenLite.to(`#report-intro${id}`, 0.6, {
-        css: {
-          autoAlpha: 0,
-          y: 24
-        },
-        ease: Circ.easeInOut,
+      this.deskData.removedRelatedReportId = id
+      gsap.to(`#report-intro${id}`, {
+        autoAlpha: 0,
+        y: 24,
+        duration: 0.6,
+        ease: 'circ.inOut',
         onComplete: () => {
-          this.$root.deskData.inReportCover = false
+          this.deskData.inReportCover = false
           this.isReportContent = true
           this.isTransition = false
         }
@@ -268,36 +264,31 @@ export default {
       const url = `${this.$root.pathname}report${id}`
 
       if (!this.isBeginning) {
-        TweenLite.set(this.$root.deskData.currentReport, {
+        gsap.set(this.deskData.currentReport, {
           position: '',
           height: ''
         })
-        TweenLite.to(`#report-content${id}`, 0.9, {
-          css: {
-            opacity: 1,
-            y: 0
-          },
-          ease: Circ.easeInOut,
+        gsap.to(`#report-content${id}`, {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'circ.inOut',
           onComplete: () => {
-            this.$root.deskData.switchTimes += 1
-            this.$root.deskData.baseReports.push(this.$root.deskData.switchTimes)
+            this.deskData.switchTimes += 1
+            this.deskData.baseReports.push(this.deskData.switchTimes)
           }
         })
       } else {
-        this.$root.deskData.currentReport = document.getElementById(`report${id}`)
-        TweenLite.set(`#report-content${id}`, {
-          css: {
-            opacity: 1,
-            y: 0
-          }
+        this.deskData.currentReport = document.getElementById(`report${id}`)
+        gsap.set(`#report-content${id}`, {
+          opacity: 1,
+          y: 0
         })
-        TweenLite.set(this.$root.deskData.currentReport, {
-          css: {
-            cursor: 'auto'
-          }
+        gsap.set(this.deskData.currentReport, {
+          cursor: 'auto'
         })
-        this.$root.deskData.switchTimes += 1
-        this.$root.deskData.baseReports.push(this.$root.deskData.switchTimes)
+        this.deskData.switchTimes += 1
+        this.deskData.baseReports.push(this.deskData.switchTimes)
       }
 
       if (this.isBeginning) {
@@ -349,8 +340,8 @@ export default {
     & .report__mask
       height 100%
     &:hover .report__mask
-      // easeInOutCubic = Power2.easeOut
-      transition background-color 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)
+      // easeOutSine
+      transition background-color 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
       &.dark
         background-color rgba(#090909, 0.7)
       &.light
@@ -375,8 +366,8 @@ export default {
     top 0
     left 0
     width 100%
-    // easeOutQuart = Power3.easeOut
-    transition background-color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)
+    // easeOutCubic
+    transition background-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1)
     &.dark
       background-color rgba(#090909, 0.4)
     &.light
@@ -419,7 +410,7 @@ export default {
         line-height 1.8
         background-color #2f5b7f
         padding 14px 32px
-        // easeInOutCubic = Power2.easeInOut
+        // easeInOutCubic
         transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
         @media (min-width $tablet)
           font-size 2rem
@@ -448,10 +439,10 @@ export default {
   background-image url(../../assets/img/cover/report5.jpg)
 
 // transition
-.fadeMask
-  &-enter-active, &-leave-active
-    // easeInOutCubic = Power2.easeInOut
-    transition opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
-  &-enter, &-leave-to
-    opacity 0
+// .fadeMask
+//   &-enter-active, &-leave-active
+//     // easeInOutCubic = Power2.easeInOut
+//     transition opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
+//   &-enter, &-leave-to
+//     opacity 0
 </style>
