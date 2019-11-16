@@ -54,7 +54,7 @@ export default {
       if (this.$root.mobData.isMovingBack) {
         this.$root.mobData.isReportContent = false
         this.$root.mobData.isMovingBack = false
-        if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', `${this.$root.pathname}`)
+        if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', this.$root.pathname)
         else this.$root.isPopState = false
         return
       }

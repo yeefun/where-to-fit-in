@@ -11,7 +11,7 @@
         )
           path(:d="path" @mouseover="animateCursorOver" @mouseout="animateCursorOut")
     .full-page
-      .home-cover__person.full-page.full-img(v-for="idx in 5" :id="`person${idx}`")
+      .home-cover__person.full-page.full-img(v-for="id in 5" :id="`person${id}`")
 </template>
 
 <script>
@@ -72,11 +72,12 @@ export default {
         ease: Expo.easeOut
       })
     },
-    showReportCover (evt) {
-      const self = evt.currentTarget
-      const idx = self.dataset.person
+    showReportCover (evt, reportId) {
+      const id = evt ? evt.currentTarget.dataset.person : reportId
+      // const self = evt.currentTarget
+      // const id = self.dataset.person
 
-      this.$root.deskData.currentReport = document.getElementById(`report${idx}`)
+      this.$root.deskData.currentReport = document.getElementById(`report${id}`)
       this.isGoingReportCover = true
       this.$root.deskData.inHome = false
 
@@ -111,7 +112,7 @@ export default {
         }
       })
 
-      TweenLite.from(`#report-cover-txt${idx}`, 0.25, {
+      TweenLite.from(`#report-cover-txt${id}`, 0.25, {
         css: {
           scale: 0,
           opacity: 0
@@ -120,7 +121,11 @@ export default {
         ease: Expo.easeOut
       })
 
-      // this.bindMouseEventsToCursor()
+      if (!this.$root.isPopState) {
+        history.pushState({ place: 'report cover', id }, '', this.$root.pathname)
+      } else {
+        this.$root.isPopState = false
+      }
     },
     animateCursorOver () {
       // if (evt.currentTarget === this.$root.deskData.currentReport) return

@@ -2,11 +2,12 @@ const deskData = {
   inHome: true,
   inReportCover: true,
   switchTimes: 0,
-  baseReports: [0],
+  baseReports: [ 0 ],
   currentPerson: null,
   currentReport: null,
   removedRelatedReportId: 0,
   beginningReportId: 0
+  // fromHome: true
 }
 
 function deskMethods () {

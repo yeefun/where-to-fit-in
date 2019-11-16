@@ -98,18 +98,22 @@ export default {
           this.$root.deskData.currentReport = null
         }
       })
-      if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', `${this.$root.pathname}`)
+      if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', this.$root.pathname)
       else this.$root.isPopState = false
     },
     handlePopState (evt) {
       const state = evt.state
       this.$root.isPopState = true
       if (!state || state.place === 'home') {
+        console.log('home')
         this.backToHome()
+      } else if (state.place === 'report cover') {
+        console.log('report cover')
+        this.$refs.homeCover.showReportCover(null, state.id)
       } else {
-        // console.log('report inHome');
         const id = state.id
         if (this.$root.deskData.inHome) {
+          console.log('report inHome')
           TweenLite.to(this.$refs.homeCover.$el, 0.6, {
             css: {
               autoAlpha: 0
@@ -121,6 +125,7 @@ export default {
             }
           })
         } else {
+          console.log('report inReport')
           document.getElementById(`report${id}`).click()
         }
       }

@@ -107,7 +107,8 @@ export default {
       isShowingReport: false,
       isReportIntro: true,
       isBeginning: false,
-      isTransition: false
+      isTransition: false,
+      isFromRelated: false
     }
   },
   methods: {
@@ -143,7 +144,6 @@ export default {
         this.backToHome()
         return
       }
-      this.isMask = false
       this.showReportFromRelated(evt, id)
     },
     showReportFromBeginning () {
@@ -187,6 +187,7 @@ export default {
       const self = evt.currentTarget
       if ((this.$root.deskData.currentReport === self) || this.isShowingReport) return
 
+      this.isMask = false
       this.isShowingReport = true
 
       if (!this.$root.isPopState) {
@@ -219,7 +220,7 @@ export default {
           onComplete: () => {
             this.$root.deskData.currentReport = self
             this.isShowingReport = false
-            this.loadReportContent(id)
+            this.loadReportContent(id, true)
           }
         })
       } else {
@@ -236,12 +237,13 @@ export default {
 
         this.$root.deskData.currentReport = self
         this.isShowingReport = false
-        this.loadReportContent(id)
+        this.loadReportContent(id, true)
       }
     },
-    loadReportContent (id) {
+    loadReportContent (id, isFromRelated = false) {
       if (this.$root.deskData.inHome) return
 
+      this.isFromRelated = isFromRelated
       this.isMask = false
       this.isTransition = true
 
@@ -262,6 +264,9 @@ export default {
     },
     fadeInReportContent () {
       const id = this.currentReportId
+      const state = { place: 'report', id }
+      const url = `${this.$root.pathname}report${id}`
+
       if (!this.isBeginning) {
         TweenLite.set(this.$root.deskData.currentReport, {
           position: '',
@@ -294,28 +299,18 @@ export default {
         this.$root.deskData.switchTimes += 1
         this.$root.deskData.baseReports.push(this.$root.deskData.switchTimes)
       }
+
       if (this.isBeginning) {
-        history.replaceState(
-          {
-            place: 'report',
-            id
-          },
-          '',
-          `${this.$root.pathname}report${id}`
-        )
+        history.replaceState(state, '', url)
         this.isBeginning = false
       } else if (!this.$root.isPopState) {
-        history.pushState(
-          {
-            place: 'report',
-            id
-          },
-          '',
-          `${this.$root.pathname}report${id}`
-        )
+        if (this.isFromRelated) {
+          history.pushState(state, '', url)
+        } else {
+          history.replaceState(state, '', url)
+        }
       } else {
         this.$root.isPopState = false
-        // this.isBeginning = false
       }
     },
     toggleCursor () {
