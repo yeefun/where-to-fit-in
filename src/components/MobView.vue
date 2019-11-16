@@ -1,7 +1,7 @@
 <template lang="pug">
   //- todo touchstart or click
   .mob-view
-    img.icon.icon--back-to(src="../assets/img/icon/arrow-back--mob.png" alt="" @click="moveBack" v-show="$root.mobData.isReportContent")
+    img.icon.icon--back-to(src="../assets/img/icon/arrow-back--mob.png" alt="" @click="moveBack" v-show="mobData.isReportContent")
 
     transition(name="fadeNormal")
       img.icon.icon--cancel(src="../assets/img/icon/cancel.png" alt="" v-if="isCredit" @click="toggleCredit" key="cancel")
@@ -17,7 +17,7 @@
     transition(name="fadeNormal")
       TheCredit(v-if="isCredit")
     transition(name="fadeMask" @after-enter="handleFadeInAfter")
-      TransitionMask(v-show="$root.mobData.isTransition")
+      TransitionMask(v-show="mobData.isTransition")
 </template>
 
 <script>
@@ -44,25 +44,29 @@ export default {
       isCredit: false
     }
   },
+  computed: {
+    mobData () {
+      return this.$root.mobData
+    }
+  },
   methods: {
     moveBack () {
-      this.$root.mobData.isMovingBack = true
-      // this.$root.mobMethods().getCurrentReportScrollTop()
-      this.$root.mobData.isTransition = true
+      this.mobData.isMovingBack = true
+      this.mobData.isTransition = true
     },
     handleFadeInAfter () {
-      if (this.$root.mobData.isMovingBack) {
-        this.$root.mobData.isReportContent = false
-        this.$root.mobData.isMovingBack = false
+      if (this.mobData.isMovingBack) {
+        this.mobData.isReportContent = false
+        this.mobData.isMovingBack = false
         if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', this.$root.pathname)
         else this.$root.isPopState = false
         return
       }
 
-      if (this.$root.mobData.isShowingRelatedReport) this.$root.mobData.currentReportId = this.$root.mobData.relatedReportId
-      else this.$root.mobData.isReportContent = true
+      if (this.mobData.isShowingRelatedReport) this.mobData.currentReportId = this.mobData.relatedReportId
+      else this.mobData.isReportContent = true
 
-      const id = this.$root.mobData.currentReportId
+      const id = this.mobData.currentReportId
       if (!this.$root.isPopState) history.pushState({ place: 'report', id }, '', `${this.$root.pathname}report${id}`)
       else this.$root.isPopState = false
     },
@@ -75,7 +79,7 @@ export default {
       } else {
         const id = state.id
         // from report to report : from home to report
-        const type = (this.$root.mobData.isReportContent ? 'related' : 'home')
+        const type = (this.mobData.isReportContent ? 'related' : 'home')
         document.getElementById(`${type}ReportBtn${id}`).click()
       }
     },

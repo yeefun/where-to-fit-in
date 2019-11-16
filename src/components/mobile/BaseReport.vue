@@ -1,6 +1,6 @@
 <template lang="pug">
-  .base-report#base-report(:class="{ show: $root.mobData.isReportContent }")
-    component(:is="`ReportContent${$root.mobData.currentReportId}`")
+  .base-report#base-report(:class="{ show: mobData.isReportContent }")
+    component(:is="`ReportContent${mobData.currentReportId}`")
     RelatedReports
 </template>
 
@@ -14,12 +14,12 @@ export default {
     ReportContent4: () => import('./ReportContent4.vue'),
     ReportContent5: () => import('./ReportContent5.vue'),
     RelatedReports: () => import('./RelatedReports.vue')
+  },
+  computed: {
+    mobData () {
+      return this.$root.mobData
+    }
   }
-  // methods: {
-  //   backToTop () {
-  //     this.$el.scrollTop = 0
-  //   }
-  // }
 }
 </script>
 

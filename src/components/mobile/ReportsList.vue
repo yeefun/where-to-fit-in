@@ -1,7 +1,7 @@
 <template lang="pug">
   section.reports-list
     .reports-list__report(
-      v-for="report in $root.mobData.reports"
+      v-for="report in mobData.reports"
       :key="report.id"
       :style="{ backgroundImage: `url(${report.img})` }"
     )
@@ -15,10 +15,14 @@ export default {
   name: 'ReportsList',
   methods: {
     showReportContent (id) {
-      this.$root.mobData.isTransition = true
-      this.$root.mobData.currentReportId = id
+      this.mobData.isTransition = true
+      this.mobData.currentReportId = id
       this.$root.mobMethods().backToTop()
-      // this.$root.mobMethods().applyCurrentReportScrollTop()
+    }
+  },
+  computed: {
+    mobData () {
+      return this.$root.mobData
     }
   }
 }

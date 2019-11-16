@@ -80,11 +80,10 @@ export default {
     ReportNotation
   },
   mounted () {
-    if (this.$root.mobData.isShowingRelatedReport) {
-      // this.$root.mobMethods().applyCurrentReportScrollTop()
+    if (this.mobData.isShowingRelatedReport) {
       this.$root.mobMethods().backToTop()
-      this.$root.mobData.isTransition = false
-      this.$root.mobData.isShowingRelatedReport = false
+      this.mobData.isTransition = false
+      this.mobData.isShowingRelatedReport = false
     }
   },
   data () {
@@ -159,6 +158,11 @@ export default {
           display: 'inline'
         }
       ]
+    }
+  },
+  computed: {
+    mobData () {
+      return this.$root.mobData
     }
   }
 }

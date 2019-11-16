@@ -16,20 +16,22 @@ export default {
   computed: {
     relatedReports () {
       const reports = []
-      const reportNum = this.$root.mobData.reports.length
+      const reportNum = this.mobData.reports.length
       for (let i = 0; i < (reportNum - 1); i++) {
-        const idx = this.$root.mobData.currentReportId + i
-        reports.push(this.$root.mobData.reports[`${(idx > (reportNum - 1)) ? (idx - reportNum) : idx}`])
+        const idx = this.mobData.currentReportId + i
+        reports.push(this.mobData.reports[`${(idx > (reportNum - 1)) ? (idx - reportNum) : idx}`])
       }
       return reports
+    },
+    mobData () {
+      return this.$root.mobData
     }
   },
   methods: {
     showRelatedReport (id) {
-      this.$root.mobData.isShowingRelatedReport = true
-      // this.$root.mobMethods().getCurrentReportScrollTop()
-      this.$root.mobData.relatedReportId = id
-      this.$root.mobData.isTransition = true
+      this.mobData.isShowingRelatedReport = true
+      this.mobData.relatedReportId = id
+      this.mobData.isTransition = true
     }
   }
 }

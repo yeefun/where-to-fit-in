@@ -18,6 +18,7 @@ new Vue({
     isPopState: false,
     wEl: window,
     bodyEl: null,
+    // todo
     // desk
     htmlEl: document.documentElement,
     ww: Math.min(document.documentElement.clientWidth, window.innerWidth),

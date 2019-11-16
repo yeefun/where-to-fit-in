@@ -1,6 +1,5 @@
 <template lang="pug">
-  //- todo 去除 abbr 中的 p tag
-  abbr.report-notation(:title="notation.txt")
+  abbr.report-notation(:title="title")
     span.report-notation__wrapped(@click="toggleNotation")
       slot
     img(:src="arrowImg" @click="toggleNotation" :class="[isInline ? 'inline' : 'block', isNotation ? 'active' : '']")
@@ -22,6 +21,9 @@ export default {
     }
   },
   computed: {
+    title () {
+      return this.notation.txt.replace(/<p>|<\/p>/gmi, '')
+    },
     isInline () {
       return this.notation.display === 'inline'
     },

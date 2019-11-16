@@ -417,6 +417,8 @@ export default {
         &:hover
           letter-spacing 2px
           background-color darken(#2f5b7f, 16%)
+        &:active
+          background-color darken(#2f5b7f, 32%)
     &--related
       line-height 1.6
 
