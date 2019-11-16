@@ -107,6 +107,7 @@ export default {
       if (!state || state.place === 'home') {
         this.backToHome()
       } else {
+        // console.log('report inHome');
         const id = state.id
         if (this.$root.deskData.inHome) {
           TweenLite.to(this.$refs.homeCover.$el, 0.6, {

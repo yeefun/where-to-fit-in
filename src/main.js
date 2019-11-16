@@ -41,6 +41,10 @@ new Vue({
   methods: {
     mobMethods,
     deskMethods,
+    // common
+    white (id) {
+      return { 'color-white': (id === 2 || id === 5) }
+    },
     // desk
     alterWindowSize () {
       this.ww = this.htmlEl.clientWidth

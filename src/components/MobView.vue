@@ -150,18 +150,12 @@ button
   outline 0
   cursor pointer
   font-family $ff--sans-serif
-.font-white
-  color #fff !important
+.color-white
   &--tablet
     @media (min-width $tablet)
-      color #fff
-// .home-wrappe
-//   transition filter 0.24s
-
-// .blur
-//   filter blur(5px)
-
+      color #fff !important
 // transition
+// todo
 .fadeMask
   &-enter, &-leave-to
     background-color rgba(#003152, 0)

@@ -1,13 +1,13 @@
 <template lang="pug">
   article.report-content
     .report-content__cover#report__cover2
-    h1.font-white 「胖不健康」是提醒，還是詛咒？
+    h1.color-white 「胖不健康」是提醒，還是詛咒？
     .report-content__wrapper
-      h2.font-white 胖子與健康的拉鋸戰
+      h2.color-white 胖子與健康的拉鋸戰
       //- todo 螢幕寬時 cover 黑底會看不見
-      p.font-white--tablet 「當你是一個胖子，你就是一個被詛咒的人。人們總說：你有一天會生病。」體重破百的網紅<ReportNotation :notation="notations[0]">汪綺</ReportNotation>說道，她身穿一襲無袖低胸的黑色短洋裝，身軀與自信顯得更為豐滿。
+      p.color-white--tablet 「當你是一個胖子，你就是一個被詛咒的人。人們總說：你有一天會生病。」體重破百的網紅<ReportNotation :notation="notations[0]">汪綺</ReportNotation>說道，她身穿一襲無袖低胸的黑色短洋裝，身軀與自信顯得更為豐滿。
 
-      p.font-white--tablet 無論在網路或現實中，汪綺都能大方地展現身體，像在葬禮上被迫長大的小女孩一般，她太清楚人們如何議論自己，汪綺喃喃地說：「健康是肥胖最被妖魔化的事。」三個月後，她走進了胃縮手術的手術房。
+      p.color-white--tablet 無論在網路或現實中，汪綺都能大方地展現身體，像在葬禮上被迫長大的小女孩一般，她太清楚人們如何議論自己，汪綺喃喃地說：「健康是肥胖最被妖魔化的事。」三個月後，她走進了胃縮手術的手術房。
       ReportFigure(:figure="figures[0]")
       h4 肥胖造成健康風險   不健康的身體不只有胖
       p <ReportNotation :notation="notations[1]">研究</ReportNotation>顯示，自八〇年代開始，臺灣人因為生活水平提升，體重普遍有越來越胖的趨勢，肥胖情形也相較其他亞洲國家嚴重。基於國民健康考量，政府部門開始訂定許多防治肥胖的策略，民間也掀起一股健身與減肥熱潮，並風行至今。

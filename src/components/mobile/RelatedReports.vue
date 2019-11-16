@@ -5,8 +5,8 @@
       :key="report.id"
       :style="{ backgroundImage: `url(${report.img})` }"
     )
-      h1(:class="$root.mobMethods().white(report.id)") {{ report.title }}
-      p(:class="$root.mobMethods().white(report.id)") {{ report.intro }}
+      h1(:class="$root.white(report.id)") {{ report.title }}
+      p(:class="$root.white(report.id)") {{ report.intro }}
       button(@click="showRelatedReport(report.id)" :id="`relatedReportBtn${report.id}`") 看更多⋯
 </template>
 

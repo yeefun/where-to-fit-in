@@ -52,9 +52,9 @@ function mobMethods () {
     toggleBodyScrollBar: () => {
       (this.mobData.isTransition || this.mobData.isReportContent) ? this.bodyEl.classList.add('no-scroll') : this.bodyEl.classList.remove('no-scroll')
     },
-    white: (id) => {
-      return { 'font-white': (id === 2 || id === 5) }
-    },
+    // white: (id) => {
+    //   return { 'color-white': (id === 2 || id === 5) }
+    // },
     // getCurrentReportScrollTop: () => {
     //   const idx = this.mobData.currentReportId - 1
     //   this.mobData.ReportsScrollTop[idx] = this.mobData.baseReportEl.scrollTop

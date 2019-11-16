@@ -14,5 +14,10 @@ export default {
 </script>
 
 <style lang="stylus">
-
+.color-white
+  color #fff !important
+.jcc
+  justify-content center !important
+.h-100p
+  height 100% !important
 </style>

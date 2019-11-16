@@ -1,42 +1,45 @@
 <template lang="pug">
   section.reports(:class="{ hide: $root.deskData.inReportCover }")
     article.report(
-      v-for="report in relatedReports"
+      v-for="(report, idx) in relatedReports"
+      :key="`report${report.id}`"
       v-if="isReport(report.id)"
-      @click="handleClick($event, report.id)"
-      :key="report.id"
-      :style="{ 'justify-content': $root.deskData.inReportCover ? 'center' : '' }"
       :id="`report${report.id}`"
       :class="reportClass(report.id)"
+      @click="handleClick($event, report.id)"
     )
-      transition(name="coverMaskSlideUp")
-        .report__mask(
-          v-if="isMask[ report.id - 1 ] && !isReportContent"
-          :class="[ (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]"
-        )
+      //- transition(name="fadeMask")
+      .report__mask(
+        v-if="isMask && !isReportContent"
+        :class="[ (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]"
+      )
       .report__cover-img.full-page.full-img(
         :id="`report${report.id}__cover`"
-        :style="{ height: (currentReportId !== report.id) ? '100%' : '' }"
+        :class="{ 'h-100p': currentReportId !== report.id }"
       )
       .report__cover-txt(:id="`report-cover-txt${report.id}`")
-        h1(:style="{ color: (report.id === 5 || report.id === 2) ? '#fff' : '#090909'}") {{ report.title }}
+        h1(:class="$root.white(report.id)") {{ report.title }}
         .report__intro(
           v-if="!isReportContent"
           v-show="isReportIntro"
-          :style="introStyle(report.id)"
           :id="`report-intro${report.id}`"
-          :class="[ $root.deskData.inReportCover ? 'cover' : 'related' ]"
+          :class="introClass(report.id)"
         )
           .report__intro--cover(v-if="$root.deskData.inReportCover")
             div(v-html="report.introCover")
-            button(type="button" @click.stop="loadReportContent(report.id)" @mouseover="toggleCursor" @mouseout="toggleCursor") {{ report.btnTxt }}
+            button(
+              type="button"
+              @click.stop="loadReportContent(report.id)"
+              @mouseover="toggleCursor"
+              @mouseout="toggleCursor"
+            ) {{ report.btnTxt }}
           .report__intro--related(v-else)
             p {{ report.introRelated }}
       component(
         :is="`ReportContent${report.id}`"
         v-if="isReportContent"
-        @loaded="fadeInReportContent"
         :id="`report-content${report.id}`"
+        @loaded="fadeInReportContent"
       )
 </template>
 
@@ -52,14 +55,12 @@ export default {
     ReportContent4: () => import('./ReportContent4'),
     ReportContent5: () => import('./ReportContent5')
   },
-  props: ['backToHome'],
+  props: [ 'backToHome' ],
   created () {
-    if (!this.showReportFromBeginning()) this.loadRelatedReports()
+    if (!this.showReportFromBeginning()) {
+      this.loadRelatedReports()
+    }
   },
-  // mounted () {
-  //   // this.bindMouseEventsToCursor()
-  //   console.log(this.isMask[0])
-  // },
   data () {
     return {
       isReportContent: false,
@@ -101,7 +102,7 @@ export default {
           btnTxt: '如何成為有自信的胖子？'
         }
       ],
-      isMask: [ true, true, true, true, true ],
+      isMask: true,
       relatedReports: [],
       isShowingReport: false,
       isReportIntro: true,
@@ -116,16 +117,15 @@ export default {
     reportClass (id) {
       return {
         'report--current': this.currentReportId === id,
-        // 'in-report-content': !this.$root.deskData.inHome && !this.$root.deskData.inReportCover
-        'related': !this.isReportContent && !this.$root.deskData.inReportCover
-        // clickable: !this.$root.deskData.inReportCover
+        'related': !this.isReportContent && !this.$root.deskData.inReportCover,
+        'jcc': this.$root.deskData.inReportCover
       }
     },
-    introStyle (id) {
-      return {
-        // marginTop: this.$root.deskData.inReportCover ? '32px' : '24px',
-        color: (id === 5 || id === 2) ? '#fff' : '#1b2733'
-      }
+    introClass (id) {
+      return [
+        this.$root.deskData.inReportCover ? 'cover' : 'related',
+        this.$root.white(id)
+      ]
     },
     loadRelatedReports () {
       const id = this.$root.deskData.removedRelatedReportId
@@ -143,8 +143,8 @@ export default {
         this.backToHome()
         return
       }
+      this.isMask = false
       this.showReportFromRelated(evt, id)
-      // if (!this.$root.deskData.inHome && this.$root.deskData.inReportCover) this.backToHome()
     },
     showReportFromBeginning () {
       const id = this.$root.deskData.beginningReportId
@@ -166,6 +166,7 @@ export default {
       return id
     },
     showReportFromHome (id) {
+      this.isMask = false
       this.$root.deskData.currentReport = document.getElementById(`report${id}`)
       this.isReportIntro = false
 
@@ -208,7 +209,6 @@ export default {
             this.$root.deskData.baseReports.shift()
             this.$root.htmlEl.scrollTop = 0
             this.$root.bodyEl.scrollTop = 0
-            // this.animateCursorOut()
           }
         })
         TweenLite.to(otherReports, 0.45, {
@@ -241,8 +241,9 @@ export default {
     },
     loadReportContent (id) {
       if (this.$root.deskData.inHome) return
+
+      this.isMask = false
       this.isTransition = true
-      this.isMask[ id - 1 ] = false
 
       this.currentReportId = id
       this.$root.deskData.removedRelatedReportId = id
@@ -353,10 +354,12 @@ export default {
     & .report__mask
       height 100%
     &:hover .report__mask
+      // easeInOutCubic = Power2.easeOut
+      transition background-color 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)
       &.dark
-        background-color rgba(#000, 0.56)
+        background-color rgba(#090909, 0.7)
       &.light
-        background-color rgba(#fff, 0.56)
+        background-color rgba(#fff, 0.7)
   &--current
     padding-top 24vh
     padding-bottom 80px
@@ -367,6 +370,7 @@ export default {
     line-height 1.5
     padding-left 24px
     padding-right 24px
+    color #090909
     @media (min-width $tablet)
       font-size 4.8rem
       padding-left 40px
@@ -376,10 +380,10 @@ export default {
     top 0
     left 0
     width 100%
-    // height 100%
-    transition background-color 0.3s ease-out
+    // easeOutQuart = Power3.easeOut
+    transition background-color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)
     &.dark
-      background-color rgba(#000, 0.4)
+      background-color rgba(#090909, 0.4)
     &.light
       background-color rgba(#fff, 0.4)
   &__cover
@@ -388,12 +392,12 @@ export default {
     &-txt
       text-align center
       position relative
-      // transition letter-spacing 0.3s ease-in-out
   &__intro
     max-width 768px
     font-size 2rem
     padding-left 32px
     padding-right 32px
+    color #1b2733
     @media (min-width $mobile)
       padding-left 40px
       padding-right 40px
@@ -418,16 +422,11 @@ export default {
         font-size 1.8rem
         margin-top 40px
         line-height 1.8
-        // todo try 漸層色
-        // background-color #003152
-        // background-color #08517c
-        // background-color #2e5a7e
-        // background-color rgba(#08517c, 0.88)
         background-color #2f5b7f
         padding 14px 32px
-        transition all 0.3s ease-in-out
+        // easeInOutCubic = Power2.easeInOut
+        transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
         @media (min-width $tablet)
-          // line-height 1.8
           font-size 2rem
         &:hover
           letter-spacing 2px
@@ -452,10 +451,12 @@ export default {
   background-image url(../../assets/img/cover/report4.jpg)
 #report5__cover
   background-image url(../../assets/img/cover/report5.jpg)
+
 // transition
-.coverMaskSlideUp
+.fadeMask
   &-enter-active, &-leave-active
-    transition all 0.3s cubic-bezier(0.19, 1, 0.22, 1)
+    // easeInOutCubic = Power2.easeInOut
+    transition opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
   &-enter, &-leave-to
-    transform translateX(-100vh)
+    opacity 0
 </style>
