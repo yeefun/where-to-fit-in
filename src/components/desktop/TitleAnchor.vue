@@ -1,24 +1,19 @@
 <template lang="pug">
-  ul.title-anchor#title-anchor(:style="{ top: `${top}px` }")
+  ul.title-anchor#title-anchor
     li(v-for="(anchor, idx) in anchors" @click="scrollToTitle(`title${idx + 1}`)" :key="anchor")
-      .title-anchor__line
+      .title-anchor__line-wrapper
+        .line
       .title-anchor__txt {{ anchor }}
 </template>
 
 <script>
+// todo change tool
 import smoothscroll from 'smoothscroll-polyfill'
 smoothscroll.polyfill()
 
 export default {
   name: 'TitleAnchor',
-  props: ['anchors'],
-  computed: {
-    top () {
-      if (!this.$root.isMounted) return this.$root.wh
-      const el = this.$el || document.getElementById('title-anchor')
-      return (this.$root.wh - el.offsetHeight) / 2
-    }
-  },
+  props: [ 'anchors' ],
   methods: {
     scrollToTitle (title) {
       document.getElementById(title).scrollIntoView({ behavior: 'smooth' })
@@ -30,34 +25,41 @@ export default {
 <style lang="stylus">
 .title-anchor
   position fixed
+  top 50%
   right 0
   z-index 999
+  transform translateY(-50%)
   & li
-    width 80px
-    display flex
-    flex-direction column
+    margin-top 8px
+    margin-bottom 8px
     cursor pointer
+    position relative
+  &__line-wrapper
+    width 64px
+    padding-top 11px
+    padding-bottom 11px
+    padding-left 24px
+    right 0
+    position absolute
+    top 50%
+    transform translateY(-50%)
     &:hover
-      & .title-anchor__line
+      & .line
         width 80px
         background-color #003152
-      & .title-anchor__txt
-        display block
-        min-height auto
-  &__line
-    width 16px
-    height 2px
-    margin-top 12px
-    margin-bottom 12px
-    background-color #5c94d1
-    transition all 0.5s
+      & + .title-anchor__txt
+        opacity 1
+    & .line
+      width 16px
+      height 2px
+      background-color #5c94d1
+      transition all 0.45s cubic-bezier(0.645, 0.045, 0.355, 1)
   &__txt
     color #003152
     font-size 1.6rem
-    width 16px
-    line-height 1.1
-    word-break break-word
-    min-height 0
-    overflow hidden
-    display none
+    text-align right
+    // 64 + 16
+    margin-right 80px
+    text-shadow -8px 16px 16px rgba(#000, 0.2)
+    opacity 0
 </style>

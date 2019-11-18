@@ -8,21 +8,22 @@
     BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
 
     //- img(src="../assets/img/icon/home.png" v-show="!$root.deskData.inHome && $root.deskData.inReportCover" alt="")
-    //- TitleAnchor(:anchors="theAnchors" v-if="theAnchors")
+    TitleAnchor(:anchors="reportAnchors")
 </template>
 
 <script>
 import HomeCover from './desktop/HomeCover.vue'
 import BaseReport from './desktop/BaseReport.vue'
 import CustomCursor from './desktop/CustomCursor.vue'
+import TitleAnchor from './desktop/TitleAnchor.vue'
 
 export default {
   name: 'DeskView',
   components: {
     HomeCover,
     BaseReport,
-    CustomCursor
-    // TitleAnchor
+    CustomCursor,
+    TitleAnchor
   },
   created () {
     if (this.deskData.beginningReportId) {
@@ -32,41 +33,41 @@ export default {
   },
   data () {
     return {
-      isHomeCover: true
-      // anchors: {
-      //   report2: [
-      //     '不健康的身體不只有胖',
-      //     '健康大旗打翻一船胖子',
-      //     '胖子減肥不擇手段',
-      //     '減肥並非以胖為恥'
-      //   ],
-      //   report3: [
-      //     '你這麼胖不行',
-      //     '胖孩子的教育',
-      //     '樂觀的隱形斗篷',
-      //     '不用胖定義胖子'
-      //   ],
-      //   report4: [
-      //     '以肥胖污名規範社會秩序',
-      //     '穿不下的代價太大',
-      //     '超出標準的胖子坐立難安',
-      //     '胖子努力縮小改變人生'
-      //   ],
-      //   report5: [
-      //     '直美熱潮影響有限',
-      //     '胖子的網路逆襲',
-      //     '臺灣的解放胖女體行動',
-      //     '鼓勵胖子現身說法',
-      //     '自信內在胖也美麗'
-      //   ]
-      // }
+      isHomeCover: true,
+      anchors: {
+        report1: [],
+        report2: [
+          '不健康的身體不只有胖',
+          '健康大旗打翻一船胖子',
+          '胖子減肥不擇手段',
+          '減肥並非以胖為恥'
+        ],
+        report3: [
+          '你這麼胖不行',
+          '胖孩子的教育',
+          '樂觀的隱形斗篷',
+          '不用胖定義胖子'
+        ],
+        report4: [
+          '以肥胖污名規範社會秩序',
+          '穿不下的代價太大',
+          '超出標準的胖子坐立難安',
+          '胖子努力縮小改變人生'
+        ],
+        report5: [
+          '直美熱潮影響有限',
+          '胖子的網路逆襲',
+          '臺灣的解放胖女體行動',
+          '鼓勵胖子現身說法',
+          '自信內在胖也美麗'
+        ]
+      }
     }
   },
   computed: {
-    // theAnchors () {
-    //   const currentReportId = this.deskData.removedRelatedReportId
-    //   return currentReportId > 1 ? this.anchors[`report${currentReportId}`] : []
-    // }
+    reportAnchors () {
+      return this.anchors[`report${this.deskData.removedRelatedReportId}`]
+    },
     deskData () {
       return this.$root.deskData
     }
