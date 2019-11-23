@@ -21,14 +21,7 @@ export default {
   display flex
   justify-content center
   align-items center
-  // &.show
-  //   opacity 1
-  //   visibility visible
-  //   & img
-  //     transition transform 0.4s
-  //     transform translateX(0vw)
   & img
     width 51.2vw
     min-width 192px
-    // transform translateX(100vw)
 </style>

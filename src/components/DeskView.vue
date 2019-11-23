@@ -1,13 +1,12 @@
 <template lang="pug">
   .desk-view
     img#logo(src="../assets/img/logo-shadow.png" alt="胖子之大，何處可容身？" @click="backToHome")
-    //- transition
+
     CustomCursor(ref="cursor" v-if="$root.deskData.inHome || $root.deskData.inReportCover")
 
     HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }")
     BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
 
-    //- img(src="../assets/img/icon/home.png" v-show="!$root.deskData.inHome && $root.deskData.inReportCover" alt="")
     TitleAnchor(:anchors="reportAnchors")
 </template>
 
@@ -77,7 +76,7 @@ export default {
       if (this.deskData.inHome) return
       this.deskData.inHome = true
       this.deskData.removedRelatedReportId = 0
-      this.$root.htmlEl.scrollTop = 0
+      this.deskData.htmlEl.scrollTop = 0
       this.$root.bodyEl.scrollTop = 0
 
       gsap.to('.reports', {
@@ -140,14 +139,7 @@ export default {
 @import '../util/report-content.styl'
 @import '../util/report-content--desk.styl'
 
-// $ff--sans-serif = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Heiti TC", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
-
-$ff--sans-serif = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Heiti TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
-
-html
-  font-size 10px
 body
-  font-family $ff--sans-serif
   background-color #f6f6f6
   overflow-y scroll
 #logo
@@ -168,12 +160,4 @@ body
   background-position top center
   background-size cover
   background-repeat no-repeat
-button
-  border 0
-  outline 0
-  cursor pointer
-  font-family $ff--sans-serif
-  user-select none
-img
-  height auto
 </style>

@@ -40,8 +40,8 @@ export default {
   },
   computed: {
     clickablePersonsSize () {
-      const windowAspectRatio = this.$root.ww / this.$root.wh
-      return this.clickablePersonsAspectRatio > windowAspectRatio ? { width: `${1921 * (this.$root.wh / 1388)}px` } : { height: `${1388 * (this.$root.ww / 1921)}px` }
+      const windowAspectRatio = this.deskData.ww / this.deskData.wh
+      return this.clickablePersonsAspectRatio > windowAspectRatio ? { width: `${1921 * (this.deskData.wh / 1388)}px` } : { height: `${1388 * (this.deskData.ww / 1921)}px` }
     },
     deskData () {
       return this.$root.deskData
@@ -176,7 +176,6 @@ export default {
   &__mrt
     height 100%
     background-image url(../../assets/img/cover/home-mrt.jpg)
-    // background-size cover
   &__mask
     background-color #0a2d4f
     opacity 0
@@ -191,7 +190,6 @@ export default {
       cursor pointer
   &__person
     opacity 0
-    // background-size cover
 #person1
   background-image url(../../assets/img/cover/home-person1.png)
 #person2

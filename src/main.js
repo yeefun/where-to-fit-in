@@ -12,21 +12,18 @@ new Vue({
   data: {
     mobData,
     deskData,
-    // common
     isMob: isTouchDevice() || isMobileOrTablet(),
     pathname: process.env.NODE_ENV === 'production' ? '/where-to-fit-in/' : '/',
     isPopState: false,
     wEl: window,
-    bodyEl: null,
-    // todo
-    // desk
-    htmlEl: document.documentElement,
-    ww: Math.min(document.documentElement.clientWidth, window.innerWidth),
-    wh: window.innerHeight
+    bodyEl: null
   },
   created () {
-    if (this.isMob) this.mobMethods().checkBeginningReportId()
-    else this.deskMethods().checkReportId()
+    if (this.isMob) {
+      this.mobMethods().checkBeginningReportId()
+    } else {
+      this.deskMethods().checkReportId()
+    }
   },
   beforeMount () {
     this.bodyEl = document.body
@@ -36,20 +33,14 @@ new Vue({
   },
   mounted () {
     if (!this.isMob) {
-      this.wEl.addEventListener('resize', this.alterWindowSize)
+      this.wEl.addEventListener('resize', this.deskMethods.alterWindowSize)
     }
   },
   methods: {
     mobMethods,
     deskMethods,
-    // common
     white (id) {
       return { 'color-white': (id === 2 || id === 5) }
-    },
-    // desk
-    alterWindowSize () {
-      this.ww = this.htmlEl.clientWidth
-      this.wh = this.wEl.innerHeight
     }
   },
   watch: {

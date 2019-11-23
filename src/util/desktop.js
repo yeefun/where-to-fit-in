@@ -7,8 +7,10 @@ const deskData = {
   currentReport: null,
   removedRelatedReportId: 0,
   beginningReportId: 0,
-  isBeginning: false
-  // fromHome: true
+  isBeginning: false,
+  htmlEl: document.documentElement,
+  ww: Math.min(document.documentElement.clientWidth, window.innerWidth),
+  wh: window.innerHeight
 }
 
 function deskMethods () {
@@ -18,6 +20,10 @@ function deskMethods () {
       let pathname = window.location.pathname
       if (process.env.NODE_ENV === 'production') pathname = pathname.split('where-to-fit-in')[1]
       if (regexp.test(pathname)) this.deskData.beginningReportId = Number(pathname[7])
+    },
+    alterWindowSize: () => {
+      this.deskData.ww = this.deskData.htmlEl.clientWidth
+      this.deskData.wh = this.wEl.innerHeight
     }
   }
 }

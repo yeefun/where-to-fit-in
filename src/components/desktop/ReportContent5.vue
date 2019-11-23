@@ -79,7 +79,6 @@ import ReportImg6 from '../../assets/img/report5/report5-6.png'
 export default {
   name: 'ReportContent5',
   components: {
-    // FbPost,
     ReportFigure,
     ReportQuote
   },

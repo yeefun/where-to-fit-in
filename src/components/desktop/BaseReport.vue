@@ -8,7 +8,6 @@
       :class="reportClass(report.id)"
       @click="handleClick($event, report.id)"
     )
-      //- transition(name="fadeMask")
       .report__mask(
         v-if="isMask && !isReportContent"
         :class="[ (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]"
@@ -208,7 +207,7 @@ export default {
               cursor: 'auto'
             })
             this.deskData.baseReports.shift()
-            this.$root.htmlEl.scrollTop = 0
+            this.deskData.htmlEl.scrollTop = 0
             this.$root.bodyEl.scrollTop = 0
           }
         })
@@ -228,7 +227,7 @@ export default {
           height: '100vh',
           cursor: 'auto'
         })
-        this.$root.htmlEl.scrollTop = 0
+        this.deskData.htmlEl.scrollTop = 0
         this.$root.bodyEl.scrollTop = 0
         this.deskData.baseReports.shift()
 
@@ -439,12 +438,4 @@ export default {
   background-image url(../../assets/img/cover/report4.jpg)
 #report5__cover
   background-image url(../../assets/img/cover/report5.jpg)
-
-// transition
-// .fadeMask
-//   &-enter-active, &-leave-active
-//     // easeInOutCubic = Power2.easeInOut
-//     transition opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
-//   &-enter, &-leave-to
-//     opacity 0
 </style>

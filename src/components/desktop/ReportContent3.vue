@@ -56,11 +56,9 @@
     ReportQuote(:quote="quotes[6]")
     p 黃冠潔接觸街舞之後，發現自己是個熱愛舞台的表演控。隨著演出次數的增加，「妳表現很好！」「妳很棒，我記得妳！」這類的觀眾回饋逐漸發酵，讓黃冠潔找到肯定自己的價值，不再用胖定義自己。
     p 「當我在做一件得心應手的事時，會覺得很快樂，我就不會很在意別人看我的眼光。」黃冠潔笑容很堅定，她說：「原來我沒那麼糟糕，反而越來越喜歡自己。」
-    //- TitleAnchor
 </template>
 
 <script>
-// import TitleAnchor from './TitleAnchor.vue'
 import ReportQuote from '../common/ReportQuote.vue'
 import ReportFigure from '../common/ReportFigure.vue'
 import ReportNotation from '../common/ReportNotation.vue'
@@ -73,7 +71,6 @@ import ReportImg5 from '../../assets/img/report3/report3-5.gif'
 export default {
   name: 'ReportContent3',
   components: {
-    // TitleAnchor,
     ReportQuote,
     ReportFigure,
     ReportNotation

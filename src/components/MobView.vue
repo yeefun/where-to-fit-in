@@ -3,19 +3,13 @@
   .mob-view
     img.icon.icon--back-to(src="../assets/img/icon/arrow-back--mob.png" alt="" @click="moveBack" v-show="mobData.isReportContent")
 
-    transition(name="fadeNormal")
-      img.icon.icon--cancel(src="../assets/img/icon/cancel.png" alt="" v-if="isCredit" @click="toggleCredit" key="cancel")
-      img.icon.icon--credit(src="../assets/img/icon/info.png" alt="" v-else @click="toggleCredit" key="credit")
-
     img.icon.icon--audio(src="../assets/img/icon/audio.png" alt="")
 
-    //- .home-wrapper(:class="{ blur: this.isCredit }")
     .home-wrapper
       HomeCover
       ReportsList
     BaseReport
-    transition(name="fadeNormal")
-      TheCredit(v-if="isCredit")
+
     transition(name="fadeMask" @after-enter="handleFadeInAfter")
       TransitionMask(v-show="mobData.isTransition")
 </template>
@@ -24,7 +18,6 @@
 import HomeCover from './mobile/HomeCover.vue'
 import ReportsList from './mobile/ReportsList.vue'
 import BaseReport from './mobile/BaseReport.vue'
-import TheCredit from './mobile/TheCredit.vue'
 import TransitionMask from './mobile/TransitionMask.vue'
 
 export default {
@@ -33,16 +26,10 @@ export default {
     HomeCover,
     ReportsList,
     BaseReport,
-    TheCredit,
     TransitionMask
   },
   created () {
     this.$root.wEl.addEventListener('popstate', this.handlePopState)
-  },
-  data () {
-    return {
-      isCredit: false
-    }
   },
   computed: {
     mobData () {
@@ -82,9 +69,6 @@ export default {
         const type = (this.mobData.isReportContent ? 'related' : 'home')
         document.getElementById(`${type}ReportBtn${id}`).click()
       }
-    },
-    toggleCredit () {
-      this.isCredit = !this.isCredit
     }
   },
   beforeDestroy () {
@@ -98,41 +82,10 @@ export default {
 @import '../util/report-content.styl'
 @import '../util/report-content--mob.styl'
 
-$ff--sans-serif = -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans CJK TC", "Noto Sans CJK", "Source Han Sans", "Heiti TC", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif
-
-html
-  font-size 10px
 body
-  font-family $ff--sans-serif
-  // background-color #6b8ba3
   &.no-scroll
     overflow hidden
-img
-  height auto
-  max-width 100%
 .icon
-  position fixed
-  z-index 99
-  width 20px
-  cursor pointer
-  mix-blend-mode color-burn
-  user-select none
-  &--credit
-    top 0
-    right 0
-    padding 8px 8px 5px 5px
-    @media (min-width $tablet)
-      padding-top 24px
-      padding-right 32px
-  &--cancel
-    top 0
-    right 0
-    padding 8px 8px 5px 5px
-    z-index 299
-    mix-blend-mode normal
-    @media (min-width $tablet)
-      padding-top 24px
-      padding-right 32px
   &--audio
     bottom 0
     left 0
@@ -149,17 +102,12 @@ img
       padding-left 32px
 #app
   overflow hidden
-button
-  border 0
-  outline 0
-  cursor pointer
-  font-family $ff--sans-serif
 .color-white
   &--tablet
     @media (min-width $tablet)
       color #fff !important
+
 // transition
-// todo
 .fadeMask
   &-enter, &-leave-to
     background-color rgba(#003152, 0)
@@ -175,9 +123,4 @@ button
     transform translateX(100vw)
   &-leave-to img
     transform translateX(-100vw)
-.fadeNormal
-  &-enter, &-leave-to
-    opacity 0
-  &-enter-active, &-leave-active
-    transition opacity 0.24s
 </style>

@@ -29,7 +29,7 @@ export default {
   position fixed
   top 50%
   right 0
-  z-index 999
+  z-index 199
   transform translateY(-50%)
   & li
     margin-top 8px
@@ -62,6 +62,5 @@ export default {
     text-align right
     // 64 + 16
     margin-right 80px
-    // text-shadow -8px 16px 16px rgba(#000, 0.2)
     opacity 0
 </style>
