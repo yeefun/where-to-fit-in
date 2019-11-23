@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "scroll-into-view": "^1.12.3",
     "vue": "^2.6.10"
   },
   "devDependencies": {
@@ -22,7 +23,6 @@
     "pug": "^2.0.4",
     "pug-html-loader": "^1.1.5",
     "pug-plain-loader": "^1.0.0",
-    "smoothscroll-polyfill": "^0.4.4",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.10"

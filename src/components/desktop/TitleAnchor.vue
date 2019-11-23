@@ -7,16 +7,18 @@
 </template>
 
 <script>
-// todo change tool
-import smoothscroll from 'smoothscroll-polyfill'
-smoothscroll.polyfill()
+const scrollIntoView = require('scroll-into-view')
 
 export default {
   name: 'TitleAnchor',
   props: [ 'anchors' ],
   methods: {
     scrollToTitle (title) {
-      document.getElementById(title).scrollIntoView({ behavior: 'smooth' })
+      scrollIntoView(document.getElementById(title), {
+        time: 900,
+        align: { top: 0.1, left: 0.1 },
+        ease: (t) => t * t * t * t
+      })
     }
   }
 }
@@ -60,6 +62,6 @@ export default {
     text-align right
     // 64 + 16
     margin-right 80px
-    text-shadow -8px 16px 16px rgba(#000, 0.2)
+    // text-shadow -8px 16px 16px rgba(#000, 0.2)
     opacity 0
 </style>

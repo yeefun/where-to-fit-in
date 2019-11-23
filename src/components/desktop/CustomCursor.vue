@@ -17,11 +17,8 @@ export default {
   name: 'CustomCursor',
   data () {
     return {
-      clientX: 0,
-      clientY: 0,
-      x: 0,
-      y: 0
-      // isCrossCursor: false
+      cursor: { x: this.$root.ww / 2, y: this.$root.wh / 2 },
+      mouse: { x: 0, y: 0 }
     }
   },
   created () {
@@ -36,21 +33,27 @@ export default {
     }
   },
   mounted () {
-    // todo opt
-    // https://greensock.com/docs/v3/GSAP/gsap.quickSetter()
+    this.mouse.x = this.cursor.x
+    this.mouse.y = this.cursor.y
+    const speed = 0.15
+    const setCursorX = gsap.quickSetter(this.$el, 'x', 'px')
+    const setCursorY = gsap.quickSetter(this.$el, 'y', 'px')
+
     gsap.ticker.add(() => {
-      this.x += (this.clientX - this.x) / 8
-      this.y += (this.clientY - this.y) / 8
-      gsap.set(this.$el, {
-        x: this.x,
-        y: this.y
-      })
+      this.cursor.x += (this.mouse.x - this.cursor.x) * speed
+      this.cursor.y += (this.mouse.y - this.cursor.y) * speed
+      setCursorX(this.cursor.x)
+      setCursorY(this.cursor.y)
+      // gsap.set(this.$el, {
+      //   x: this.cursor.x,
+      //   y: this.cursor.y
+      // })
     })
   },
   methods: {
     moveCursor (evt) {
-      this.clientX = evt.clientX
-      this.clientY = evt.clientY
+      this.mouse.x = evt.clientX
+      this.mouse.y = evt.clientY
     },
     handleEnter (el, done) {
       gsap.from(el, {
