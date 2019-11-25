@@ -2,12 +2,12 @@
   #app
     component(:is="$root.isMob ? 'MobView' : 'DeskView'")
 
-    //- transition(name="fadeNormal")
-    img.icon.icon--cancel(v-if="isCredit" src="./assets/img/icon/cancel.png" alt="" @click="toggleCredit")
-    img.icon.icon--credit(v-else src="./assets/img/icon/info.png" alt="" @click="toggleCredit")
+    transition(name="fadeInfo")
+      img.icon.icon--cancel(v-if="isCredit" src="./assets/img/icon/cancel.png" alt="" @click="toggleCredit")
+      img.icon.icon--credit(v-else src="./assets/img/icon/info.png" alt="" @click="toggleCredit")
 
-    //- transition(name="fadeNormal")
-    TheCredit(v-if="isCredit")
+    transition(name="fadeInfo")
+      TheCredit(v-if="isCredit")
 </template>
 
 <script>
@@ -72,16 +72,17 @@ button
     @media (min-width $tablet)
       padding-top 24px
       padding-right 32px
+
 .color-white
   color #fff !important
 .jcc
   justify-content center !important
 .h-100p
   height 100% !important
-// transition
-// .fadeNormal
-//   &-enter, &-leave-to
-//     opacity 0
-//   &-enter-active, &-leave-active
-//     transition opacity 0.24s
+
+.fadeInfo
+  &-enter, &-leave-to
+    opacity 0
+  &-enter-active, &-leave-active
+    transition opacity 0.15s $easeOutSine
 </style>

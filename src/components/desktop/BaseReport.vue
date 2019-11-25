@@ -43,7 +43,7 @@
 </template>
 
 <script>
-// import ReportContent3 from './ReportContent3.vue'
+import { gsap } from 'gsap'
 
 export default {
   name: 'BaseReport',
@@ -339,8 +339,6 @@ export default {
     & .report__mask
       height 100%
     &:hover .report__mask
-      // easeOutSine
-      transition background-color 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
       &.dark
         background-color rgba(#090909, 0.7)
       &.light
@@ -365,8 +363,7 @@ export default {
     top 0
     left 0
     width 100%
-    // easeOutCubic
-    transition background-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1)
+    transition background-color 0.45s $easeInOutCubic
     &.dark
       background-color rgba(#090909, 0.4)
     &.light
@@ -409,15 +406,15 @@ export default {
         line-height 1.8
         background-color #2f5b7f
         padding 14px 32px
-        // easeInOutCubic
-        transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
+        transition all 0.3s $easeInOutCubic
+        box-shadow 0 8px 16px rgba(#1b2733, 0.2)
         @media (min-width $tablet)
           font-size 2rem
         &:hover
           letter-spacing 2px
-          background-color darken(#2f5b7f, 16%)
+          background-color darken(#2f5b7f, 8%)
         &:active
-          background-color darken(#2f5b7f, 32%)
+          background-color darken(#2f5b7f, 16%)
     &--related
       line-height 1.6
 

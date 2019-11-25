@@ -33,7 +33,7 @@ new Vue({
   },
   mounted () {
     if (!this.isMob) {
-      this.wEl.addEventListener('resize', this.deskMethods.alterWindowSize)
+      this.wEl.addEventListener('resize', this.deskMethods().alterWindowSize)
     }
   },
   methods: {

@@ -7,10 +7,12 @@
     HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }")
     BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
 
-    TitleAnchor(:anchors="reportAnchors")
+    TitleAnchor(:anchors="reportAnchors" v-if="deskData.ww >= 992")
 </template>
 
 <script>
+import { gsap } from 'gsap'
+
 import HomeCover from './desktop/HomeCover.vue'
 import BaseReport from './desktop/BaseReport.vue'
 import CustomCursor from './desktop/CustomCursor.vue'
@@ -160,4 +162,9 @@ body
   background-position top center
   background-size cover
   background-repeat no-repeat
+// .popAnchor
+//   &-enter, &-leave-to
+//     transform translate(100%, -50%)
+//   &-enter-active, &-leave-active
+//     transition transform 0.3s $easeOutSine
 </style>

@@ -78,6 +78,7 @@ export default {
 </script>
 
 <style lang="stylus">
+@import '../util/global.styl'
 @import '../util/reports-list.styl'
 @import '../util/report-content.styl'
 @import '../util/report-content--mob.styl'
@@ -100,25 +101,24 @@ body
     @media (min-width $tablet)
       padding-top 24px
       padding-left 32px
-#app
-  overflow hidden
+// #app
+//   overflow hidden
 .color-white
   &--tablet
     @media (min-width $tablet)
       color #fff !important
 
-// transition
 .fadeMask
   &-enter, &-leave-to
     background-color rgba(#003152, 0)
   &-enter-active
-    transition background-color 0.24s
+    transition background-color 0.3s $easeInOutCubic
     & img
-      transition transform 0.32s
+      transition transform 0.3s $easeInOutSine
   &-leave-active
-    transition background-color 0.24s 0.24s
+    transition background-color 0.3s 0.3s $easeInOutCubic
     & img
-      transition transform 0.32s 0.24s
+      transition transform 0.3s 0.3s $easeInOutSine
   &-enter img
     transform translateX(100vw)
   &-leave-to img

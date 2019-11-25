@@ -1,7 +1,7 @@
 <template lang="pug">
-  ul.title-anchor#title-anchor
-    li(v-for="(anchor, idx) in anchors" @click="scrollToTitle(`title${idx + 1}`)" :key="anchor")
-      .title-anchor__line-wrapper
+  ul.title-anchor
+    li(v-for="(anchor, idx) in anchors" :key="anchor")
+      .title-anchor__line-wrapper(@click="scrollToTitle(`title${idx + 1}`)")
         .line
       .title-anchor__txt {{ anchor }}
 </template>
@@ -25,6 +25,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import "../../util/global.styl"
+
 .title-anchor
   position fixed
   top 50%
@@ -32,35 +34,37 @@ export default {
   z-index 199
   transform translateY(-50%)
   & li
-    margin-top 8px
-    margin-bottom 8px
-    cursor pointer
+    padding-top 8px
+    padding-bottom 8px
     position relative
   &__line-wrapper
     width 64px
-    padding-top 11px
-    padding-bottom 11px
-    padding-left 24px
+    padding-top 15px
+    padding-bottom 15px
+    padding-left 16px
     right 0
     position absolute
     top 50%
     transform translateY(-50%)
+    cursor pointer
     &:hover
       & .line
         width 80px
-        background-color #003152
+        background-color #08517c
       & + .title-anchor__txt
-        opacity 1
+        visibility visible
     & .line
       width 16px
       height 2px
-      background-color #5c94d1
-      transition all 0.45s cubic-bezier(0.645, 0.045, 0.355, 1)
+      background-color #003152
+      border-radius 4px
+      transition all 0.45s $easeOutSine
   &__txt
-    color #003152
+    color #08517c
     font-size 1.6rem
     text-align right
     // 64 + 16
     margin-right 80px
-    opacity 0
+    visibility hidden
+    // letter-spacing 1px
 </style>

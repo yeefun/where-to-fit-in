@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { gsap } from 'gsap'
+
 export default {
   name: 'HomeCover',
   data () {
@@ -55,12 +57,12 @@ export default {
       this.deskData.currentPerson = document.getElementById(`person${idx}`)
       gsap.to(this.deskData.currentPerson, {
         opacity: 1,
-        duration: 0.65,
+        duration: 0.6,
         ease: 'power3.out'
       })
       gsap.to(this.$refs.mask, {
-        opacity: 0.6,
-        duration: 0.65,
+        opacity: 0.8,
+        duration: 0.6,
         ease: 'expo.out'
       })
     },
@@ -69,12 +71,12 @@ export default {
 
       gsap.to(this.deskData.currentPerson, {
         opacity: 0,
-        duration: 0.65,
+        duration: 0.6,
         ease: 'power2.out'
       })
       gsap.to(this.$refs.mask, {
         opacity: 0,
-        duration: 0.65,
+        duration: 0.6,
         ease: 'expo.out'
       })
     },
@@ -114,7 +116,7 @@ export default {
       gsap.from(`#report-cover-txt${id}`, {
         scale: 0,
         opacity: 0,
-        duration: 0.25,
+        duration: 0.3,
         delay: 0.6,
         ease: 'expo.out'
       })
@@ -140,7 +142,7 @@ export default {
       })
       gsap.to(innerCursor, {
         scale: 0,
-        duration: 0.2,
+        duration: 0.15,
         ease: 'power3.inOut',
         overwrite: 'auto'
       })
@@ -155,7 +157,7 @@ export default {
       })
       gsap.to(innerCursor, {
         scale: 1,
-        duration: 0.4,
+        duration: 0.45,
         ease: 'power2.inOut'
       })
     }

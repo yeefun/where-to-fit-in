@@ -54,7 +54,7 @@ export default {
     vertical-align top
     padding-right 4px
     padding-left 2px
-    transition transform 0.2s ease-in-out
+    transition transform 0.15s $easeInOutSine
     cursor pointer
     user-select none
     &.inline
