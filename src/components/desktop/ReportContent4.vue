@@ -1,5 +1,5 @@
 <template lang="pug">
-  .report-content
+  div.report-content
     h2 被標準化社會排擠的胖身體
     ReportQuote(:quote="quotes[0]")
     p 事隔二十年，當張凱鈞憶起這段童年，語氣分外平靜。他有著像電台主持人一般的輕亮嗓音，咬字清晰、說話親切，目前擔任電話客服專員，工作時無需拋頭露面，張凱鈞說：「我不是很喜歡被觀看的感覺。」

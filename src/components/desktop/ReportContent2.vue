@@ -1,5 +1,5 @@
 <template lang="pug">
-  .report-content
+  div.report-content
     h2.color-white 胖子與健康的拉鋸戰
     p.color-white 「當你是一個胖子，你就是一個被詛咒的人。人們總說：你有一天會生病。」體重破百的網紅<ReportNotation :notation="notations[0]">汪綺</ReportNotation>說道，她身穿一襲無袖低胸的黑色短洋裝，身軀與自信顯得更為豐滿。
     p.color-white 無論在網路或現實中，汪綺都能大方地展現身體，像在葬禮上被迫長大的小女孩一般，她太清楚人們如何議論自己，汪綺喃喃地說：「健康是肥胖最被妖魔化的事。」三個月後，她走進了胃縮手術的手術房。

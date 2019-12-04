@@ -1,8 +1,8 @@
 <template lang="pug">
-  section.home-cover
-    .home-cover__mrt.full-img
-    .home-cover__mask.full-page(ref="mask")
-    .home-cover__clickable-persons
+  section.home-cover(:class="{ 'in-loading-cover': deskData.inLoadingCover }")
+    div.home-cover__mrt.full-img
+    div.home-cover__mask.full-page(ref="mask")
+    div.home-cover__clickable-persons
       svg(viewBox="0 0 1921 1388" :style="clickablePersonsSize")
         g(
           v-for="(path, idx) in paths"
@@ -10,8 +10,8 @@
           @mouseenter="showPerson" @mouseleave="hidePerson" @click="showReportCover"
         )
           path(:d="path" @mouseover="animateCursorOver" @mouseout="animateCursorOut")
-    .full-page
-      .home-cover__person.full-page.full-img(v-for="id in 5" :id="`person${id}`")
+    div.full-page
+      div.home-cover__person.full-page.full-img(v-for="id in 5" :id="`person${id}`")
 </template>
 
 <script>
@@ -61,7 +61,7 @@ export default {
         ease: 'power3.out'
       })
       gsap.to(this.$refs.mask, {
-        opacity: 0.8,
+        opacity: 0.88,
         duration: 0.6,
         ease: 'expo.out'
       })
@@ -136,7 +136,8 @@ export default {
       const cursor = this.$parent.$refs.cursor.$el
       const innerCursor = cursor.firstChild
       gsap.to(cursor, {
-        scale: 7.2,
+        scale: 5.6,
+        mixBlendMode: 'overlay',
         duration: 0.3,
         ease: 'power3.inOut'
       })
@@ -152,6 +153,7 @@ export default {
       const innerCursor = cursor.firstChild
       gsap.to(cursor, {
         scale: 1,
+        mixBlendMode: 'normal',
         duration: 0.3,
         ease: 'power2.inOut'
       })
@@ -166,12 +168,17 @@ export default {
 </script>
 
 <style lang="stylus">
+@import "../../util/global.styl"
+
 .home-cover
   position absolute
   top 0
   width 100%
   height 100vh
   overflow hidden
+  transition filter 0.6s $easeInOutCubic
+  &.in-loading-cover
+    filter blur(8px)
   &.hide
     opacity 0
     visibility hidden

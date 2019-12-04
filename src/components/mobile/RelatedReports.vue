@@ -1,13 +1,13 @@
 <template lang="pug">
   section.reports-list
-    .reports-list__report(
+    div.reports-list__report(
       v-for="report in relatedReports"
       :key="report.id"
       :style="{ backgroundImage: `url(${report.img})` }"
     )
       h1(:class="$root.white(report.id)") {{ report.title }}
       p(:class="$root.white(report.id)") {{ report.intro }}
-      button(@click="showRelatedReport(report.id)" :id="`relatedReportBtn${report.id}`") 看更多⋯
+      button(type="button" @click="showRelatedReport(report.id)" :id="`relatedReportBtn${report.id}`") 看更多⋯
 </template>
 
 <script>

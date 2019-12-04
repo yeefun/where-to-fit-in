@@ -1,5 +1,5 @@
 <template lang="pug">
-  .base-report#base-report(:class="{ show: mobData.isReportContent }")
+  div.base-report#base-report(:class="{ show: mobData.isReportContent }")
     component(:is="`ReportContent${mobData.currentReportId}`")
     RelatedReports
 </template>

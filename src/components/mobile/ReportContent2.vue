@@ -1,8 +1,8 @@
 <template lang="pug">
   article.report-content
-    .report-content__cover#report__cover2
+    div.report-content__cover#report__cover2
     h1.color-white 「胖不健康」是提醒，還是詛咒？
-    .report-content__wrapper
+    div.report-content__wrapper
       h2.color-white 胖子與健康的拉鋸戰
       p.color-white--528 「當你是一個胖子，你就是一個被詛咒的人。人們總說：你有一天會生病。」體重破百的網紅<ReportNotation :notation="notations[0]">汪綺</ReportNotation>說道，她身穿一襲無袖低胸的黑色短洋裝，身軀與自信顯得更為豐滿。
 

@@ -1,8 +1,8 @@
 <template lang="pug">
   article.report-content
-    .report-content__cover#report__cover3
+    div.report-content__cover#report__cover3
     h1 不想瘦？胖子：想被當成普通人看待
-    .report-content__wrapper
+    div.report-content__wrapper
       h2 從小胖到大的蛻變四部曲
       h3 第一部、你這麼胖不行
       ReportQuote(:quote="quotes[0]")

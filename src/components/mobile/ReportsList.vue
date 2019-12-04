@@ -1,6 +1,6 @@
 <template lang="pug">
   section.reports-list
-    .reports-list__report(
+    div.reports-list__report(
       v-for="report in mobData.reports"
       :key="report.id"
       :style="{ backgroundImage: `url(${report.img})` }"

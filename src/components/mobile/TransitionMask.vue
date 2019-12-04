@@ -1,5 +1,5 @@
 <template lang="pug">
-  .transition-mask
+  div.transition-mask
     img(src="../../assets/img/logo.png" alt="")
 </template>
 

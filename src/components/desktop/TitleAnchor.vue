@@ -1,9 +1,9 @@
 <template lang="pug">
   ul.title-anchor
     li(v-for="(anchor, idx) in anchors" :key="anchor")
-      .title-anchor__line-wrapper(@click="scrollToTitle(`title${idx + 1}`)")
-        .line
-      .title-anchor__txt {{ anchor }}
+      div.title-anchor__line-wrapper(@click="scrollToTitle(`title${idx + 1}`)")
+        div.line
+      div.title-anchor__txt {{ anchor }}
 </template>
 
 <script>
@@ -66,5 +66,4 @@ export default {
     // 64 + 16
     margin-right 80px
     visibility hidden
-    // letter-spacing 1px
 </style>

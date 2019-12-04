@@ -1,38 +1,33 @@
 <template lang="pug">
-  section.reports(:class="{ hide: $root.deskData.inReportCover }")
-    article.report(
+  section(:class="[ 'reports', { hide: $root.deskData.inReportCover } ]")
+    article(
       v-for="(report, idx) in relatedReports"
       :key="`report${report.id}`"
       v-if="isReport(report.id)"
       :id="`report${report.id}`"
-      :class="reportClass(report.id)"
+      :class="[ 'report', reportClass(report.id) ]"
       @click="handleClick($event, report.id)"
     )
-      .report__mask(
+      div(
         v-if="isMask && !isReportContent"
-        :class="[ (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]"
+        :class="[ 'report__mask', (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]"
       )
-      .report__cover-img.full-page.full-img(
+      div(
         :id="`report${report.id}__cover`"
-        :class="{ 'h-100p': currentReportId !== report.id }"
+        :class="[ 'report__cover-img', { 'h-100p': currentReportId !== report.id }, 'full-img', 'full-page' ]"
       )
-      .report__cover-txt(:id="`report-cover-txt${report.id}`")
+      div.report__cover-txt(:id="`report-cover-txt${report.id}`")
         h1(:class="$root.white(report.id)") {{ report.title }}
-        .report__intro(
+        div(
           v-if="!isReportContent"
           v-show="isReportIntro"
           :id="`report-intro${report.id}`"
-          :class="introClass(report.id)"
+          :class="[ 'report__intro', introClass(report.id) ]"
         )
-          .report__intro--cover(v-if="$root.deskData.inReportCover")
+          div.report__intro--cover(v-if="$root.deskData.inReportCover")
             div(v-html="report.introCover")
-            button(
-              type="button"
-              @click.stop="loadReportContent(report.id)"
-              @mouseover="toggleCursor"
-              @mouseout="toggleCursor"
-            ) {{ report.btnTxt }}
-          .report__intro--related(v-else)
+            button(type="button" @click.stop="loadReportContent(report.id)" @mouseover="toggleCursor" @mouseout="toggleCursor") {{ report.btnTxt }}
+          div.report__intro--related(v-else)
             p {{ report.introRelated }}
       component(
         :is="`ReportContent${report.id}`"
@@ -407,6 +402,7 @@ export default {
         background-color #2f5b7f
         padding 14px 32px
         transition all 0.3s $easeInOutCubic
+        border-radius 4px
         box-shadow 0 8px 16px rgba(#1b2733, 0.2)
         @media (min-width $tablet)
           font-size 2rem

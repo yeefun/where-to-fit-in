@@ -1,6 +1,8 @@
 <template lang="pug">
-  .desk-view
-    img#logo(src="../assets/img/logo-shadow.png" alt="胖子之大，何處可容身？" @click="backToHome")
+  div.desk-view
+    LoadingCover(ref="loadingCover")
+    div(@click="backToHome" :class="[ 'logo', { 'in-loading-cover': deskData.inLoadingCover } ]")
+      img(src="../assets/img/logo-shadow.png" alt="" ref="logo")
 
     CustomCursor(ref="cursor" v-if="$root.deskData.inHome || $root.deskData.inReportCover")
 
@@ -13,6 +15,7 @@
 <script>
 import { gsap } from 'gsap'
 
+import LoadingCover from './desktop/LoadingCover.vue'
 import HomeCover from './desktop/HomeCover.vue'
 import BaseReport from './desktop/BaseReport.vue'
 import CustomCursor from './desktop/CustomCursor.vue'
@@ -21,6 +24,7 @@ import TitleAnchor from './desktop/TitleAnchor.vue'
 export default {
   name: 'DeskView',
   components: {
+    LoadingCover,
     HomeCover,
     BaseReport,
     CustomCursor,
@@ -64,6 +68,41 @@ export default {
         ]
       }
     }
+  },
+  mounted () {
+    // this.$refs.homeCover.$el.classList.add('blur')
+    const tl = gsap.timeline()
+    tl.to(this.$refs.logo, {
+      y: 0,
+      duration: 1.8,
+      ease: 'power3.out'
+    }, 0.75)
+    tl.to(this.$refs.cursor.$el, {
+      y: 0,
+      opacity: 1,
+      duration: 0.9,
+      ease: 'power2.inOut'
+    }, '>-0.6')
+    tl.to(this.$refs.cursor, {
+      progress: 100,
+      duration: 2.4,
+      snap: { progress: 1 },
+      ease: 'steps(8)'
+    }, '>0.15')
+    tl.to(this.$refs.loadingCover.$el, {
+      opacity: 0.8,
+      duration: 2.4,
+      ease: 'steps(4)'
+    }, '<')
+    tl.set(this.$refs.cursor, {
+      loading: false
+    }, '>')
+    tl.to(this.$refs.loadingCover.$refs.prompt, {
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'power1.inOut'
+    }, '<1.2')
   },
   computed: {
     reportAnchors () {
@@ -143,15 +182,21 @@ export default {
 
 body
   background-color #f6f6f6
-  overflow-y scroll
-#logo
+.logo
   position fixed
-  z-index 99
-  width 176px
-  margin-top 24px
-  margin-left 32px
-  cursor pointer
+  z-index 399
+  top 24px
+  left 32px
   mix-blend-mode difference
+  overflow hidden
+  &.in-loading-cover
+    mix-blend-mode normal
+    & img
+      transform translateY(100%)
+  & img
+    width 176px
+    vertical-align middle
+    cursor pointer
 .full-page
   position absolute
   width 100%
@@ -162,9 +207,4 @@ body
   background-position top center
   background-size cover
   background-repeat no-repeat
-// .popAnchor
-//   &-enter, &-leave-to
-//     transform translate(100%, -50%)
-//   &-enter-active, &-leave-active
-//     transition transform 0.3s $easeOutSine
 </style>

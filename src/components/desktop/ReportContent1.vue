@@ -1,11 +1,11 @@
 <template lang="pug">
-  .report-content
+  div.report-content
     h2 臺灣身材審美轉變
     p 我們不見得是「胖子」，但多少都有嫌棄自己「胖」的時候，也常常警惕自己「不能胖」。處在一個懼怕肥胖、拒絕變胖的時代，到底是誰定義胖不好、不美、不健康？
     template(v-for="txt in txts")
       h4(v-html="txt.title")
       div(v-html="txt.content")
-    .report-content__reference
+    div.report-content__reference
       p <ReportNotation :notation="notations[0]">引用資料來源</ReportNotation>
 </template>
 

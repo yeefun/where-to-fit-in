@@ -1,11 +1,11 @@
 <template lang="pug">
   //- todo touchstart or click
-  .mob-view
+  div.mob-view
     img.icon.icon--back-to(src="../assets/img/icon/arrow-back--mob.png" alt="" @click="moveBack" v-show="mobData.isReportContent")
 
     img.icon.icon--audio(src="../assets/img/icon/audio.png" alt="")
 
-    .home-wrapper
+    div.home-wrapper
       HomeCover
       ReportsList
     BaseReport

@@ -5,7 +5,7 @@
     img(:src="arrowImg" @click="toggleNotation" :class="[isInline ? 'inline' : 'block', isNotation ? 'active' : '']")
     template(v-if="isNotation")
       span.report-notation__txt(v-if="isInline") {{ notation.txt }}
-      .report-notation__txt.report-notation__txt--block(v-else v-html="notation.txt")
+      div.report-notation__txt.report-notation__txt--block(v-else v-html="notation.txt")
 </template>
 
 <script>

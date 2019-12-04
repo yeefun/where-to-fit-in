@@ -1,6 +1,6 @@
 <template lang="pug">
-  .report-quote
-    .report-quote__txt(v-html="quote.txt")
+  div.report-quote
+    div.report-quote__txt(v-html="quote.txt")
     p.report-quote__name(v-if="quote.name") {{ quote.name }}
 </template>
 

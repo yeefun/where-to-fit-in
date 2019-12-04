@@ -1,26 +1,26 @@
 <template lang="pug">
   section.the-credit
     div
-      .the-credit__container
+      div.the-credit__container
         div
-          .the-credit__wrapper
-            .the-credit__title 採訪報導
-            .the-credit__name 林梵謹
-          .the-credit__wrapper
-            .the-credit__title 網頁製作
-            .the-credit__name 林昱帆
+          div.the-credit__wrapper
+            div.the-credit__title 採訪報導
+            div.the-credit__name 林梵謹
+          div.the-credit__wrapper
+            div.the-credit__title 網頁製作
+            div.the-credit__name 林昱帆
         div
-          .the-credit__wrapper
-            .the-credit__title 網頁設計
-            .the-credit__name 林梵謹、林昱帆
-          .the-credit__wrapper
-            .the-credit__title 聲音作曲
-            .the-credit__name 蔡昀恬
+          div.the-credit__wrapper
+            div.the-credit__title 網頁設計
+            div.the-credit__name 林梵謹、林昱帆
+          div.the-credit__wrapper
+            div.the-credit__title 聲音作曲
+            div.the-credit__name 蔡昀恬
       div
-        .the-credit__title 特別感謝
-        .the-credit__name 張錦華、謝吉隆、方念萱、董谷音<br>歐成予、沈佩泠、Xavier Wang
+        div.the-credit__title 特別感謝
+        div.the-credit__name 張錦華、謝吉隆、方念萱、董谷音<br>歐成予、沈佩泠、Xavier Wang
       img(src="../../assets/img/logo-shadow.png" alt="")
-      .the-credit__name © 2017-2019 林梵謹
+      div.the-credit__name © 2017-2019 林梵謹
 </template>
 
 <script>

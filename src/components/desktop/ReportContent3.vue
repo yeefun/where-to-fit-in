@@ -1,5 +1,5 @@
 <template lang="pug">
-  .report-content
+  div.report-content
     h2 從小胖到大的蛻變四部曲
     h3#title1 第一部、你這麼胖不行
     ReportQuote(:quote="quotes[0]")

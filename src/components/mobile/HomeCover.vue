@@ -1,6 +1,6 @@
 <template lang="pug">
   section.home-cover
-    .home-cover__intro
+    div.home-cover__intro
       img(src="../../assets/img/logo-shadow.png" alt="")
       p 超出常規的胖子該如何改變自己，才能找到容身立足的位置？
     img.home-cover__arrow(src="../../assets/img/icon/arrow-up-double.png" alt)

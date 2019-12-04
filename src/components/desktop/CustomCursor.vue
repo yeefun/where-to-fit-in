@@ -1,9 +1,9 @@
 <template lang="pug">
-  .custom-cursor(:class="{ back: isBackImg }")
-    .custom-cursor__inner
-      transition(:css="false" @enter="handleEnter" @leave="handleLeave")
-        img.custom-cursor__home(v-if="isBackImg" src="../../assets/img/icon/arrow-back--desk.png" alt="")
-        .custom-cursor__circle(v-else)
+  div(:class="[ 'custom-cursor', { back: isBackImg, loading: loading }]")
+    transition(:css="false" @enter="handleEnter" @leave="handleLeave" appear)
+      div.progress(v-if="loading" key="progress") {{ progress }}
+      img(v-else-if="isBackImg" src="../../assets/img/icon/arrow-back--desk.png" alt="" key="back")
+      div.circle(v-else key="point")
 </template>
 
 <script>
@@ -13,8 +13,10 @@ export default {
   name: 'CustomCursor',
   data () {
     return {
-      cursor: { x: 0, y: 0 },
-      mouse: { x: 0, y: 0 }
+      cursor: { x: this.$root.deskData.ww / 2, y: this.$root.deskData.wh / 2 },
+      mouse: { x: this.$root.deskData.ww / 2, y: this.$root.deskData.wh / 2 },
+      progress: 0,
+      loading: this.$root.deskData.inLoadingCover
     }
   },
   created () {
@@ -29,33 +31,26 @@ export default {
     }
   },
   mounted () {
-    this.cursor.x = this.deskData.ww / 2
-    this.cursor.y = this.deskData.wh / 2
-    this.mouse.x = this.cursor.x
-    this.mouse.y = this.cursor.y
-
     const speed = 0.15
     const setCursorX = gsap.quickSetter(this.$el, 'x', 'px')
     const setCursorY = gsap.quickSetter(this.$el, 'y', 'px')
     gsap.ticker.add(() => {
+      if (this.loading) { return }
       this.cursor.x += (this.mouse.x - this.cursor.x) * speed
       this.cursor.y += (this.mouse.y - this.cursor.y) * speed
       setCursorX(this.cursor.x)
       setCursorY(this.cursor.y)
-      // gsap.set(this.$el, {
-      //   x: this.cursor.x,
-      //   y: this.cursor.y
-      // })
     })
   },
   methods: {
     moveCursor (evt) {
+      if (this.loading) { return }
       this.mouse.x = evt.clientX
       this.mouse.y = evt.clientY
     },
     handleEnter (el, done) {
-      gsap.from(el, {
-        scale: 0,
+      gsap.to(el, {
+        scale: 1,
         duration: 0.6,
         delay: 0.3,
         ease: 'power3.inOut',
@@ -78,6 +73,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import "../../util/global.styl"
+
 .custom-cursor
   position fixed
   z-index 999
@@ -85,37 +82,40 @@ export default {
   left 0
   pointer-events none
   user-select none
-  width 32px
-  height 32px
-  margin-top -16px
-  margin-left -16px
+  width 44px
+  height 44px
+  margin-top -22px
+  margin-left -22px
   border-radius 50%
   background-color rgba(#fff, 0.4)
-  box-sizing border-box
-  mix-blend-mode overlay
+  color #fff
+  font-size 1.4rem
+  transition background-color 0.9s $easeInOutCubic
+  &.loading
+    top 50%
+    left 50%
+    transform translateY(100%)
+    opacity 0
+    background-color transparent
+    border 1px solid #fff
   &.back
     mix-blend-mode normal
   &.hide
     visibility hidden
-  &__inner
+  & > *
     position absolute
     top 50%
     left 50%
+  & .progress
     transform translate(-50%, -50%)
-  &__circle
-    position absolute
+  & .circle
     background-color #fff
     width 6px
     height 6px
-    top 50%
-    left 50%
-    transform translate(-50%, -50%)
     border-radius 50%
-  &__home
-    width 40px
-    height 40px
-    position absolute
-    top 50%
-    left 50%
-    transform translate(-50%, -50%)
+    transform translate(-50%, -50%) scale(0)
+  & img
+    width 100%
+    vertical-align middle
+    transform translate(-50%, -50%) scale(0)
 </style>
