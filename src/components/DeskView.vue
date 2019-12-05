@@ -31,9 +31,7 @@ export default {
     TitleAnchor
   },
   created () {
-    if (this.deskData.beginningReportId) {
-      this.isHomeCover = false
-    }
+    if (this.deskData.beginningReportId) { this.isHomeCover = false }
     this.$root.wEl.addEventListener('popstate', this.handlePopState)
   },
   data () {
@@ -70,39 +68,7 @@ export default {
     }
   },
   mounted () {
-    // this.$refs.homeCover.$el.classList.add('blur')
-    const tl = gsap.timeline()
-    tl.to(this.$refs.logo, {
-      y: 0,
-      duration: 1.8,
-      ease: 'power3.out'
-    }, 0.75)
-    tl.to(this.$refs.cursor.$el, {
-      y: 0,
-      opacity: 1,
-      duration: 0.9,
-      ease: 'power2.inOut'
-    }, '>-0.6')
-    tl.to(this.$refs.cursor, {
-      progress: 100,
-      duration: 2.4,
-      snap: { progress: 1 },
-      ease: 'steps(8)'
-    }, '>0.15')
-    tl.to(this.$refs.loadingCover.$el, {
-      opacity: 0.8,
-      duration: 2.4,
-      ease: 'steps(4)'
-    }, '<')
-    tl.set(this.$refs.cursor, {
-      loading: false
-    }, '>')
-    tl.to(this.$refs.loadingCover.$refs.prompt, {
-      autoAlpha: 1,
-      y: 0,
-      duration: 0.9,
-      ease: 'power1.inOut'
-    }, '<1.2')
+    if (this.deskData.inLoadingCover) { this.loading() }
   },
   computed: {
     reportAnchors () {
@@ -114,7 +80,7 @@ export default {
   },
   methods: {
     backToHome () {
-      if (this.deskData.inHome) return
+      if (this.deskData.inHome) { return }
       this.deskData.inHome = true
       this.deskData.removedRelatedReportId = 0
       this.deskData.htmlEl.scrollTop = 0
@@ -168,6 +134,42 @@ export default {
           document.getElementById(`report${id}`).click()
         }
       }
+    },
+    loading () {
+      const cursor = this.$refs.cursor
+      const loadingCover = this.$refs.loadingCover
+      const tl = gsap.timeline()
+      tl.to(this.$refs.logo, {
+        y: 0,
+        duration: 1.8,
+        ease: 'power3.out'
+      }, 0.75)
+      tl.to(cursor.$el, {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: 'power2.inOut'
+      }, '>-0.6')
+      tl.to(cursor, {
+        progress: 100,
+        duration: 2.4,
+        snap: { progress: 4 },
+        ease: 'power4.inOut'
+      }, '>')
+      tl.to(loadingCover.$el, {
+        opacity: 0.8,
+        duration: 2.4,
+        ease: 'power4.inOut'
+      }, '<')
+      tl.set(cursor, {
+        loading: false
+      }, '>-0.15')
+      tl.to(loadingCover.$refs.prompt, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'power1.out'
+      }, '<0.9')
     }
   },
   beforeDestroy () {

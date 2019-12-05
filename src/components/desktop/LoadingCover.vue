@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.loading-cover.full-page(ref="loadingCover")
+  div.loading-cover.full-page(ref="loadingCover" v-if="isLoadingCover")
     div.loading-cover__prompt(ref="prompt" v-if="deskData.inLoadingCover" )
       p 進入首頁後<br>找出胖子並點擊<br>聽聽他們的聲音
       button(type="button" @click="closeLoadingCover") 我知道了
@@ -10,6 +10,11 @@ import { gsap } from 'gsap'
 
 export default {
   name: 'LoadingCover',
+  data () {
+    return {
+      isLoadingCover: this.$root.deskData.inLoadingCover
+    }
+  },
   computed: {
     deskData () {
       return this.$root.deskData
@@ -19,9 +24,12 @@ export default {
     closeLoadingCover () {
       this.deskData.inLoadingCover = false
       gsap.to(this.$refs.loadingCover, {
-        autoAlpha: 0,
-        duration: 0.6,
-        ease: 'power2.inOut'
+        y: '-100%',
+        opacity: 0.16,
+        duration: 0.45,
+        delay: 0.6,
+        ease: 'circ.inOut',
+        onComplete: () => { this.isLoadingCover = false }
       })
     }
   }

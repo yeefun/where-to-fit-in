@@ -94,7 +94,7 @@ export default {
   &.loading
     top 50%
     left 50%
-    transform translateY(100%)
+    transform translateY(80%)
     opacity 0
     background-color transparent
     border 1px solid #fff

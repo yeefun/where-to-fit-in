@@ -11,8 +11,6 @@ const mobData = {
   isTransition: false,
   isMovingBack: false,
   isShowingRelatedReport: false,
-  // baseReportEl: null,
-  // ReportsScrollTop: [ 0, 0, 0, 0, 0 ],
   reports: [
     {
       id: 1,
@@ -52,16 +50,6 @@ function mobMethods () {
     toggleBodyScrollBar: () => {
       (this.mobData.isTransition || this.mobData.isReportContent) ? this.bodyEl.classList.add('no-scroll') : this.bodyEl.classList.remove('no-scroll')
     },
-    // white: (id) => {
-    //   return { 'color-white': (id === 2 || id === 5) }
-    // },
-    // getCurrentReportScrollTop: () => {
-    //   const idx = this.mobData.currentReportId - 1
-    //   this.mobData.ReportsScrollTop[idx] = this.mobData.baseReportEl.scrollTop
-    // },
-    // applyCurrentReportScrollTop: () => {
-    //   this.mobData.baseReportEl.scrollTop = this.mobData.ReportsScrollTop[(this.mobData.currentReportId - 1)]
-    // },
     checkBeginningReportId: () => {
       const regexp = /^\/report[1-5](\/?)/i
       let pathname = window.location.pathname

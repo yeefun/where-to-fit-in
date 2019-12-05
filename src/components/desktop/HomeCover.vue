@@ -173,10 +173,11 @@ export default {
 .home-cover
   position absolute
   top 0
+  left 0
   width 100%
   height 100vh
   overflow hidden
-  transition filter 0.6s $easeInOutCubic
+  transition filter 0.6s $easeInOutCirc
   &.in-loading-cover
     filter blur(8px)
   &.hide

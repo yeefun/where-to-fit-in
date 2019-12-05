@@ -2,11 +2,11 @@
   #app
     component(:is="$root.isMob ? 'MobView' : 'DeskView'")
 
-    transition(name="fadeInfo")
+    transition(name="fadeCredit")
       img.icon.icon--cancel(v-if="isCredit" src="./assets/img/icon/cancel.png" alt="" @click="toggleCredit")
       img.icon.icon--credit(v-else src="./assets/img/icon/info.png" alt="" @click="toggleCredit")
 
-    transition(name="fadeInfo")
+    transition(name="fadeCredit")
       TheCredit(v-if="isCredit")
 </template>
 
@@ -80,7 +80,7 @@ button
 .h-100p
   height 100% !important
 
-.fadeInfo
+.fadeCredit
   &-enter, &-leave-to
     opacity 0
   &-enter-active, &-leave-active
