@@ -23,12 +23,12 @@ export default {
   methods: {
     closeLoadingCover () {
       this.deskData.inLoadingCover = false
+      this.$parent.$refs.mainBGM.play()
       gsap.to(this.$refs.loadingCover, {
-        y: '-100%',
+        scaleY: 0,
         opacity: 0.16,
-        duration: 0.45,
-        delay: 0.6,
-        ease: 'circ.inOut',
+        duration: 1.2,
+        ease: 'expo.inOut',
         onComplete: () => { this.isLoadingCover = false }
       })
     }
@@ -42,6 +42,8 @@ export default {
 .loading-cover
   background-color #0a2d4f
   z-index 389
+  transform scaleX(0)
+  opacity 0.16
   &__prompt
     font-size 1.8rem
     color #fff

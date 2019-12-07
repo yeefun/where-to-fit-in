@@ -1,9 +1,6 @@
 <template lang="pug">
-  //- todo touchstart or click
   div.mob-view
     img.icon.icon--back-to(src="../assets/img/icon/arrow-back--mob.png" alt="" @click="moveBack" v-show="mobData.isReportContent")
-
-    img.icon.icon--audio(src="../assets/img/icon/audio.png" alt="")
 
     div.home-wrapper
       HomeCover
@@ -87,13 +84,6 @@ body
   &.no-scroll
     overflow hidden
 .icon
-  &--audio
-    bottom 0
-    left 0
-    padding 5px 5px 8px 12px
-    @media (min-width $tablet)
-      padding-bottom 24px
-      padding-left 32px
   &--back-to
     top 0
     left 0
@@ -101,8 +91,6 @@ body
     @media (min-width $tablet)
       padding-top 24px
       padding-left 32px
-// #app
-//   overflow hidden
 .color-white
   &--tablet
     @media (min-width $tablet)

@@ -12,6 +12,17 @@
           path(:d="path" @mouseover="animateCursorOver" @mouseout="animateCursorOut")
     div.full-page
       div.home-cover__person.full-page.full-img(v-for="id in 5" :id="`person${id}`")
+
+    audio(ref="personBGM1")
+      source(src="../../assets/audio/person1.mp3" type="audio/mpeg")
+    audio(ref="personBGM2")
+      source(src="../../assets/audio/person2.mp3" type="audio/mpeg")
+    audio(ref="personBGM3")
+      source(src="../../assets/audio/person3.mp3" type="audio/mpeg")
+    audio(ref="personBGM4")
+      source(src="../../assets/audio/person4.mp3" type="audio/mpeg")
+    audio(ref="personBGM5")
+      source(src="../../assets/audio/person5.mp3" type="audio/mpeg")
 </template>
 
 <script>
@@ -51,9 +62,15 @@ export default {
   },
   methods: {
     showPerson (evt) {
-      if (this.isGoingReportCover) return
+      if (this.isGoingReportCover) { return }
+
       const self = evt.currentTarget
       const idx = self.dataset.person
+      const audio = this.$refs[ `personBGM${idx}` ]
+      if (!this.deskData.isMuted) {
+        audio.currentTime = 0
+        audio.play()
+      }
       this.deskData.currentPerson = document.getElementById(`person${idx}`)
       gsap.to(this.deskData.currentPerson, {
         opacity: 1,
@@ -62,12 +79,12 @@ export default {
       })
       gsap.to(this.$refs.mask, {
         opacity: 0.88,
-        duration: 0.6,
+        duration: 0.75,
         ease: 'expo.out'
       })
     },
     hidePerson () {
-      if (this.isGoingReportCover) return
+      if (this.isGoingReportCover) { return }
 
       gsap.to(this.deskData.currentPerson, {
         opacity: 0,
@@ -76,7 +93,7 @@ export default {
       })
       gsap.to(this.$refs.mask, {
         opacity: 0,
-        duration: 0.6,
+        duration: 0.75,
         ease: 'expo.out'
       })
     },
@@ -177,9 +194,10 @@ export default {
   width 100%
   height 100vh
   overflow hidden
-  transition filter 0.6s $easeInOutCirc
+  transition filter 1.8s $easeInOutSine
   &.in-loading-cover
     filter blur(8px)
+    opacity 0
   &.hide
     opacity 0
     visibility hidden

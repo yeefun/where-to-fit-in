@@ -1,4 +1,5 @@
 <template lang="pug">
+  //- todo icons by <a target="_blank" href="https://icons8.com">Icons8</a>
   #app
     component(:is="$root.isMob ? 'MobView' : 'DeskView'")
 

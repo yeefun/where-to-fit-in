@@ -15,7 +15,7 @@ export default {
   methods: {
     scrollToTitle (title) {
       scrollIntoView(document.getElementById(title), {
-        time: 900,
+        time: 600,
         align: { top: 0.1, left: 0.1 },
         ease: (t) => t * t * t * t
       })

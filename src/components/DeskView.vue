@@ -7,9 +7,14 @@
     CustomCursor(ref="cursor" v-if="$root.deskData.inHome || $root.deskData.inReportCover")
 
     HomeCover(ref="homeCover" :class="{ hide: !isHomeCover }")
-    BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports" :backToHome="backToHome")
+    BaseReport(v-for="report in $root.deskData.baseReports" :key="report" ref="baseReports")
 
     TitleAnchor(:anchors="reportAnchors" v-if="deskData.ww >= 992")
+
+    audio(loop ref="mainBGM")
+      source(src="../assets/audio/main.mp3" type="audio/mpeg")
+
+    img.icon.icon--audio(:src="audioIconSrc" alt="" @click="toggleMuted")
 </template>
 
 <script>
@@ -76,6 +81,9 @@ export default {
     },
     deskData () {
       return this.$root.deskData
+    },
+    audioIconSrc () {
+      return require(`../assets/img/icon/audio${this.deskData.isMuted ? '-muted' : ''}.png`)
     }
   },
   methods: {
@@ -85,6 +93,8 @@ export default {
       this.deskData.removedRelatedReportId = 0
       this.deskData.htmlEl.scrollTop = 0
       this.$root.bodyEl.scrollTop = 0
+
+      this.$refs.mainBGM.play()
 
       gsap.to('.reports', {
         opacity: 0,
@@ -139,11 +149,20 @@ export default {
       const cursor = this.$refs.cursor
       const loadingCover = this.$refs.loadingCover
       const tl = gsap.timeline()
+      tl.to(loadingCover.$el, {
+        scaleX: 1,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'expo.inOut'
+      }, 0)
       tl.to(this.$refs.logo, {
         y: 0,
-        duration: 1.8,
+        duration: 1.5,
         ease: 'power3.out'
-      }, 0.75)
+      }, '>')
+      tl.set(this.$refs.homeCover.$el, {
+        opacity: 1
+      }, '>')
       tl.to(cursor.$el, {
         y: 0,
         opacity: 1,
@@ -153,23 +172,28 @@ export default {
       tl.to(cursor, {
         progress: 100,
         duration: 2.4,
-        snap: { progress: 4 },
-        ease: 'power4.inOut'
+        snap: { progress: 2 },
+        ease: 'power3.in'
       }, '>')
       tl.to(loadingCover.$el, {
         opacity: 0.8,
         duration: 2.4,
-        ease: 'power4.inOut'
+        ease: 'power3.in'
       }, '<')
       tl.set(cursor, {
         loading: false
-      }, '>-0.15')
+      }, '>0.15')
       tl.to(loadingCover.$refs.prompt, {
         autoAlpha: 1,
         y: 0,
         duration: 0.9,
         ease: 'power1.out'
       }, '<0.9')
+    },
+    toggleMuted () {
+      const { mainBGM } = this.$refs
+      mainBGM.muted = !mainBGM.muted
+      this.deskData.isMuted = !this.deskData.isMuted
     }
   },
   beforeDestroy () {
@@ -199,6 +223,14 @@ body
     width 176px
     vertical-align middle
     cursor pointer
+.icon
+  &--audio
+    bottom 0
+    left 0
+    padding 5px 5px 8px 12px
+    @media (min-width $tablet)
+      padding-bottom 24px
+      padding-left 32px
 .full-page
   position absolute
   width 100%

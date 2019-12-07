@@ -49,7 +49,6 @@ export default {
     ReportContent4: () => import('./ReportContent4'),
     ReportContent5: () => import('./ReportContent5')
   },
-  props: [ 'backToHome' ],
   created () {
     if (!this.showReportFromBeginning()) {
       this.loadRelatedReports()
@@ -140,7 +139,7 @@ export default {
     },
     handleClick (evt, id) {
       if (!this.deskData.inHome && this.deskData.inReportCover) {
-        this.backToHome()
+        this.$parent.backToHome()
         return
       }
       this.showReportFromRelated(evt, id)

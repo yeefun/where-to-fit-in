@@ -11,7 +11,8 @@ const deskData = {
   htmlEl: document.documentElement,
   ww: Math.min(document.documentElement.clientWidth, window.innerWidth),
   wh: window.innerHeight,
-  inLoadingCover: true
+  inLoadingCover: true,
+  isMuted: false
 }
 
 function deskMethods () {
