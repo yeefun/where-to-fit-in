@@ -14,7 +14,7 @@
     audio(loop ref="mainBGM")
       source(src="../assets/audio/main.mp3" type="audio/mpeg")
 
-    img.icon.icon--audio(:src="audioIconSrc" alt="" @click="toggleMuted")
+    img.icon.icon--audio(:src="audioIconSrc" alt="" @click="toggleMuted" :class="{ 'in-loading-cover': deskData.inLoadingCover }")
 </template>
 
 <script>

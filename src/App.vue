@@ -4,8 +4,7 @@
     component(:is="$root.isMob ? 'MobView' : 'DeskView'")
 
     transition(name="fadeCredit")
-      img.icon.icon--cancel(v-if="isCredit" src="./assets/img/icon/cancel.png" alt="" @click="toggleCredit")
-      img.icon.icon--credit(v-else src="./assets/img/icon/info.png" alt="" @click="toggleCredit")
+      img.icon.icon--credit(:src="creditIconSrc" alt="" @click="toggleCredit" :class="{ cancel: this.isCredit, 'in-loading-cover': $root.deskData.inLoadingCover }" :key="this.isCredit ? 'cancel' : 'info'")
 
     transition(name="fadeCredit")
       TheCredit(v-if="isCredit")
@@ -24,6 +23,11 @@ export default {
   data () {
     return {
       isCredit: false
+    }
+  },
+  computed: {
+    creditIconSrc () {
+      return require(`./assets/img/icon/${this.isCredit ? 'cancel' : 'info'}.png`)
     }
   },
   methods: {
@@ -57,6 +61,8 @@ button
   cursor pointer
   mix-blend-mode color-burn
   user-select none
+  &.in-loading-cover
+    visibility hidden
   &--credit
     top 0
     right 0
@@ -64,15 +70,9 @@ button
     @media (min-width $tablet)
       padding-top 24px
       padding-right 32px
-  &--cancel
-    top 0
-    right 0
-    padding 8px 8px 5px 5px
-    z-index 399
-    mix-blend-mode normal
-    @media (min-width $tablet)
-      padding-top 24px
-      padding-right 32px
+    &.cancel
+      z-index 399
+      mix-blend-mode normal
 
 .color-white
   color #fff !important

@@ -1,7 +1,7 @@
 <template lang="pug">
   div(:class="[ 'custom-cursor', { back: isBackImg, loading: loading }]")
-    transition(:css="false" @enter="handleEnter" @leave="handleLeave")
-      div.progress(v-if="loading" key="progress") {{ progress }}
+    transition(:css="false" @before-enter="handleBeforeEnter" @enter="handleEnter" @leave="handleLeave")
+      div(v-if="loading" key="progress") {{ progress }}
       img(v-else-if="isBackImg" src="../../assets/img/icon/arrow-back--desk.png" alt="" key="back")
       div.circle(v-else key="point")
 </template>
@@ -13,6 +13,7 @@ export default {
   name: 'CustomCursor',
   data () {
     return {
+      // todo when loading window size change, position won't be correct
       cursor: { x: this.$root.deskData.ww / 2, y: this.$root.deskData.wh / 2 },
       mouse: { x: this.$root.deskData.ww / 2, y: this.$root.deskData.wh / 2 },
       progress: 0,
@@ -47,6 +48,13 @@ export default {
       if (this.loading) { return }
       this.mouse.x = evt.clientX
       this.mouse.y = evt.clientY
+    },
+    handleBeforeEnter (el) {
+      gsap.set(el, {
+        scale: 0,
+        xPercent: -50,
+        yPercent: -50
+      })
     },
     handleEnter (el, done) {
       gsap.to(el, {
@@ -106,17 +114,13 @@ export default {
     position absolute
     top 50%
     left 50%
-  & .progress
     transform translate(-50%, -50%)
   & .circle
     background-color #fff
     width 6px
     height 6px
     border-radius 50%
-    transform translate(-50%, -50%) scale(0)
   & img
-    // width 100%
-    width 52px
-    vertical-align middle
-    transform translate(-50%, -50%) scale(0)
+    width 32px
+    display block
 </style>
