@@ -298,9 +298,10 @@ export default {
       }
     },
     toggleCursor () {
-      if (this.isTransition) return
+      const cursor = this.$parent.$refs.cursor
+      if (this.isTransition || !cursor) return
 
-      this.$parent.$refs.cursor.$el.classList.toggle('hide')
+      cursor.$el.classList.toggle('hide')
     }
   }
 }

@@ -23,13 +23,27 @@ export default {
   methods: {
     closeLoadingCover () {
       this.deskData.inLoadingCover = false
-      this.$parent.$refs.mainBGM.play()
+      const parentRefs = this.$parent.$refs
+      const homeCover = parentRefs.homeCover.$el
+      parentRefs.mainBGM.play()
       gsap.to(this.$refs.loadingCover, {
         scaleY: 0,
         opacity: 0.16,
         duration: 1.2,
         ease: 'expo.inOut',
         onComplete: () => { this.isLoadingCover = false }
+      })
+      gsap.to(homeCover, {
+        webkitFilter: 'blur(0px)',
+        filter: 'blur(0px)',
+        duration: 1.8,
+        ease: 'sine.inOut',
+        onComplete: () => {
+          gsap.set(homeCover, {
+            webkitFilter: '',
+            filter: ''
+          })
+        }
       })
     }
   }
@@ -70,6 +84,7 @@ export default {
       border 1px solid #fff
       border-radius 4px
       letter-spacing 0.8px
+      user-select none
       transition all 0.3s $easeInOutCubic
       &:hover
         background-color #fff

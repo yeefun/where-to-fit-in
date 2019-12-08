@@ -1,6 +1,6 @@
 <template lang="pug">
   div(:class="[ 'custom-cursor', { back: isBackImg, loading: loading }]")
-    transition(:css="false" @enter="handleEnter" @leave="handleLeave" appear)
+    transition(:css="false" @enter="handleEnter" @leave="handleLeave")
       div.progress(v-if="loading" key="progress") {{ progress }}
       img(v-else-if="isBackImg" src="../../assets/img/icon/arrow-back--desk.png" alt="" key="back")
       div.circle(v-else key="point")
@@ -36,10 +36,10 @@ export default {
     const setCursorY = gsap.quickSetter(this.$el, 'y', 'px')
     gsap.ticker.add(() => {
       if (this.loading) { return }
-      this.cursor.x += (this.mouse.x - this.cursor.x) * speed
-      this.cursor.y += (this.mouse.y - this.cursor.y) * speed
-      setCursorX(this.cursor.x)
-      setCursorY(this.cursor.y)
+      this.cursor.x += ((this.mouse.x - this.cursor.x) * speed)
+      this.cursor.y += ((this.mouse.y - this.cursor.y) * speed)
+      setCursorX(Number(this.cursor.x).toFixed(2))
+      setCursorY(Number(this.cursor.y).toFixed(2))
     })
   },
   methods: {
@@ -115,7 +115,8 @@ export default {
     border-radius 50%
     transform translate(-50%, -50%) scale(0)
   & img
-    width 100%
+    // width 100%
+    width 52px
     vertical-align middle
     transform translate(-50%, -50%) scale(0)
 </style>

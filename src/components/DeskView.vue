@@ -146,35 +146,59 @@ export default {
       }
     },
     loading () {
-      const cursor = this.$refs.cursor
-      const loadingCover = this.$refs.loadingCover
-      const tl = gsap.timeline()
-      tl.to(loadingCover.$el, {
+      const { loadingCover, logo } = this.$refs
+      // const tl = gsap.timeline()
+
+      gsap.to(loadingCover.$el, {
         scaleX: 1,
         opacity: 1,
         duration: 1.2,
-        ease: 'expo.inOut'
-      }, 0)
-      tl.to(this.$refs.logo, {
+        ease: 'expo.inOut',
+        // onComplete: () => { this.detectImgLoad(this.$refs.logo, this.loadLogo) }
+        onComplete: () => {
+          if (logo.complete) {
+            this.loadLogo()
+          } else {
+            logo.addEventListener('load', this.loadLogo)
+          }
+        }
+      })
+    },
+    loadLogo () {
+      const { logo, homeCover, cursor } = this.$refs
+      const tl = gsap.timeline()
+
+      tl.to(logo, {
         y: 0,
         duration: 1.5,
         ease: 'power3.out'
-      }, '>')
-      tl.set(this.$refs.homeCover.$el, {
-        opacity: 1
+      }, 0)
+      tl.set(homeCover.$el, {
+        visibility: 'visible',
+        webkitFilter: 'blur(8px)',
+        filter: 'blur(8px)'
       }, '>')
       tl.to(cursor.$el, {
         y: 0,
         opacity: 1,
         duration: 0.9,
-        ease: 'power2.inOut'
+        ease: 'power2.inOut',
+        onComplete: () => {
+          this.deskData.isLogoLoad = true
+          if (this.deskData.isMRTBgImgLoad) { this.loadProgress() }
+        }
       }, '>-0.6')
+    },
+    loadProgress () {
+      const { cursor, loadingCover } = this.$refs
+      const tl = gsap.timeline()
+
       tl.to(cursor, {
         progress: 100,
         duration: 2.4,
         snap: { progress: 2 },
         ease: 'power3.in'
-      }, '>')
+      }, 0)
       tl.to(loadingCover.$el, {
         opacity: 0.8,
         duration: 2.4,

@@ -43,7 +43,7 @@ body
   font-family $ff--sans-serif
 img
   height auto
-  max-width 100%
+  // max-width 100%
 button
   border 0
   outline 0
