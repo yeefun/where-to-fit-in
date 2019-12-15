@@ -43,10 +43,11 @@ export default {
       return this.$root.mobData
     },
     shareURL () {
+      const { origin } = this.$root.wEl.location
       if (this.mobData.isReportContent) {
-        return `${this.$root.publicPath}report${this.mobData.currentReportId}`
+        return `${origin}${this.$root.publicPath}report${this.mobData.currentReportId}`
       }
-      return this.$root.publicPath
+      return origin
     }
   },
   methods: {

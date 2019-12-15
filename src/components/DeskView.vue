@@ -94,10 +94,11 @@ export default {
       return require(`../assets/img/icon/audio${this.deskData.isMuted ? '-muted' : ''}.png`)
     },
     shareURL () {
+      const { origin } = this.$root.wEl.location
       if (!this.deskData.inHome && !this.deskData.inReportCover) {
-        return `${this.$root.publicPath}report${this.deskData.removedRelatedReportId}`
+        return `${origin}${this.$root.publicPath}report${this.deskData.removedRelatedReportId}`
       }
-      return this.$root.publicPath
+      return origin
     }
   },
   methods: {
