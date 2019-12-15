@@ -15,7 +15,7 @@ export default {
   methods: {
     scrollToTitle (title) {
       scrollIntoView(document.getElementById(title), {
-        time: 600,
+        time: 750,
         align: { top: 0.1, left: 0.1 },
         ease: (t) => t * t * t * t
       })
@@ -38,7 +38,7 @@ export default {
     padding-bottom 8px
     position relative
   &__line-wrapper
-    width 64px
+    width 60px
     padding-top 15px
     padding-bottom 15px
     padding-left 16px
@@ -49,7 +49,7 @@ export default {
     cursor pointer
     &:hover
       & .line
-        width 80px
+        width 60px
         background-color #08517c
       & + .title-anchor__txt
         visibility visible
@@ -57,8 +57,8 @@ export default {
       width 16px
       height 2px
       background-color #003152
-      border-radius 4px
-      transition all 0.45s $easeOutSine
+      // border-radius 4px
+      transition all 0.3s $easeOutSine
   &__txt
     color #08517c
     font-size 1.6rem

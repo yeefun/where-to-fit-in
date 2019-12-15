@@ -13,7 +13,6 @@ export default {
   name: 'CustomCursor',
   data () {
     return {
-      // todo when loading window size change, position won't be correct
       cursor: { x: this.$root.deskData.ww / 2, y: this.$root.deskData.wh / 2 },
       mouse: { x: this.$root.deskData.ww / 2, y: this.$root.deskData.wh / 2 },
       progress: 0,
@@ -36,7 +35,13 @@ export default {
     const setCursorX = gsap.quickSetter(this.$el, 'x', 'px')
     const setCursorY = gsap.quickSetter(this.$el, 'y', 'px')
     gsap.ticker.add(() => {
-      if (this.loading) { return }
+      if (this.loading) {
+        this.cursor.x = this.deskData.ww / 2
+        this.cursor.y = this.deskData.wh / 2
+        this.mouse.x = this.cursor.x
+        this.mouse.y = this.cursor.y
+        return
+      }
       this.cursor.x += ((this.mouse.x - this.cursor.x) * speed)
       this.cursor.y += ((this.mouse.y - this.cursor.y) * speed)
       setCursorX(Number(this.cursor.x).toFixed(2))

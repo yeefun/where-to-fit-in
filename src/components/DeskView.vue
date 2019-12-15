@@ -15,6 +15,11 @@
       source(src="../assets/audio/main.mp3" type="audio/mpeg")
 
     img.icon.icon--audio(:src="audioIconSrc" alt="" @click="toggleMuted" :class="{ 'in-loading-cover': deskData.inLoadingCover }")
+
+    div.share(:class="{ active: isShare, 'in-loading-cover': deskData.inLoadingCover }")
+      a.share__fb(:href="`https://www.facebook.com/share.php?u=${shareURL}`" target="_blank")
+      a.share__line(:href="`https://line.me/R/msg/text/?${shareURL}`" target="_blank")
+      img(src="../assets/img/icon/share.png" alt="" @click="isShare = !isShare")
 </template>
 
 <script>
@@ -36,12 +41,15 @@ export default {
     TitleAnchor
   },
   created () {
-    if (this.deskData.beginningReportId) { this.isHomeCover = false }
+    if (this.deskData.beginningReportId) {
+      this.isHomeCover = false
+    }
     this.$root.wEl.addEventListener('popstate', this.handlePopState)
   },
   data () {
     return {
       isHomeCover: true,
+      isShare: false,
       anchors: {
         report1: [],
         report2: [
@@ -77,13 +85,19 @@ export default {
   },
   computed: {
     reportAnchors () {
-      return this.anchors[`report${this.deskData.removedRelatedReportId}`]
+      return this.anchors[ `report${this.deskData.removedRelatedReportId}` ]
     },
     deskData () {
       return this.$root.deskData
     },
     audioIconSrc () {
       return require(`../assets/img/icon/audio${this.deskData.isMuted ? '-muted' : ''}.png`)
+    },
+    shareURL () {
+      if (!this.deskData.inHome && !this.deskData.inReportCover) {
+        return `${this.$root.publicPath}report${this.deskData.removedRelatedReportId}`
+      }
+      return this.$root.publicPath
     }
   },
   methods: {
@@ -116,32 +130,33 @@ export default {
         }
       })
       if (!this.$root.isPopState) {
-        history.pushState({ place: 'home' }, '', this.$root.pathname)
+        history.pushState({ place: 'home' }, '', this.$root.publicPath)
       } else {
         this.$root.isPopState = false
       }
     },
     handlePopState (evt) {
       const state = evt.state
+      const { place, id } = state
       this.$root.isPopState = true
-      if (!state || state.place === 'home') {
+      if (!state || place === 'home') {
         this.backToHome()
-      } else if (state.place === 'report cover') {
-        this.$refs.homeCover.showReportCover(null, state.id)
+      } else if (place === 'report cover') {
+        this.$refs.homeCover.showReportCover(null, id)
       } else {
-        const id = state.id
         if (this.deskData.inHome) {
           gsap.to(this.$refs.homeCover.$el, {
             autoAlpha: 0,
             duration: 0.6,
             ease: 'power2.inOut',
             onComplete: () => {
-              this.$refs.baseReports[0].showReportFromHome(id)
+              this.$refs.baseReports[ 0 ].showReportFromHome(id)
               this.deskData.inHome = false
             }
           })
         } else {
-          document.getElementById(`report${id}`).click()
+          // document.getElementById(`report${id}`).click()
+          this.$refs.baseReports[ 1 ].handleClick(null, id)
         }
       }
     },
@@ -185,7 +200,9 @@ export default {
         ease: 'power2.inOut',
         onComplete: () => {
           this.deskData.isLogoLoad = true
-          if (this.deskData.isMRTBgImgLoad) { this.loadProgress() }
+          if (this.deskData.isMRTBgImgLoad) {
+            this.loadProgress()
+          }
         }
       }, '>-0.6')
     },
@@ -249,12 +266,18 @@ body
     cursor pointer
 .icon
   &--audio
-    bottom 0
-    left 0
-    padding 5px 5px 8px 12px
+    // bottom 0
+    // left 0
+    // padding 5px 5px 8px 12px
+    bottom 11px
+    left 11px
+    padding 5px
     @media (min-width $tablet)
-      padding-bottom 24px
-      padding-left 32px
+      // padding-bottom 24px
+      // padding-left 32px
+      bottom 16px
+      left 24px
+      padding 8px
 .full-page
   position absolute
   width 100%

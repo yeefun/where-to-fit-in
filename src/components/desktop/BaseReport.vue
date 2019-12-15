@@ -180,8 +180,9 @@ export default {
       this.isReportContent = true
     },
     showReportFromRelated (evt, id) {
-      const self = evt.currentTarget
-      if ((this.deskData.currentReport === self) || this.isShowingReport) return
+      const self = evt ? evt.currentTarget : document.getElementById(`report${id}`)
+
+      if ((this.deskData.currentReport === self) || this.isShowingReport) { return }
 
       this.isMask = false
       this.isShowingReport = true
@@ -254,7 +255,7 @@ export default {
     fadeInReportContent () {
       const id = this.currentReportId
       const state = { place: 'report', id }
-      const url = `${this.$root.pathname}report${id}`
+      const url = `${this.$root.publicPath}report${id}`
 
       if (!this.isBeginning) {
         gsap.set(this.deskData.currentReport, {
@@ -311,6 +312,7 @@ export default {
 @import "../../util/global.styl"
 
 .reports
+  background-color #f6f6f6
   &.hide
     overflow hidden
     height 0

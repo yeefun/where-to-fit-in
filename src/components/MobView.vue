@@ -9,6 +9,11 @@
 
     transition(name="fadeMask" @after-enter="handleFadeInAfter")
       TransitionMask(v-show="mobData.isTransition")
+
+    div.share(:class="{ active: isShare }")
+      a.share__fb(:href="`https://www.facebook.com/share.php?u=${shareURL}`" target="_blank")
+      a.share__line(:href="`https://line.me/R/msg/text/?${shareURL}`" target="_blank")
+      img(src="../assets/img/icon/share.png" alt="" @click="isShare = !isShare")
 </template>
 
 <script>
@@ -28,9 +33,20 @@ export default {
   created () {
     this.$root.wEl.addEventListener('popstate', this.handlePopState)
   },
+  data () {
+    return {
+      isShare: false
+    }
+  },
   computed: {
     mobData () {
       return this.$root.mobData
+    },
+    shareURL () {
+      if (this.mobData.isReportContent) {
+        return `${this.$root.publicPath}report${this.mobData.currentReportId}`
+      }
+      return this.$root.publicPath
     }
   },
   methods: {
@@ -42,7 +58,7 @@ export default {
       if (this.mobData.isMovingBack) {
         this.mobData.isReportContent = false
         this.mobData.isMovingBack = false
-        if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', this.$root.pathname)
+        if (!this.$root.isPopState) history.pushState({ place: 'home' }, '', this.$root.publicPath)
         else this.$root.isPopState = false
         return
       }
@@ -51,7 +67,7 @@ export default {
       else this.mobData.isReportContent = true
 
       const id = this.mobData.currentReportId
-      if (!this.$root.isPopState) history.pushState({ place: 'report', id }, '', `${this.$root.pathname}report${id}`)
+      if (!this.$root.isPopState) history.pushState({ place: 'report', id }, '', `${this.$root.publicPath}report${id}`)
       else this.$root.isPopState = false
     },
     handlePopState (evt) {
@@ -85,12 +101,18 @@ body
     overflow hidden
 .icon
   &--back-to
-    top 0
-    left 0
-    padding 8px 5px 5px 8px
+    // top 0
+    // left 0
+    top 11px
+    left 11px
+    padding 5px
+    // padding 8px 5px 5px 8px
     @media (min-width $tablet)
-      padding-top 24px
-      padding-left 32px
+      padding 8px
+      top 16px
+      left 24px
+      // padding-top 24px
+      // padding-left 32px
 .color-white
   &--tablet
     @media (min-width $tablet)

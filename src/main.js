@@ -13,7 +13,7 @@ new Vue({
     mobData,
     deskData,
     isMob: isTouchDevice() || isMobileOrTablet(),
-    pathname: process.env.NODE_ENV === 'production' ? '/where-to-fit-in/' : '/',
+    publicPath: process.env.BASE_URL,
     isPopState: false,
     wEl: window,
     bodyEl: null
