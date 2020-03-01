@@ -417,14 +417,7 @@ export default {
       line-height 1.6
 
 #report1__cover
-  // todo one or tow img?
-  // background-image url(../../assets/img/cover/report1-bottom.png), url(../../assets/img/cover/report1-top.jpg)
   background-image url(../../assets/img/cover/report1.jpg)
-  // background-position center bottom, center top
-  // background-size cover
-  // background-size 1280px
-  // background-repeat no-repeat
-  // background-attachment fixed, scroll
 #report2__cover
   background-image url(../../assets/img/cover/report2.jpg)
 #report3__cover

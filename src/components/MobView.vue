@@ -102,18 +102,13 @@ body
     overflow hidden
 .icon
   &--back-to
-    // top 0
-    // left 0
     top 11px
     left 11px
     padding 5px
-    // padding 8px 5px 5px 8px
     @media (min-width $tablet)
       padding 8px
       top 16px
       left 24px
-      // padding-top 24px
-      // padding-left 32px
 .color-white
   &--tablet
     @media (min-width $tablet)

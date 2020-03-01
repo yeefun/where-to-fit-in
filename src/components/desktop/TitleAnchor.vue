@@ -57,7 +57,6 @@ export default {
       width 16px
       height 2px
       background-color #003152
-      // border-radius 4px
       transition all 0.3s $easeOutSine
   &__txt
     color #08517c

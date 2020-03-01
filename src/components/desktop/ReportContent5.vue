@@ -65,7 +65,6 @@
 </template>
 
 <script>
-// import FbPost from './FbPost.vue'
 import ReportFigure from '../common/ReportFigure.vue'
 import ReportQuote from '../common/ReportQuote.vue'
 

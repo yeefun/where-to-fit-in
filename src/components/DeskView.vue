@@ -137,8 +137,9 @@ export default {
       }
     },
     handlePopState (evt) {
-      const state = evt.state
-      const { place, id } = state
+      const { state } = evt
+      const { place, id } = state || {}
+
       this.$root.isPopState = true
       if (!state || place === 'home') {
         this.backToHome()
@@ -156,21 +157,18 @@ export default {
             }
           })
         } else {
-          // document.getElementById(`report${id}`).click()
           this.$refs.baseReports[ 1 ].handleClick(null, id)
         }
       }
     },
     loading () {
       const { loadingCover, logo } = this.$refs
-      // const tl = gsap.timeline()
 
       gsap.to(loadingCover.$el, {
         scaleX: 1,
         opacity: 1,
         duration: 1.2,
         ease: 'expo.inOut',
-        // onComplete: () => { this.detectImgLoad(this.$refs.logo, this.loadLogo) }
         onComplete: () => {
           if (logo.complete) {
             this.loadLogo()
@@ -255,7 +253,6 @@ body
   z-index 399
   top 24px
   left 32px
-  mix-blend-mode difference
   overflow hidden
   &.in-loading-cover
     mix-blend-mode normal
@@ -267,15 +264,10 @@ body
     cursor pointer
 .icon
   &--audio
-    // bottom 0
-    // left 0
-    // padding 5px 5px 8px 12px
     bottom 11px
     left 11px
     padding 5px
     @media (min-width $tablet)
-      // padding-bottom 24px
-      // padding-left 32px
       bottom 16px
       left 24px
       padding 8px
