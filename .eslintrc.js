@@ -15,11 +15,6 @@ module.exports = {
     parser: 'babel-eslint'
   },
   globals: {
-    gsap: true,
-    // TweenLite: true,
-    // Power3: true,
-    // Power2: true,
-    // Expo: true,
-    // Circ: true
+    gsap: true
   }
 }

@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    div.report-content__cover#report__cover4
+    ReportCoverPicture.report-content__cover(reportId="4")
     h1 縮小人生：胖子之大，何處可容身？
     div.report-content__wrapper
       h2 被標準化社會排擠的胖身體
@@ -45,12 +45,14 @@
 </template>
 
 <script>
+import ReportCoverPicture from '../common/ReportCoverPicture.vue'
 import ReportQuote from '../common/ReportQuote.vue'
 import ReportNotation from '../common/ReportNotation.vue'
 
 export default {
   name: 'ReportContent4',
   components: {
+    ReportCoverPicture,
     ReportQuote,
     ReportNotation
   },
@@ -134,6 +136,4 @@ export default {
 </script>
 
 <style lang="stylus">
-#report__cover4
-  background-image url(../../assets/img/cover/report4.jpg)
 </style>

@@ -7,9 +7,6 @@
     padding-top 24vh
     padding-bottom 80px
   &__cover
-    background-position top center
-    background-size cover
-    background-repeat no-repeat
     position absolute
     width 100%
     z-index -1
@@ -18,6 +15,11 @@
     height 360px
     @media (min-width $tablet)
       height 100vh
+    & img
+      width 100%
+      height 100%
+      object-fit cover
+      object-position top center
   &__wrapper
     max-width 620px
     margin-right auto

@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    div.report-content__cover#report__cover3
+    ReportCoverPicture.report-content__cover(reportId="3")
     h1 不想瘦？胖子：想被當成普通人看待
     div.report-content__wrapper
       h2 從小胖到大的蛻變四部曲
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import ReportCoverPicture from '../common/ReportCoverPicture.vue'
 import ReportQuote from '../common/ReportQuote.vue'
 import ReportFigure from '../common/ReportFigure.vue'
 import ReportNotation from '../common/ReportNotation.vue'
@@ -75,6 +76,7 @@ import ReportImg5 from '../../assets/img/report3/report3-5.gif'
 export default {
   name: 'ReportContent3',
   components: {
+    ReportCoverPicture,
     ReportQuote,
     ReportFigure,
     ReportNotation
@@ -169,6 +171,4 @@ export default {
 </script>
 
 <style lang="stylus">
-#report__cover3
-  background-image url(../../assets/img/cover/report3.jpg)
 </style>

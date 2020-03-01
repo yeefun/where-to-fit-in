@@ -8,14 +8,8 @@
       :class="[ 'report', reportClass(report.id) ]"
       @click="handleClick($event, report.id)"
     )
-      div(
-        v-if="isMask && !isReportContent"
-        :class="[ 'report__mask', (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]"
-      )
-      div(
-        :id="`report${report.id}__cover`"
-        :class="[ 'report__cover-img', { 'h-100p': currentReportId !== report.id }, 'full-img', 'full-page' ]"
-      )
+      div(v-if="isMask && !isReportContent" :class="[ 'report__mask', (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]")
+      ReportCoverPicture(:reportId="report.id" :class="[ 'report__cover-img', { 'h-100p': currentReportId !== report.id }, 'full-page' ]")
       div.report__cover-txt(:id="`report-cover-txt${report.id}`")
         h1(:class="$root.white(report.id)") {{ report.title }}
         div(
@@ -40,9 +34,12 @@
 <script>
 import { gsap } from 'gsap'
 
+import ReportCoverPicture from '../common/ReportCoverPicture.vue'
+
 export default {
   name: 'BaseReport',
   components: {
+    ReportCoverPicture,
     ReportContent1: () => import('./ReportContent1'),
     ReportContent2: () => import('./ReportContent2'),
     ReportContent3: () => import('./ReportContent3'),
@@ -368,6 +365,11 @@ export default {
   &__cover
     &-img
       z-index -9
+      & img
+        width 100%
+        height 100%
+        object-fit cover
+        object-position top center
     &-txt
       text-align center
       position relative
@@ -415,15 +417,4 @@ export default {
           background-color darken(#2f5b7f, 16%)
     &--related
       line-height 1.6
-
-#report1__cover
-  background-image url(../../assets/img/cover/report1.jpg)
-#report2__cover
-  background-image url(../../assets/img/cover/report2.jpg)
-#report3__cover
-  background-image url(../../assets/img/cover/report3.jpg)
-#report4__cover
-  background-image url(../../assets/img/cover/report4.jpg)
-#report5__cover
-  background-image url(../../assets/img/cover/report5.jpg)
 </style>

@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    div.report-content__cover#report__cover5
+    ReportCoverPicture.report-content__cover(reportId="5")
     h1.color-white 胖網紅現身：渡邊直美改變了什麼？
     div.report-content__wrapper
       h2.color-white 解放胖子的網路逆襲
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import ReportCoverPicture from '../common/ReportCoverPicture.vue'
 import ReportFigure from '../common/ReportFigure.vue'
 import ReportQuote from '../common/ReportQuote.vue'
 
@@ -81,6 +82,7 @@ import ReportImg6 from '../../assets/img/report5/report5-6.png'
 export default {
   name: 'ReportContent5',
   components: {
+    ReportCoverPicture,
     ReportFigure,
     ReportQuote
   },
@@ -140,6 +142,4 @@ export default {
 </script>
 
 <style lang="stylus">
-#report__cover5
-  background-image url(../../assets/img/cover/report5.jpg)
 </style>

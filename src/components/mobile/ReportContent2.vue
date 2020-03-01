@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    div.report-content__cover#report__cover2
+    ReportCoverPicture.report-content__cover(reportId="2")
     h1.color-white 「胖不健康」是提醒，還是詛咒？
     div.report-content__wrapper
       h2.color-white 胖子與健康的拉鋸戰
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import ReportCoverPicture from '../common/ReportCoverPicture.vue'
 import ReportNotation from '../common/ReportNotation.vue'
 import ReportFigure from '../common/ReportFigure.vue'
 
@@ -59,6 +60,7 @@ import ReportImg3 from '../../assets/img/report2/report2-3.jpg'
 export default {
   name: 'ReportContent2',
   components: {
+    ReportCoverPicture,
     ReportNotation,
     ReportFigure
   },
@@ -170,8 +172,6 @@ export default {
 </script>
 
 <style lang="stylus">
-#report__cover2
-  background-image url(../../assets/img/cover/report2.jpg)
 .color-white--528
   @media (min-width 528px)
     color #fff

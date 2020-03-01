@@ -2,15 +2,25 @@
 
 .reports-list
   &__report
-    background-size cover
-    background-repeat no-repeat
-    background-position center top
     padding-top 72px
     padding-bottom 56px
     text-align center
+    position relative
     @media (min-width $tablet)
       padding-top 64px
       padding-bottom 64px
+    & picture
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+      z-index -9
+      & img
+        width 100%
+        height 100%
+        object-fit cover
+        object-position center top
     & h1
       font-size 3.2rem
       line-height 1.5

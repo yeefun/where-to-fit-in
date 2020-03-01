@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    div.report-content__cover#report__cover1
+    ReportCoverPicture.report-content__cover(reportId="1")
     h1 為什麼我們懼／拒胖？
     div.report-content__wrapper
       h2 臺灣身材審美轉變
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import ReportCoverPicture from '../common/ReportCoverPicture.vue'
 import ReportNotation from '../common/ReportNotation.vue'
 
 export default {
@@ -25,6 +26,7 @@ export default {
     }
   },
   components: {
+    ReportCoverPicture,
     ReportNotation
   },
   computed: {
@@ -88,6 +90,4 @@ export default {
 </script>
 
 <style lang="stylus">
-#report__cover1
-  background-image url(../../assets/img/cover/report1.jpg)
 </style>

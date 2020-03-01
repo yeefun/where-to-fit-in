@@ -41,6 +41,9 @@ new Vue({
     deskMethods,
     white (id) {
       return { 'color-white': (id === 2 || id === 5) }
+    },
+    imgSrc (src) {
+      return require(`./assets/img/${src}`)
     }
   },
   watch: {
