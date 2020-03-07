@@ -47,6 +47,7 @@ body
   font-family $ff--sans-serif
 img
   height auto
+  // display block
   // max-width 100%
 button
   border 0
@@ -54,13 +55,13 @@ button
   cursor pointer
   font-family $ff--sans-serif
   user-select none
+picture
+  display block
 .icon
   position fixed
   z-index 99
   width 20px
   cursor pointer
-  // mix-blend-mode color-burn
-  // mix-blend-mode luminosity
   user-select none
   display block
   @media (min-width $tablet)
@@ -81,12 +82,9 @@ button
       right 24px
     &.cancel
       z-index 399
-      mix-blend-mode normal
 .share
   position fixed
   z-index 99
-  // mix-blend-mode color-burn
-  // mix-blend-mode luminosity
   user-select none
   bottom 11px
   right 16px

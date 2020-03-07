@@ -4,8 +4,7 @@
     source(media="(min-width: 720px) and (max-width: 999.98px)" :srcset="$root.imgSrc(`cover/report${reportId}-tab-l.jpg`)")
     source(media="(min-width: 1000px) and (max-width: 1599.98px)" :srcset="$root.imgSrc(`cover/report${reportId}-desk-s.jpg`)")
     source(media="(min-width: 1600px)" :srcset="$root.imgSrc(`cover/report${reportId}-desk-l.jpg`)")
-    //- todo cover/report${reportId}-mob.jpg
-    img(:src="$root.imgSrc(`cover/report${reportId}-tab-s.jpg`)" alt="")
+    img(:src="$root.imgSrc(`cover/report${reportId}-mob.jpg`)" alt="")
 </template>
 
 <script>

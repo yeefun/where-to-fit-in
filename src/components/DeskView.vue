@@ -2,7 +2,11 @@
   div.desk-view
     LoadingCover(ref="loadingCover")
     div(@click="backToHome" :class="[ 'logo', { 'in-loading-cover': deskData.inLoadingCover } ]")
-      img(src="../assets/img/logo-shadow.png" alt="" ref="logo")
+      //- img(src="../assets/img/logo-shadow.png" alt="" ref="logo")
+      picture
+        source(media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-shadow-tab-s.png')")
+        source(media="(min-width: 720px)" :srcset="$root.imgSrc('logo-shadow-tab-l.png')")
+        img(:src="$root.imgSrc('logo-shadow-mob.png')" alt="" ref="logo")
 
     CustomCursor(ref="cursor" v-if="$root.deskData.inHome || $root.deskData.inReportCover")
 
@@ -254,14 +258,16 @@ body
   top 24px
   left 32px
   overflow hidden
-  &.in-loading-cover
-    mix-blend-mode normal
-    & img
-      transform translateY(100%)
-  & img
-    width 176px
-    vertical-align middle
+  &.in-loading-cover img
+    transform translateY(100%)
+  & picture
+    max-width 176px
     cursor pointer
+  & img
+    // width 176px
+    width 100%
+    vertical-align middle
+    // cursor pointer
 .icon
   &--audio
     bottom 11px

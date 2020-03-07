@@ -19,7 +19,10 @@
       div
         div.the-credit__title 特別感謝
         div.the-credit__name 張錦華、謝吉隆、方念萱、董谷音<br>歐成予、沈佩泠、Xavier Wang
-      img(src="../../assets/img/logo-shadow.png" alt="")
+      picture
+        source(media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-shadow-tab-s.png')")
+        source(media="(min-width: 720px)" :srcset="$root.imgSrc('logo-shadow-tab-l.png')")
+        img(:src="$root.imgSrc('logo-shadow-mob.png')" alt="")
       div.the-credit__name © 2017-2019 林梵謹
 </template>
 
@@ -83,10 +86,14 @@ export default {
       margin-bottom 8px
   &__name
     color #f6f6f6
+  & picture
+    max-width 192px
+    margin 40px auto
+    @media (min-width $tablet)
+      margin-top 56px
+      margin-bottom 56px
   & img
-    width 192px
-    margin-top 40px
-    margin-bottom 40px
+    width 100%
     vertical-align middle
     @media (min-width $tablet)
       margin-top 56px

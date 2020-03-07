@@ -8,7 +8,10 @@
     p 「演藝圈與實際生活中對身材的審美標準，其實很不一樣。」藝名「Juicy」的藝人黃志嘉體型高大、體重破百，憑著胖胖又靈活的外型出道多年，他熟知演藝圈的身材定律。身材纖瘦的藝人被期待加倍健美或姣好，身材肥胖的藝人則被視為具有舞台「笑」果的綠葉和丑角，可以增加舞台畫面的多元性。
     p 與渡邊直美相似，藝名「大文」的演員郭文頤是一位外型圓潤的喜劇表演者，剛出道的時候就深知，胖胖的身材是她在演藝圈打拼的武器。郭文頤形象幽默風趣，本人也十分親和可愛，後來她在知名電影《我的少女時代》中飾演女主角的死黨「趙曉枝」，受到不少觀眾喜愛。
     a.report-content__img-link(href="https://www.facebook.com/dawendesu/posts/713696732362850" target="_blank")
-      ReportFigure(:figure="figures[0]")
+      figure.report-img
+        picture
+          source(media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo1-desk.png')")
+          img(:src="$root.imgSrc('report5/photo1-mob.png')" alt="")
     p 但鎂光燈之下，仍有照不到的暗處。郭文頤坦言，主流的影視劇本對肥胖角色的詮釋和需求大多很刻板。有好一段時間，郭文頤收到工作邀約的角色類型都很相似，甚至因此暫停了工作。
     p 「我扮演胖的角色時，會覺得自己在傷害其他胖胖的人。」郭文頤認為自己所演出的角色大多很笨拙，像是跑步很慢，或是每天都在吃零食、看起來好吃懶做，而不是勤勞地工作；如果主動示愛會被視為笑話⋯⋯常常是人生失敗組。「胖子又不一定就是這樣！」郭文頤不禁感到忿忿不平。
     p 「角色設定中有很多對胖子的刻板印象，讓我在演戲時覺得怪怪的。因為是工作的劇本，就不會特別去衝撞。」郭文頤覺得最可怕的是，觀眾對胖子的刻板形象感到麻痺，她對胖角色的詮釋顯得理所當然。
@@ -19,7 +22,10 @@
     h4#title2 解放胖子的網路逆襲   正面身體擴散社群媒體
     p 點開時下青少年最流行使用的 Instagram，染著一頭藍紫漸層的中長髮、身穿半透明紫色內衣的胖女子在照片滑進眼簾，她的腰間肉擠成一圈又一圈，還有一雙粗胖的大腿，但女子露著白牙、綻放笑顏，整個人容光煥發。
     a.report-content__img-link(href="https://www.instagram.com/p/BbnE-FAhVWf/" target="_blank")
-      ReportFigure(:figure="figures[1]")
+      figure.report-img
+        picture
+          source(media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo2-desk.png')")
+          img(:src="$root.imgSrc('report5/photo2-mob.png')" alt="")
     ReportQuote(:quote="quotes[0]")
     p 女子在照片旁寫道的文字大意如上，這則貼文得到八萬多顆愛心、一千多筆粉絲留言。她是來自英國的 Megan Jayne Crabbe，是一位致力於培力正面身體（Body Positive）思想的倡議網紅，帳號有超過 105 萬人次的追蹤。
     p 只要在 Instagram 搜尋 #BodyPositive，像 Megan 這樣的胖網紅、影星和模特兒其實很多。倡議者以顯露身材、不分胖瘦的自拍照、正面積極的言論，表達個人的身體經驗與經營理念，鼓勵人們樂觀擁抱多元體型，引起極大的共鳴。
@@ -30,14 +36,20 @@
     p 在小小的化妝間中，擠著五位裸著身體的胖女模特兒，毫不介意地露出肚子、大腿以及常人急欲遮掩的肥肉。她們自在地穿脫著衣服，向化妝師炫耀自己準備的服裝、討論該搭配什麼樣的妝容⋯⋯這是「女怪」的拍攝現場，她們正在籌備第二次網路行動。
     p 「女怪」由網紅貓不／汪綺、Jing Lee、肥好、巫祇祇與殷純（皆為網路化名）共五位胖女所組成。起因於 Jing Lee 張貼自己裸露胖身體、高舉「肥胖紋？Fucking Hot！」參加 2017 年同志遊行的照片，在臉書上引來酸民的撻伐，像是「真噁心」、「好醜」、「快減肥」、「妳這樣不健康」等等直接羞辱或幽微歧視。
     a.report-content__img-link(href="https://www.facebook.com/ChiWangCatNo/photos/a.1117694278258279/1926329410728091/?type=3" target="_blank")
-      ReportFigure(:figure="figures[2]")
+      figure.report-img
+        picture
+          source(media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo3-desk.png')")
+          img(:src="$root.imgSrc('report5/photo3-mob.png')" alt="")
     p 五位有志一同的胖女集結成「女怪」，拍攝不迎合主流審美的時尚照上傳的各自的臉書專頁上，衝撞她們認為該被矯正的肥胖污名，以「我們就是你們的妖魔鬼怪」為主旨，寫下強而有力的聲明文字：
     ReportQuote(:quote="quotes[1]")
     p 「#我們就是你們的妖魔鬼怪」是臺灣難得一見以「解放胖體」為訴求的網路行動，截至目前共有兩次，引起網友轉載至 PTT 上討論，吸引國內知名網媒風傳媒的影像報導，得到超過 60 萬人次的瀏覽。當然，更兇狠、更惡毒的評論和攻擊也因此湧入。
     p 女怪成員貓不／汪綺體重破百，是來自臺灣的網紅，在短影音社群《美拍》上有超過 50 萬名的粉絲，每天都會收到千百則酸民的惡意留言。貓不／汪綺認為，社會對女性的體型和身材的有既定的刻板印象，像是「肥胖不是女性該有的樣子」，不投大眾所好的身材都會變成「壞身體」。
     p 女怪之一的肥好表示，她們的行動是一種身體倡議，不僅僅是為了胖女，而是希望將同溫層擴散：「讓所有不合格的『壞身體』都感到溫暖。」「#我們就是你們的妖魔鬼怪」的影響力雖不至於改變主流審美觀的大結構，卻是臺灣身體／身材平權運動響起的第一聲嗆鳴。
     a.report-content__img-link(href="https://www.facebook.com/FatHowOnline/photos/a.802419333101881/2030169693660166/?type=3" target="_blank")
-      ReportFigure(:figure="figures[3]")
+      figure.report-img
+        picture
+          source(media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo4-desk.png')")
+          img(:src="$root.imgSrc('report5/photo4-mob.png')" alt="")
     h4#title4 鼓勵胖子現身說法   創造自我與大眾認同
     p 肥好是臺灣少見的肥胖主義倡議者，經營臉書粉絲專頁「肥好／Fat How」。除了以照片和圖像分享個人經驗，擁有學術研究背景的肥好常引用國外與肥胖身體相關的社會學研究，論述親身經歷、解構肥胖污名，以邏輯清晰的文筆向粉絲解析為何胖子會與主流價值觀產生衝突。
     p 「我自己一直在想別人怎麼看我，卻不敢看自己。」肥好飽受肥胖污名的焦慮感侵擾多年，曾嘗試在臺灣尋求處理身體意象的諮商資源，卻一無所獲，只好藉由網路上的書寫與自拍，意外開啟自我療癒之路。
@@ -47,7 +59,10 @@
     h4#title5 大尺碼網紅自信呼籲   改變內在胖也美麗
     p 肉肉的波比（化名）身穿連身白色長裙，外面罩著有著彩色點點的透明紗裙，露出白皙的圓潤手臂和小腿，說起話來非常直率。與許多胖子偏好深色、寬鬆，把身體遮好遮滿的穿搭很不同，「憑什麼我要受限？」她更喜歡穿著明亮色彩或花紋鮮豔、可愛的裙裝，並大方地露出胖胖的小腿。
     a.report-content__img-link(href="https://www.facebook.com/lovepobbi/photos/a.521634614541647/1744606565577773/?type=3" target="_blank")
-      ReportFigure(:figure="figures[4]")
+      figure.report-img
+        picture
+          source(media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo5-desk.png')")
+          img(:src="$root.imgSrc('report5/photo5-mob.png')" alt="")
     p 波比是臺灣最早出現的大尺碼穿搭與美妝網紅之一，目前在知名女性雜誌工作，同時經營個人臉書粉絲專頁「Pobbi 波比」，常開直播和粉絲分享對身材與自信的看法，以及日常的穿搭與生活態度，她擁有兩萬多位粉絲。
     p 衣服穿得好看能大幅提升自信，但在講求快時尚的成衣市場上，大尺碼的胖子很難買到兼具美感與合身的服飾，令很多胖子感到更自卑。身為一名喜愛打扮、對美麗擁有熱情的女性，波比很了解胖女孩的購衣難處，粉絲也最常詢問該如何買到合適的服裝？她總是反問：「你瞭解自己的身體嗎？」
     p 波比對穿搭有異於常人的執著力，她表示自己花大量的金錢與時間買衣服、換經驗，認識自己穿什麼樣的材質和剪裁的服飾最好看，甚至精算服裝的胸圍、腰圍、裙長公分數該是多少，穿在身上才會最理想。
@@ -56,7 +71,10 @@
     p 同樣是來自臺灣的胖女性，藝名「Amanda」的藝人劉紀範的身型與風格和波比截然不同。偶像劇裡的劉紀範身穿一襲黑色高衩長群，踩著一雙鮮紅色的膝上靴高跟鞋，她甩著又黑又長的高馬尾，走起路的姿態像高貴的駿馬走 T 臺。
     p 螢光幕外的劉紀範喜愛較時尚、大膽和多元的妝容與服飾，她形象開朗大方，常在個人粉絲團上分享穿搭照片，甚至是無袖短裙與泳裝照。胖子通常很難接受在公眾場合顯露身材，更別說在社群媒體上。在劉紀範的粉專私訊裡，關於身材、服裝和自信方面的粉絲提問如雪片般飄來。
     a.report-content__img-link(href="https://www.facebook.com/Amanda.fans.0810/photos/a.607786409285385/2140023669394977/?type=3" target="_blank")
-      ReportFigure(:figure="figures[5]")
+      figure.report-img
+        picture
+          source(media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo6-desk.png')")
+          img(:src="$root.imgSrc('report5/photo6-mob.png')" alt="")
     p 「如果你覺得我的造型很好看，那你要不要也試試？說不定改變之後，你也會喜歡自己。」劉紀範認為內在感覺良好，自然會改變外在，她鼓勵粉絲要愛自己並勇於嘗試，也親自經營經營大尺碼網拍、撰寫穿搭文章，希望透過自己的一點影嚮力，讓自卑的胖女孩可以透過穿搭修飾體型、擁有自信。
     p 波比與劉紀範並不是迎合主流審美觀的偶像明星，但對臺灣的胖男胖女來說，都是深耕多年的意見領袖。近幾年的臺灣開始出現年輕時尚化的大尺碼服網拍，不少身材肉肉、形象樂觀正向的年輕網紅也展露頭角。
     p 例如 IG 網紅關紹文、曾維萱、大雨，以及 YouTuber 不溺死 Bernice 和泡綿女孩佳沁⋯⋯等等，他們會在網路上分享自己對胖的看法、分享大尺碼穿搭，甚至大方自拍穿比基尼和泳衣的照片⋯⋯這些胖網紅的「現身」對粉絲來說，有很大的鼓勵和示範的作用。
@@ -65,20 +83,11 @@
 </template>
 
 <script>
-import ReportFigure from '../common/ReportFigure.vue'
 import ReportQuote from '../common/ReportQuote.vue'
-
-import ReportImg1 from '../../assets/img/report5/report5-1.png'
-import ReportImg2 from '../../assets/img/report5/report5-2.png'
-import ReportImg3 from '../../assets/img/report5/report5-3.png'
-import ReportImg4 from '../../assets/img/report5/report5-4.png'
-import ReportImg5 from '../../assets/img/report5/report5-5.png'
-import ReportImg6 from '../../assets/img/report5/report5-6.png'
 
 export default {
   name: 'ReportContent5',
   components: {
-    ReportFigure,
     ReportQuote
   },
   data () {
@@ -92,32 +101,6 @@ export default {
           txt: '<p>胖女可以很美、很辣、很可愛、很清純。只要我們高興，不用你特別告訴我們，你的雞雞硬不硬。沒有人在乎你對我「可不可以」！你覺得我們很噁心、很醜陋，FINE。</p><p>我們就是你們的妖魔鬼怪，我們會出沒、會作怪，直到這個社會的污名框架鬆開！</p>',
           name: ''
         }
-      ],
-      figures: [
-        {
-          src: ReportImg1,
-          caption: ''
-        },
-        {
-          src: ReportImg2,
-          caption: ''
-        },
-        {
-          src: ReportImg3,
-          caption: ''
-        },
-        {
-          src: ReportImg4,
-          caption: ''
-        },
-        {
-          src: ReportImg5,
-          caption: ''
-        },
-        {
-          src: ReportImg6,
-          caption: ''
-        }
       ]
     }
   },
@@ -126,3 +109,7 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import "../../util/report-figure.styl"
+</style>

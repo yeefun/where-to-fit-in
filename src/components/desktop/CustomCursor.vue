@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(:class="[ 'custom-cursor', { back: isBackImg, loading: loading }]")
+  div(:class="[ 'custom-cursor', { loading: loading }]")
     transition(:css="false" @before-enter="handleBeforeEnter" @enter="handleEnter" @leave="handleLeave")
       div(v-if="loading" key="progress") {{ progress }}
       img(v-else-if="isBackImg" src="../../assets/img/icon/arrow-back--desk.png" alt="" key="back")
@@ -111,8 +111,8 @@ export default {
     opacity 0
     background-color transparent
     border 1px solid #fff
-  &.back
-    mix-blend-mode normal
+  // &.back
+  //   mix-blend-mode normal
   &.hide
     visibility hidden
   & > *
