@@ -1,6 +1,6 @@
 <template lang="pug">
   div.mob-view
-    img.icon.icon--back-to(src="../assets/img/icon/arrow-back--mob.png" alt="" @click="moveBack" v-show="mobData.isReportContent")
+    img.icon.icon--back-to(src="../assets/img/icon/arrow-back--mob.svg" alt="" @click="moveBack" v-show="mobData.isReportContent")
 
     div.home-wrapper
       HomeCover
@@ -13,7 +13,7 @@
     div.share(:class="{ active: isShare }")
       a.share__fb(:href="`https://www.facebook.com/share.php?u=${shareURL}`" target="_blank")
       a.share__line(:href="`https://line.me/R/msg/text/?${shareURL}`" target="_blank")
-      img(src="../assets/img/icon/share.png" alt="" @click="isShare = !isShare")
+      img(src="../assets/img/icon/share.svg" alt="" @click="isShare = !isShare")
 </template>
 
 <script>
@@ -102,12 +102,12 @@ body
     overflow hidden
 .icon
   &--back-to
-    top 11px
-    left 11px
-    padding 5px
+    top 8px
+    left 12px
+    padding 4px
     @media (min-width $tablet)
       padding 8px
-      top 16px
+      top 12px
       left 24px
 .color-white
   &--tablet

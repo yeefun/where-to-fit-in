@@ -1,8 +1,9 @@
 <template lang="pug">
+  //- div(:class="[ 'custom-cursor', { back: isBackImg, loading: loading }]")
   div(:class="[ 'custom-cursor', { loading: loading }]")
     transition(:css="false" @before-enter="handleBeforeEnter" @enter="handleEnter" @leave="handleLeave")
       div(v-if="loading" key="progress") {{ progress }}
-      img(v-else-if="isBackImg" src="../../assets/img/icon/arrow-back--desk.png" alt="" key="back")
+      img(v-else-if="isBackImg" src="../../assets/img/icon/arrow-back--desk.svg" alt="" key="back")
       div.circle(v-else key="point")
 </template>
 
@@ -126,6 +127,6 @@ export default {
     height 6px
     border-radius 50%
   & img
-    width 32px
+    width 36px
     display block
 </style>

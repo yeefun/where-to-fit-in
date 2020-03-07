@@ -6,7 +6,7 @@
         source(media="(min-width: 720px)" :srcset="$root.imgSrc('logo-shadow-tab-l.png')")
         img(:src="$root.imgSrc('logo-shadow-mob.png')" alt="")
       p 超出常規的胖子該如何改變自己，才能找到容身立足的位置？
-    img.home-cover__arrow(src="../../assets/img/icon/arrow-up-double.png" alt)
+    img.home-cover__arrow(src="../../assets/img/icon/arrow-up-double.svg" alt)
 </template>
 
 <script>
@@ -60,12 +60,12 @@ export default {
         margin-left 40px
         padding-right 17.71vw
   &__arrow
-    width 32px
+    width 28px
     position absolute
     left 50%
     bottom 16px
     transform translateX(-50%)
     @media (min-width $tablet)
-      width 48px
+      width 40px
       bottom 32px
 </style>

@@ -163,7 +163,7 @@ export default {
 
       gsap.to(cursor, {
         scale: 6.4,
-        // mixBlendMode: 'overlay',
+        mixBlendMode: 'overlay',
         duration: 0.3,
         ease: 'power3.inOut'
       })
@@ -180,7 +180,7 @@ export default {
 
       gsap.to(cursor, {
         scale: 1,
-        // mixBlendMode: 'normal',
+        mixBlendMode: 'normal',
         duration: 0.3,
         ease: 'power2.inOut'
       })

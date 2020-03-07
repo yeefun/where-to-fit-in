@@ -95,7 +95,4 @@ export default {
   & img
     width 100%
     vertical-align middle
-    @media (min-width $tablet)
-      margin-top 56px
-      margin-bottom 56px
 </style>

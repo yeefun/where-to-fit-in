@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import arrowImgX from '../../assets/img/icon/arrow-x.png'
-import arrowImgY from '../../assets/img/icon/arrow-y.png'
+import arrowImgX from '../../assets/img/icon/arrow-x.svg'
+import arrowImgY from '../../assets/img/icon/arrow-y.svg'
 
 export default {
   name: 'ReportNotation',
@@ -52,19 +52,22 @@ export default {
   & img
     width 12px
     vertical-align top
-    padding-right 4px
-    padding-left 2px
+    // padding-right 4px
+    // padding-left 2px
     transition transform 0.15s $easeInOutSine
     cursor pointer
     user-select none
     &.inline
+      padding-left 2px
       padding-top 4px
+      padding-right 4px
       @media (min-width $tablet)
         padding-top 6px
       &.active
         transform scaleX(-1)
     &.block
       padding-top 2px
+      padding-right 6px
       @media (min-width $tablet)
         padding-top 4px
       &.active

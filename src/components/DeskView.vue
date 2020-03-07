@@ -23,7 +23,7 @@
     div.share(:class="{ active: isShare, 'in-loading-cover': deskData.inLoadingCover }")
       a.share__fb(:href="`https://www.facebook.com/share.php?u=${shareURL}`" target="_blank")
       a.share__line(:href="`https://line.me/R/msg/text/?${shareURL}`" target="_blank")
-      img(src="../assets/img/icon/share.png" alt="" @click="isShare = !isShare")
+      img(src="../assets/img/icon/share.svg" alt="" @click="isShare = !isShare")
 </template>
 
 <script>
@@ -95,7 +95,7 @@ export default {
       return this.$root.deskData
     },
     audioIconSrc () {
-      return require(`../assets/img/icon/audio${this.deskData.isMuted ? '-muted' : ''}.png`)
+      return require(`../assets/img/icon/audio${this.deskData.isMuted ? '-muted' : ''}.svg`)
     },
     shareURL () {
       const { origin } = this.$root.wEl.location
@@ -270,9 +270,9 @@ body
     // cursor pointer
 .icon
   &--audio
-    bottom 11px
-    left 11px
-    padding 5px
+    bottom 12px
+    left 12px
+    padding 4px
     @media (min-width $tablet)
       bottom 16px
       left 24px

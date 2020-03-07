@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     creditIconSrc () {
-      return require(`./assets/img/icon/${this.isCredit ? 'cancel' : 'info'}.png`)
+      return require(`./assets/img/icon/${this.isCredit ? 'cancel' : 'info'}.svg`)
     }
   },
   methods: {
@@ -60,33 +60,37 @@ picture
 .icon
   position fixed
   z-index 99
-  width 20px
+  width 22px
   cursor pointer
   user-select none
   display block
   @media (min-width $tablet)
-    width 22px
+    width 24px
   &.in-loading-cover
     visibility hidden
   &--credit
+    width 20px
+    // (30 - 20) / 2
     padding 5px
     // 16 - 5
     top 11px
     // 16 - 5
     right 11px
     @media (min-width $tablet)
+      width 22px
+      // (40 - 22) / 2
       padding 9px
-      // 24 - 8
-      top 16px
-      // 32 - 8
-      right 24px
+      // 24 - 9
+      top 15px
+      // 32 - 9
+      right 23px
     &.cancel
       z-index 399
 .share
   position fixed
   z-index 99
   user-select none
-  bottom 11px
+  bottom 12px
   right 16px
   width 30px
   height 30px
@@ -94,7 +98,7 @@ picture
     visibility hidden
   @media (min-width $tablet)
     bottom 16px
-    right 29px
+    right 28px
     width 40px
     height 40px
   &.active
@@ -108,20 +112,20 @@ picture
     display block
     width 100%
     height 100%
-    padding 5px
+    padding 4px
     cursor pointer
     position absolute
     box-sizing border-box
     @media (min-width $tablet)
-      padding 9px
+      padding 8px
   & a
     background-position center
-    background-size 20px 20px
+    background-size 22px 22px
     background-repeat no-repeat
     opacity 0
     transition opacity 0.3s $easeInOutSine, transform 0.3s $easeInOutSine
     @media (min-width $tablet)
-      background-size 22px 22px
+      background-size 24px 24px
   &__fb
     background-image url(./assets/img/icon/share-fb.svg)
   &__line
