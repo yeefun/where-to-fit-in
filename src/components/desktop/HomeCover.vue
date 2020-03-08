@@ -1,6 +1,7 @@
 <template lang="pug">
   section.home-cover(:class="{ 'in-loading-cover': deskData.inLoadingCover }")
     picture.home-cover__mrt
+      source(type="image/webp" :srcset="$root.imgSrc('cover/home-mrt-desk-s.webp')")
       img(:src="$root.imgSrc('cover/home-mrt-desk-s.jpg')" alt="" @load="detectMRTImgLoad")
     div.home-cover__mask.full-page(ref="mask")
     div.home-cover__clickable-persons
@@ -9,6 +10,7 @@
           path(:d="path" @mouseover="animateCursorOver" @mouseout="animateCursorOut")
     div.full-page
       picture.home-cover__person(v-for="id in 5" :ref="`person${id}`")
+        source(type="image/webp" :srcset="$root.imgSrc(`cover/home-person${id}-desk-s.webp`)")
         img(:src="$root.imgSrc(`cover/home-person${id}-desk-s.png`)" alt="")
 
     audio(ref="personBGM1")
@@ -31,17 +33,12 @@ export default {
   name: 'HomeCover',
   data () {
     return {
-      // (1921 / 1388).toFixed(2) = 1.38
       // (2000 / 1299).toFixed(2) = 1.54
       clickablePersonsAspectRatio: 1.54,
       isGoingReportCover: false,
-      // mrtBgImgSrc: '',
       paths
     }
   },
-  // created () {
-  //   this.detectMRTImgLoad()
-  // },
   mounted () {
     const state = window.history.state
     if (state && state.place === 'report cover') {
@@ -69,7 +66,6 @@ export default {
         audio.currentTime = 0
         audio.play()
       }
-      // this.deskData.currentPerson = document.getElementById(`person${idx}`)
       this.deskData.currentPerson = this.$refs[ `person${idx}` ][ 0 ]
       gsap.to(this.deskData.currentPerson, {
         opacity: 1,
@@ -244,14 +240,4 @@ export default {
       height 100%
       object-fit cover
       object-position center top
-// #person1
-//   background-image url(../../assets/img/cover/home-person1.png)
-// #person2
-//   background-image url(../../assets/img/cover/home-person2.png)
-// #person3
-//   background-image url(../../assets/img/cover/home-person3.png)
-// #person4
-//   background-image url(../../assets/img/cover/home-person4.png)
-// #person5
-//   background-image url(../../assets/img/cover/home-person5.png)
 </style>

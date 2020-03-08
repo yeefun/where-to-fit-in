@@ -1,8 +1,13 @@
 <template lang="pug">
   div.transition-mask
     picture
-      source(media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-tab-s.png')")
-      source(media="(min-width: 720px)" :srcset="$root.imgSrc('logo-tab-l.png')")
+      source(type="image/webp" media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-tab-s.webp')")
+      source(type="image/png" media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-tab-s.png')")
+
+      source(type="image/webp" media="(min-width: 720px)" :srcset="$root.imgSrc('logo-tab-l.webp')")
+      source(type="image/png" media="(min-width: 720px)" :srcset="$root.imgSrc('logo-tab-l.png')")
+
+      source(type="image/webp" :srcset="$root.imgSrc('logo-mob.webp')")
       img(:src="$root.imgSrc('logo-mob.png')" alt="")
 </template>
 
