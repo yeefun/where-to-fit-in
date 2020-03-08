@@ -1,7 +1,7 @@
 <template lang="pug">
   div.loading-cover.full-page(ref="loadingCover" v-if="isLoadingCover")
     div.loading-cover__prompt(ref="prompt" v-if="deskData.inLoadingCover" )
-      p 找出捷運中的胖子<br>點擊後聽聽他們的心聲
+      p 找出捷運中的胖子<br>點擊後聽聽他們的心聲<br>（有音樂，請注意音量）
       button(type="button" @click="closeLoadingCover") 進入捷運
 </template>
 

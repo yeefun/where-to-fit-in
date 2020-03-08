@@ -10,7 +10,7 @@
     transition(name="fadeMask" @after-enter="handleFadeInAfter")
       TransitionMask(v-show="mobData.isTransition")
 
-    div.share(:class="{ active: isShare }")
+    div.share(:class="{ active: isShare }" @click.stop)
       a.share__fb(:href="`https://www.facebook.com/share.php?u=${shareURL}`" target="_blank")
       a.share__line(:href="`https://line.me/R/msg/text/?${shareURL}`" target="_blank")
       img(src="../assets/img/icon/share.svg" alt="" @click="isShare = !isShare")
@@ -32,6 +32,11 @@ export default {
   },
   created () {
     this.$root.wEl.addEventListener('popstate', this.handlePopState)
+  },
+  mounted () {
+    this.$root.wEl.addEventListener('click', () => {
+      this.isShare = false
+    })
   },
   data () {
     return {

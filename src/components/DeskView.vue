@@ -20,7 +20,7 @@
 
     img.icon.icon--audio(:src="audioIconSrc" alt="" @click="toggleMuted" :class="{ 'in-loading-cover': deskData.inLoadingCover }")
 
-    div.share(:class="{ active: isShare, 'in-loading-cover': deskData.inLoadingCover }")
+    div.share(:class="{ active: isShare, 'in-loading-cover': deskData.inLoadingCover }" @click.stop)
       a.share__fb(:href="`https://www.facebook.com/share.php?u=${shareURL}`" target="_blank")
       a.share__line(:href="`https://line.me/R/msg/text/?${shareURL}`" target="_blank")
       img(src="../assets/img/icon/share.svg" alt="" @click="isShare = !isShare")
@@ -86,6 +86,9 @@ export default {
   },
   mounted () {
     if (this.deskData.inLoadingCover) { this.loading() }
+    this.$root.wEl.addEventListener('click', () => {
+      this.isShare = false
+    })
   },
   computed: {
     reportAnchors () {

@@ -1,9 +1,6 @@
 <template lang="pug">
   section.home-cover(:class="{ 'in-loading-cover': deskData.inLoadingCover }")
-    //- div.home-cover__mrt.full-img(:style="{ backgroundImage: `url(${mrtBgImgSrc})` }")
     picture.home-cover__mrt
-      //- source(media="(min-width: 1000px) and (max-width: 1599.98px)" :srcset="$root.imgSrc('cover/home-mrt-desk-s.jpg')")
-      //- source(media="(min-width: 1600px)" :srcset="$root.imgSrc('cover/home-mrt-desk-l.jpg')")
       img(:src="$root.imgSrc('cover/home-mrt-desk-s.jpg')" alt="" @load="detectMRTImgLoad")
     div.home-cover__mask.full-page(ref="mask")
     div.home-cover__clickable-persons
@@ -11,10 +8,7 @@
         g(v-for="(path, idx) in paths" :data-person="idx + 1" @mouseenter="showPerson" @mouseleave="hidePerson" @click="showReportCover")
           path(:d="path" @mouseover="animateCursorOver" @mouseout="animateCursorOut")
     div.full-page
-      //- div.home-cover__person.full-page.full-img(v-for="id in 5" :id="`person${id}`")
       picture.home-cover__person(v-for="id in 5" :ref="`person${id}`")
-        //- source(media="(min-width: 1000px) and (max-width: 1599.98px)" :srcset="$root.imgSrc(`cover/home-person${id}-desk-s.png`)")
-        //- source(media="(min-width: 1600px)" :srcset="$root.imgSrc(`cover/home-person${id}-desk-l.png`)")
         img(:src="$root.imgSrc(`cover/home-person${id}-desk-s.png`)" alt="")
 
     audio(ref="personBGM1")
@@ -79,6 +73,8 @@ export default {
       this.deskData.currentPerson = this.$refs[ `person${idx}` ][ 0 ]
       gsap.to(this.deskData.currentPerson, {
         opacity: 1,
+        x: 8,
+        y: 8,
         duration: 0.6,
         ease: 'power3.out'
       })
@@ -93,6 +89,8 @@ export default {
 
       gsap.to(this.deskData.currentPerson, {
         opacity: 0,
+        x: 0,
+        y: 0,
         duration: 0.6,
         ease: 'power2.out'
       })
