@@ -3,7 +3,7 @@
     div.reports-list__report(v-for="report in relatedReports" :key="report.id")
       ReportCoverPicture(:reportId="report.id")
       h1(:class="$root.white(report.id)") {{ report.title }}
-      p(:class="$root.white(report.id)") {{ report.intro }}
+      //- p(:class="$root.white(report.id)") {{ report.intro }}
       button(type="button" @click="showRelatedReport(report.id)" :id="`relatedReportBtn${report.id}`") 看更多⋯
 </template>
 
@@ -40,4 +40,8 @@ export default {
 </script>
 
 <style lang="stylus">
+.reports-list
+  &__report
+    & h1
+      margin-bottom 24px
 </style>

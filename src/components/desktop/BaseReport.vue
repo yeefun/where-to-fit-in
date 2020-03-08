@@ -8,15 +8,17 @@
       :class="[ 'report', reportClass(report.id) ]"
       @click="handleClick($event, report.id)"
     )
-      div(v-if="isMask && !isReportContent" :class="[ 'report__mask', (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]")
+      div.report__mask(v-if="isMask && !isReportContent")
+      //- div(v-if="isMask && !isReportContent" :class="[ 'report__mask', (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]")
       ReportCoverPicture(:reportId="report.id" :class="[ 'report__cover-img', { 'h-100p': currentReportId !== report.id }, 'full-page' ]")
       div.report__cover-txt(:id="`report-cover-txt${report.id}`")
-        h1(:class="$root.white(report.id)") {{ report.title }}
+        h1(:class="$root.white(report.id)" :style="{ color: (isMask && !isReportContent) ? '#fff' : '' }") {{ report.title }}
         div(
           v-if="!isReportContent"
           v-show="isReportIntro"
           :id="`report-intro${report.id}`"
           :class="[ 'report__intro', introClass(report.id) ]"
+          :style="{ color: (isMask && !isReportContent) ? '#fff' : '' }"
         )
           div.report__intro--cover(v-if="$root.deskData.inReportCover")
             div(v-html="report.introCover")
@@ -333,10 +335,12 @@ export default {
     & .report__mask
       height 100%
     &:hover .report__mask
-      &.dark
-        background-color rgba(#090909, 0.7)
-      &.light
-        background-color rgba(#fff, 0.7)
+      background-color rgba(#090909, 0.7)
+    // &:hover .report__mask
+    //   &.dark
+    //     background-color rgba(#090909, 0.7)
+    //   &.light
+    //     background-color rgba(#fff, 0.7)
   &--current
     padding-top 24vh
     padding-bottom 80px
@@ -358,10 +362,11 @@ export default {
     left 0
     width 100%
     transition background-color 0.45s $easeInOutCubic
-    &.dark
-      background-color rgba(#090909, 0.4)
-    &.light
-      background-color rgba(#fff, 0.4)
+    background-color rgba(#090909, 0.4)
+    // &.dark
+    //   background-color rgba(#090909, 0.4)
+    // &.light
+    //   background-color rgba(#fff, 0.4)
   &__cover
     &-img
       z-index -9
