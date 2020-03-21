@@ -20,14 +20,8 @@
         div.the-credit__title 特別感謝
         div.the-credit__name 張錦華、謝吉隆、方念萱、董谷音<br>歐成予、沈佩泠、Xavier Wang
       picture
-        source(type="image/webp" media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-shadow-tab-s.webp')")
         source(type="image/png" media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-shadow-tab-s.png')")
-
-        source(type="image/webp" media="(min-width: 720px)" :srcset="$root.imgSrc('logo-shadow-tab-l.webp')")
         source(type="image/png" media="(min-width: 720px)" :srcset="$root.imgSrc('logo-shadow-tab-l.png')")
-
-        source(type="image/webp" :srcset="$root.imgSrc('logo-shadow-mob.webp')")
-        img(:src="$root.imgSrc('logo-shadow-mob.png')" alt="")
       div.the-credit__name © 2017-2020 林梵謹
 </template>
 

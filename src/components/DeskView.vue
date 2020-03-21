@@ -3,13 +3,8 @@
     LoadingCover(ref="loadingCover")
     div(@click="backToHome" :class="[ 'logo', { 'in-loading-cover': deskData.inLoadingCover } ]")
       picture
-        source(type="image/webp" media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-shadow-tab-s.webp')")
         source(type="image/png" media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-shadow-tab-s.png')")
-
-        source(type="image/webp" media="(min-width: 720px)" :srcset="$root.imgSrc('logo-shadow-tab-l.webp')")
         source(type="image/png" media="(min-width: 720px)" :srcset="$root.imgSrc('logo-shadow-tab-l.png')")
-
-        source(type="image/webp" :srcset="$root.imgSrc('logo-shadow-mob.webp')")
         img(:src="$root.imgSrc('logo-shadow-mob.png')" alt="" ref="logo")
 
     CustomCursor(ref="cursor" v-if="$root.deskData.inHome || $root.deskData.inReportCover")

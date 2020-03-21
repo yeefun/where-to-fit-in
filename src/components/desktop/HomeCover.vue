@@ -1,7 +1,6 @@
 <template lang="pug">
   section.home-cover(:class="{ 'in-loading-cover': deskData.inLoadingCover }")
     picture.home-cover__mrt
-      source(type="image/webp" :srcset="$root.imgSrc('cover/home-mrt-desk-s.webp')")
       img(:src="$root.imgSrc('cover/home-mrt-desk-s.jpg')" alt="" @load="detectMRTImgLoad")
     div.home-cover__mask.full-page(ref="mask")
     div.home-cover__clickable-persons
@@ -10,7 +9,6 @@
           path(:d="path" @mouseover="animateCursorOver" @mouseout="animateCursorOut")
     div.full-page
       picture.home-cover__person(v-for="id in 5" :ref="`person${id}`")
-        source(type="image/webp" :srcset="$root.imgSrc(`cover/home-person${id}-desk-s.webp`)")
         img(:src="$root.imgSrc(`cover/home-person${id}-desk-s.png`)" alt="")
 
     audio(ref="personBGM1")

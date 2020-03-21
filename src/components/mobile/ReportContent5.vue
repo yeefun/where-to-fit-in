@@ -13,10 +13,7 @@
       a.report-content__img-link(href="https://www.facebook.com/dawendesu/posts/713696732362850" target="_blank")
         figure.report-img
           picture
-            source(type="image/webp" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo1-desk.webp')")
             source(type="image/png" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo1-desk.png')")
-
-            source(type="image/webp" :srcset="$root.imgSrc('report5/photo1-mob.webp')")
             img(:src="$root.imgSrc('report5/photo1-mob.png')" alt="")
       p 但鎂光燈之下，仍有照不到的暗處。郭文頤坦言，主流的影視劇本對肥胖角色的詮釋和需求大多很刻板。有好一段時間，郭文頤收到工作邀約的角色類型都很相似，甚至因此暫停了工作。
       p 「我扮演胖的角色時，會覺得自己在傷害其他胖胖的人。」郭文頤認為自己所演出的角色大多很笨拙，像是跑步很慢，或是每天都在吃零食、看起來好吃懶做，而不是勤勞地工作；如果主動示愛會被視為笑話⋯⋯常常是人生失敗組。「胖子又不一定就是這樣！」郭文頤不禁感到忿忿不平。
@@ -30,10 +27,7 @@
       a.report-content__img-link(href="https://www.instagram.com/p/BbnE-FAhVWf/" target="_blank")
         figure.report-img
           picture
-            source(type="image/webp" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo2-desk.webp')")
             source(type="image/png" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo2-desk.png')")
-
-            source(type="image/webp" :srcset="$root.imgSrc('report5/photo2-mob.webp')")
             img(:src="$root.imgSrc('report5/photo2-mob.png')" alt="")
       ReportQuote(:quote="quotes[0]")
       p 女子在照片旁寫道的文字大意如上，這則貼文得到八萬多顆愛心、一千多筆粉絲留言。她是來自英國的 Megan Jayne Crabbe，是一位致力於培力正面身體（Body Positive）思想的倡議網紅，帳號有超過 105 萬人次的追蹤。
@@ -47,10 +41,7 @@
       a.report-content__img-link(href="https://www.facebook.com/ChiWangCatNo/photos/a.1117694278258279/1926329410728091/?type=3" target="_blank")
         figure.report-img
           picture
-            source(type="image/webp" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo3-desk.webp')")
             source(type="image/png" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo3-desk.png')")
-
-            source(type="image/webp" :srcset="$root.imgSrc('report5/photo3-mob.webp')")
             img(:src="$root.imgSrc('report5/photo3-mob.png')" alt="")
       p 五位有志一同的胖女集結成「女怪」，拍攝不迎合主流審美的時尚照上傳的各自的臉書專頁上，衝撞她們認為該被矯正的肥胖污名，以「我們就是你們的妖魔鬼怪」為主旨，寫下強而有力的聲明文字：
       ReportQuote(:quote="quotes[1]")
@@ -60,10 +51,7 @@
       a.report-content__img-link(href="https://www.facebook.com/FatHowOnline/photos/a.802419333101881/2030169693660166/?type=3" target="_blank")
         figure.report-img
           picture
-            source(type="image/webp" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo4-desk.webp')")
             source(type="image/png" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo4-desk.png')")
-
-            source(type="image/webp" :srcset="$root.imgSrc('report5/photo4-mob.webp')")
             img(:src="$root.imgSrc('report5/photo4-mob.png')" alt="")
       h4 鼓勵胖子現身說法   創造自我與大眾認同
       p 肥好是臺灣少見的肥胖主義倡議者，經營臉書粉絲專頁「肥好／Fat How」。除了以照片和圖像分享個人經驗，擁有學術研究背景的肥好常引用國外與肥胖身體相關的社會學研究，論述親身經歷、解構肥胖污名，以邏輯清晰的文筆向粉絲解析為何胖子會與主流價值觀產生衝突。
@@ -76,10 +64,7 @@
       a.report-content__img-link(href="https://www.facebook.com/lovepobbi/photos/a.521634614541647/1744606565577773/?type=3" target="_blank")
         figure.report-img
           picture
-            source(type="image/webp" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo5-desk.webp')")
             source(type="image/png" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo5-desk.png')")
-
-            source(type="image/webp" :srcset="$root.imgSrc('report5/photo5-mob.webp')")
             img(:src="$root.imgSrc('report5/photo5-mob.png')" alt="")
       p 波比是臺灣最早出現的大尺碼穿搭與美妝網紅之一，目前在知名女性雜誌工作，同時經營個人臉書粉絲專頁「Pobbi 波比」，常開直播和粉絲分享對身材與自信的看法，以及日常的穿搭與生活態度，她擁有兩萬多位粉絲。
       p 衣服穿得好看能大幅提升自信，但在講求快時尚的成衣市場上，大尺碼的胖子很難買到兼具美感與合身的服飾，令很多胖子感到更自卑。身為一名喜愛打扮、對美麗擁有熱情的女性，波比很了解胖女孩的購衣難處，粉絲也最常詢問該如何買到合適的服裝？她總是反問：「你瞭解自己的身體嗎？」
@@ -91,10 +76,7 @@
       a.report-content__img-link(href="https://www.facebook.com/Amanda.fans.0810/photos/a.607786409285385/2140023669394977/?type=3" target="_blank")
         figure.report-img
           picture
-            source(type="image/webp" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo6-desk.webp')")
             source(type="image/png" media="(min-width: 720px)" :srcset="$root.imgSrc('report5/photo6-desk.png')")
-
-            source(type="image/webp" :srcset="$root.imgSrc('report5/photo6-mob.webp')")
             img(:src="$root.imgSrc('report5/photo6-mob.png')" alt="")
       p 「如果你覺得我的造型很好看，那你要不要也試試？說不定改變之後，你也會喜歡自己。」劉紀範認為內在感覺良好，自然會改變外在，她鼓勵粉絲要愛自己並勇於嘗試，也親自經營經營大尺碼網拍、撰寫穿搭文章，希望透過自己的一點影嚮力，讓自卑的胖女孩可以透過穿搭修飾體型、擁有自信。
       p 波比與劉紀範並不是迎合主流審美觀的偶像明星，但對臺灣的胖男胖女來說，都是深耕多年的意見領袖。近幾年的臺灣開始出現年輕時尚化的大尺碼服網拍，不少身材肉肉、形象樂觀正向的年輕網紅也展露頭角。
