@@ -24,7 +24,6 @@ export default {
   &__txt
     font-size 2.0rem
     line-height 1.6
-    // font-weight 500
     padding-top 8px
     padding-bottom 8px
     padding-left 18px

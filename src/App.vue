@@ -45,10 +45,9 @@ html
   font-size 10px
 body
   font-family $ff--sans-serif
+  font-weight 300
 img
   height auto
-  // display block
-  // max-width 100%
 button
   border 0
   outline 0

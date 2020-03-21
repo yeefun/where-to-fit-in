@@ -29,7 +29,7 @@
     p 胖身體有形形色色的型態，每位胖子的困擾也不盡相同，無時無刻不在告誡當事人肥胖造成的痛苦。<ReportNotation :notation="notations[8]">孫家偉</ReportNotation>表示，身體對膝蓋造成的負擔很大；<ReportNotation :notation="notations[9]">賀芸</ReportNotation>說，爬樓梯時容易喘；<ReportNotation :notation="notations[10]">蔡博藝</ReportNotation>解釋，即便每天都睡超過十小時，白天活動還是很累。
     p <ReportNotation :notation="notations[11]">曾維萱</ReportNotation>則分享，除了大腿摩擦，她還有手臂摩擦腋下、胸罩摩擦身體的麻煩，曾維萱描述：「會很燒、很燙、很痛。」她的身體不僅怕熱，皮膚也要頻繁保養。
     p 如此折騰的身體經驗確實讓人燃起熊熊的減肥鬥志，然而想改變身材、打造一副醫學認證「健康」的身體，對任何體型的人來說，都不是一件容易的事。除了基因上的限制，必須養成全新的生活習慣，有時還得尋求健身教練、營養學專家，甚至是醫療人員的協助。
-    p 減肥靠得不僅是意志力，在精力與財力上都要付出成本，令人往往心有餘而力不足。「胖真的不是刻意的。」<ReportNotation :notation="notations[12]">黃元杰</ReportNotation>說出許多胖子的心聲，他專研健身與營養學，過去減肥復胖來回至少十次，最瘦曾達68公斤，至今仍與體重搏鬥。
+    p 減肥靠得不僅是意志力，在精力與財力上都要付出成本，令人往往心有餘而力不足。「胖真的不是刻意的。」<ReportNotation :notation="notations[12]">黃元杰</ReportNotation>說出許多胖子的心聲，他專研健身與營養學，過去減肥復胖來回至少十次，最瘦曾達 68 公斤，至今仍與體重搏鬥。
     p <ReportNotation :notation="notations[13]">許思薇</ReportNotation>曾花兩萬台幣購買瘦身療程，雖小有成效，卻因經濟能力無法持續負荷而作罷，體重也回升；<ReportNotation :notation="notations[14]">簡秀娟</ReportNotation>表示，在醫院看過減肥門診、吃代餐，也喝過減肥奶昔，雖都有短暫的效果，仍難敵根深蒂固的生活習慣。
     p 「人在餓的時候會失去理智。」體重破百的張凱鈞自白：「當我看著手中的食物，又看著鏡子中的自己時，我會責備自己。但我還是會吃，吃完就內疚。」他期許以更健康的方式愛自己的身體，實際作為老是大相徑庭。
     p 「有一次洗澡我替自己推拿，推到肚子時，我一邊推、一邊哭、一邊跟它們說『對不起』⋯⋯我還是瘦不下來，讓我覺得自己很虛偽。」<ReportNotation :notation="notations[15]">張凱鈞</ReportNotation>對無法控制飲食的自己深感罪惡——「不夠痛苦」是他認為堅持不下去的原因。
