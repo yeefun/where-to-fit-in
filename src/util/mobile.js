@@ -43,9 +43,7 @@ function mobMethods () {
     checkBeginningReportId: () => {
       const regexp = /^\/report[1-5](\/?)/i
       let pathname = window.location.pathname
-      if (process.env.NODE_ENV === 'production') {
-        pathname = pathname.split('where-to-fit-in')[ 1 ]
-      }
+
       if (regexp.test(pathname)) {
         this.mobData.currentReportId = Number(pathname[ 7 ])
         this.mobData.isReportContent = true

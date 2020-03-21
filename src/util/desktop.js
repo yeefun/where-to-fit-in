@@ -23,7 +23,7 @@ function deskMethods () {
       const regexp = /^\/report[1-5](\/?)/i
       const state = window.history.state
       let pathname = window.location.pathname
-      if (process.env.NODE_ENV === 'production') { pathname = pathname.split('where-to-fit-in')[ 1 ] }
+      
       if (regexp.test(pathname)) {
         this.deskData.inLoadingCover = false
         this.deskData.beginningReportId = Number(pathname[ 7 ])
