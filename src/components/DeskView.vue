@@ -2,7 +2,6 @@
   div.desk-view
     LoadingCover(ref="loadingCover")
     div(@click="backToHome" :class="[ 'logo', { 'in-loading-cover': deskData.inLoadingCover } ]")
-      //- img(src="../assets/img/logo-shadow.png" alt="" ref="logo")
       picture
         source(type="image/webp" media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-shadow-tab-s.webp')")
         source(type="image/png" media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-shadow-tab-s.png')")

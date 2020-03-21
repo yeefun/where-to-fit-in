@@ -1,5 +1,5 @@
 <template lang="pug">
-  section.home-cover
+  section.home-cover(:style="{ height: `${$root.mobData.wh}px` }")
     div.home-cover__intro
       picture
         source(type="image/webp" media="(min-width: 460px) and (max-width: 719.98px)" :srcset="$root.imgSrc('logo-shadow-tab-s.webp')")
@@ -25,8 +25,7 @@ export default {
 
 .home-cover
   position relative
-  height 100vh
-  background-image url(../../assets/img/home-mrt.png)
+  background-image url(../../assets/img/cover/home-mrt-spotlight-desk-s.jpg)
   background-size cover
   background-position 78% 0%
   background-repeat no-repeat

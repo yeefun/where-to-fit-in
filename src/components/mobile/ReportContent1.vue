@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    ReportCoverPicture.report-content__cover(reportId="1")
+    ReportCoverPicture.report-content__cover(reportId="1" :style="{ height: `${$root.mobData.wh}px` }")
     h1 為什麼我們懼／拒胖？
     div.report-content__wrapper
       h2 臺灣身材審美轉變

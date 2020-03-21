@@ -31,7 +31,8 @@ const mobData = {
       title: '胖網紅現身：渡邊直美改變了什麼？',
       intro: '胖直美啟發粉絲擁抱身材，想問她如何成為有自信的胖子！'
     }
-  ]
+  ],
+  wh: window.innerHeight
 }
 
 function mobMethods () {
@@ -56,6 +57,9 @@ function mobMethods () {
     },
     backToTop: () => {
       document.getElementById('base-report').scrollTop = 0
+    },
+    alterWh: () => {
+      this.mobData.wh = this.wEl.innerHeight
     }
   }
 }

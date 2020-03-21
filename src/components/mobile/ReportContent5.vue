@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    ReportCoverPicture.report-content__cover(reportId="5")
+    ReportCoverPicture.report-content__cover(reportId="5" :style="{ height: `${$root.mobData.wh}px` }")
     h1.color-white 胖網紅現身：渡邊直美改變了什麼？
     div.report-content__wrapper
       h2.color-white 解放胖子的網路逆襲

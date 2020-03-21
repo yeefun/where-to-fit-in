@@ -9,7 +9,7 @@ const deskData = {
   beginningReportId: 0,
   isBeginning: false,
   htmlEl: document.documentElement,
-  ww: Math.min(document.documentElement.clientWidth, window.innerWidth),
+  ww: document.documentElement.clientWidth,
   wh: window.innerHeight,
   inLoadingCover: true,
   isMuted: false,
