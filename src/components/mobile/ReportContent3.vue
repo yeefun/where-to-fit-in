@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    ReportCoverPicture.report-content__cover(reportId="3" :style="{ height: `${$root.mobData.wh}px` }")
+    ReportCoverPicture.report-content__cover(reportId="3")
     h1 不想瘦？胖子：想被當成普通人看待
     div.report-content__wrapper
       h2 從小胖到大的蛻變四部曲

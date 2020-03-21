@@ -363,10 +363,6 @@ export default {
     width 100%
     transition background-color 0.45s $easeInOutCubic
     background-color rgba(#090909, 0.4)
-    // &.dark
-    //   background-color rgba(#090909, 0.4)
-    // &.light
-    //   background-color rgba(#fff, 0.4)
   &__cover
     &-img
       z-index -9

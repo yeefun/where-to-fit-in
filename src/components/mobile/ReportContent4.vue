@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    ReportCoverPicture.report-content__cover(reportId="4" :style="{ height: `${$root.mobData.wh}px` }")
+    ReportCoverPicture.report-content__cover(reportId="4")
     h1 縮小人生：胖子之大，何處可容身？
     div.report-content__wrapper
       h2 被標準化社會排擠的胖身體

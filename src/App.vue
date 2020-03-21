@@ -45,7 +45,6 @@ html
   font-size 10px
 body
   font-family $ff--sans-serif
-  font-weight 300
 img
   height auto
 button

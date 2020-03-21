@@ -1,6 +1,6 @@
 <template lang="pug">
   article.report-content
-    ReportCoverPicture.report-content__cover(reportId="2" :style="{ height: `${$root.mobData.wh}px` }")
+    ReportCoverPicture.report-content__cover(reportId="2")
     h1.color-white 「胖不健康」是提醒，還是詛咒？
     div.report-content__wrapper
       h2.color-white 胖子與健康的拉鋸戰
