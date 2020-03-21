@@ -336,11 +336,6 @@ export default {
       height 100%
     &:hover .report__mask
       background-color rgba(#090909, 0.7)
-    // &:hover .report__mask
-    //   &.dark
-    //     background-color rgba(#090909, 0.7)
-    //   &.light
-    //     background-color rgba(#fff, 0.7)
   &--current
     padding-top 24vh
     padding-bottom 80px

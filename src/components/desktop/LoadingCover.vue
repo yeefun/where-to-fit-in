@@ -66,7 +66,7 @@ export default {
     top calc(50% + 54px)
     left 50%
     transform translate(-50%, 24px)
-    font-weight 300
+    font-weight 100
     text-align center
     line-height 1.8
     opacity 0
@@ -75,7 +75,7 @@ export default {
       margin-bottom 24px
       letter-spacing 0.8px
     & button
-      font-weight 300
+      font-weight 100
       background-color transparent
       color #fff
       font-size 1.8rem

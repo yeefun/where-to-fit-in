@@ -103,27 +103,31 @@ picture
     & a
       opacity 1
     & .share__fb
-      transform translateY(-200%)
+      transform translateY(-35px)
+      @media (min-width $tablet)
+        transform translateY(-42px)
     & .share__line
-      transform translateY(-100%)
+      transform translateY(-70px)
+      @media (min-width $tablet)
+        transform translateY(-84px)
   & *
     display block
     width 100%
     height 100%
-    padding 4px
+    padding 3px
     cursor pointer
     position absolute
     box-sizing border-box
     @media (min-width $tablet)
-      padding 8px
+      padding 6px
   & a
     background-position center
-    background-size 22px 22px
+    background-size 24px 24px
     background-repeat no-repeat
     opacity 0
     transition opacity 0.3s $easeInOutSine, transform 0.3s $easeInOutSine
     @media (min-width $tablet)
-      background-size 24px 24px
+      background-size 28px 28px
   &__fb
     background-image url(./assets/img/icon/share-fb.svg)
   &__line

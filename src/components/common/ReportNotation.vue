@@ -52,8 +52,6 @@ export default {
   & img
     width 12px
     vertical-align top
-    // padding-right 4px
-    // padding-left 2px
     transition transform 0.15s $easeInOutSine
     cursor pointer
     user-select none

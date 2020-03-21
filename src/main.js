@@ -3,7 +3,7 @@ import App from './App.vue'
 
 import { mobData, mobMethods } from './util/mobile.js'
 import { deskData, deskMethods } from './util/desktop.js'
-import { isTouchDevice, isMobileOrTablet } from './util/tool.js'
+import { isTouchDevice, isMobileOrTablet, raf } from './util/tool.js'
 
 Vue.config.productionTip = false
 
@@ -33,9 +33,9 @@ new Vue({
   },
   mounted () {
     if (this.isMob) {
-      this.wEl.addEventListener('resize', this.mobMethods().alterWh)
+      this.wEl.addEventListener('resize', raf(() => { this.mobMethods().alterWh() }))
     } else {
-      this.wEl.addEventListener('resize', this.deskMethods().alterWindowSize)
+      this.wEl.addEventListener('resize', raf(() => { this.deskMethods().alterWindowSize() }))
     }
   },
   methods: {

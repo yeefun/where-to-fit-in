@@ -17,7 +17,8 @@ export default {
       cursor: { x: this.$root.deskData.ww / 2, y: this.$root.deskData.wh / 2 },
       mouse: { x: this.$root.deskData.ww / 2, y: this.$root.deskData.wh / 2 },
       progress: 0,
-      loading: this.$root.deskData.inLoadingCover
+      loading: this.$root.deskData.inLoadingCover,
+      isTicking: false
     }
   },
   created () {
@@ -51,9 +52,21 @@ export default {
   },
   methods: {
     moveCursor (evt) {
-      if (this.loading) { return }
-      this.mouse.x = evt.clientX
-      this.mouse.y = evt.clientY
+      if (this.isTicking) { return }
+
+      this.isTicking = true
+
+      requestAnimationFrame(() => {
+        if (this.loading) {
+          this.isTicking = false
+          return
+        }
+
+        this.mouse.x = evt.clientX
+        this.mouse.y = evt.clientY
+
+        this.isTicking = false
+      })
     },
     handleBeforeEnter (el) {
       gsap.set(el, {
@@ -112,8 +125,6 @@ export default {
     opacity 0
     background-color transparent
     border 1px solid #fff
-  // &.back
-  //   mix-blend-mode normal
   &.hide
     visibility hidden
   & > *

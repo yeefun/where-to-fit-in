@@ -190,7 +190,7 @@ export default {
 
       tl.to(logo, {
         y: 0,
-        duration: 1.5,
+        duration: 1.2,
         ease: 'power3.out'
       }, 0)
       tl.set(homeCover.$el, {
@@ -201,7 +201,7 @@ export default {
       tl.to(cursor.$el, {
         y: 0,
         opacity: 1,
-        duration: 0.9,
+        duration: 0.6,
         ease: 'power2.inOut',
         onComplete: () => {
           this.deskData.isLogoLoad = true
@@ -217,13 +217,13 @@ export default {
 
       tl.to(cursor, {
         progress: 100,
-        duration: 2.4,
+        duration: 1.8,
         snap: { progress: 2 },
         ease: 'power3.in'
       }, 0)
       tl.to(loadingCover.$el, {
         opacity: 0.8,
-        duration: 2.4,
+        duration: 1.8,
         ease: 'power3.in'
       }, '<')
       tl.set(cursor, {
@@ -234,7 +234,7 @@ export default {
         y: 0,
         duration: 0.9,
         ease: 'power1.out'
-      }, '<0.9')
+      }, '<0.75')
     },
     toggleMuted () {
       const { mainBGM } = this.$refs
@@ -266,10 +266,8 @@ body
     max-width 176px
     cursor pointer
   & img
-    // width 176px
     width 100%
     vertical-align middle
-    // cursor pointer
 .icon
   &--audio
     bottom 12px
