@@ -12,7 +12,7 @@ const deskData = {
   ww: document.documentElement.clientWidth,
   wh: window.innerHeight,
   inLoadingCover: true,
-  isMuted: false,
+  isMuted: true,
   isMRTBgImgLoad: false,
   isLogoLoad: false
 }
@@ -22,8 +22,8 @@ function deskMethods () {
     checkReportId: () => {
       const regexp = /^\/report[1-5](\/?)/i
       const state = window.history.state
-      let pathname = window.location.pathname
-      
+      const pathname = window.location.pathname
+
       if (regexp.test(pathname)) {
         this.deskData.inLoadingCover = false
         this.deskData.beginningReportId = Number(pathname[ 7 ])

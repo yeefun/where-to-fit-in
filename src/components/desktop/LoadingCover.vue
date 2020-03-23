@@ -25,7 +25,10 @@ export default {
       this.deskData.inLoadingCover = false
       const parentRefs = this.$parent.$refs
       const homeCover = parentRefs.homeCover.$el
+
       parentRefs.mainBGM.play()
+      this.deskData.isMuted = false
+
       gsap.to(this.$refs.loadingCover, {
         scaleY: 0,
         opacity: 0.16,

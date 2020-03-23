@@ -9,7 +9,6 @@
       @click="handleClick($event, report.id)"
     )
       div.report__mask(v-if="isMask && !isReportContent")
-      //- div(v-if="isMask && !isReportContent" :class="[ 'report__mask', (report.id === 5 || report.id === 2) ? 'dark' : 'light' ]")
       ReportCoverPicture(:reportId="report.id" :class="[ 'report__cover-img', { 'h-100p': currentReportId !== report.id }, 'full-page' ]")
       div.report__cover-txt(:id="`report-cover-txt${report.id}`")
         h1(:class="$root.white(report.id)" :style="{ color: (isMask && !isReportContent) ? '#fff' : '' }") {{ report.title }}
@@ -250,6 +249,11 @@ export default {
           this.isTransition = false
         }
       })
+
+      if (!isFromRelated) {
+        this.deskData.isMuted = true
+        this.$parent.$refs.mainBGM.muted = true
+      }
     },
     fadeInReportContent () {
       const id = this.currentReportId
@@ -365,7 +369,7 @@ export default {
         width 100%
         height 100%
         object-fit cover
-        object-position top center
+        object-position center top
     &-txt
       text-align center
       position relative

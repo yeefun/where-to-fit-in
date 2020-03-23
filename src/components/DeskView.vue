@@ -110,12 +110,20 @@ export default {
   methods: {
     backToHome () {
       if (this.deskData.inHome) { return }
+
       this.deskData.inHome = true
       this.deskData.removedRelatedReportId = 0
       this.deskData.htmlEl.scrollTop = 0
       this.$root.bodyEl.scrollTop = 0
 
-      this.$refs.mainBGM.play()
+      if (this.deskData.isMuted) {
+        const { mainBGM } = this.$refs
+
+        this.deskData.isMuted = false
+        mainBGM.muted = false
+        mainBGM.currentTime = 0
+        mainBGM.play()
+      }
 
       gsap.to('.reports', {
         opacity: 0,
@@ -162,6 +170,8 @@ export default {
               this.deskData.inHome = false
             }
           })
+          this.deskData.isMuted = true
+          this.$refs.mainBGM.muted = true
         } else {
           this.$refs.baseReports[ 1 ].handleClick(null, id)
         }
@@ -238,8 +248,15 @@ export default {
     },
     toggleMuted () {
       const { mainBGM } = this.$refs
-      mainBGM.muted = !mainBGM.muted
-      this.deskData.isMuted = !this.deskData.isMuted
+
+      if (this.deskData.isMuted) {
+        this.deskData.isMuted = false
+        mainBGM.muted = false
+        mainBGM.play()
+      } else {
+        this.deskData.isMuted = true
+        mainBGM.muted = true
+      }
     }
   },
   beforeDestroy () {
@@ -260,6 +277,9 @@ body
   top 24px
   left 32px
   overflow hidden
+  transition filter 0.3s $easeInOutSine
+  &:hover
+    filter invert(0.5)
   &.in-loading-cover img
     transform translateY(100%)
   & picture

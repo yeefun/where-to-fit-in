@@ -67,8 +67,6 @@ export default {
       this.deskData.currentPerson = this.$refs[ `person${idx}` ][ 0 ]
       gsap.to(this.deskData.currentPerson, {
         opacity: 1,
-        x: 8,
-        y: 8,
         duration: 0.6,
         ease: 'power3.out'
       })
@@ -83,8 +81,6 @@ export default {
 
       gsap.to(this.deskData.currentPerson, {
         opacity: 0,
-        x: 0,
-        y: 0,
         duration: 0.6,
         ease: 'power2.out'
       })
@@ -211,7 +207,7 @@ export default {
     height 100%
     & img
       object-fit cover
-      object-position top center
+      object-position center -1px
       width 100%
       height 100%
   &__mask
@@ -219,7 +215,7 @@ export default {
     opacity 0
   &__clickable-persons
     position absolute
-    top 0
+    top -1px
     left 50%
     transform translateX(-50%)
     z-index 9
@@ -237,5 +233,5 @@ export default {
       width 100%
       height 100%
       object-fit cover
-      object-position center top
+      object-position center -1px
 </style>

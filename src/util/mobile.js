@@ -42,7 +42,7 @@ function mobMethods () {
     },
     checkBeginningReportId: () => {
       const regexp = /^\/report[1-5](\/?)/i
-      let pathname = window.location.pathname
+      const pathname = window.location.pathname
 
       if (regexp.test(pathname)) {
         this.mobData.currentReportId = Number(pathname[ 7 ])
