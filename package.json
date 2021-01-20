@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "gsap": "^3.0.1",
+    "gsap": "^3.6.0",
     "scroll-into-view": "^1.12.3",
     "vue": "^2.6.10"
   },
